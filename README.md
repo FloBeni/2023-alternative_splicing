@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/575819362.svg)](https://zenodo.org/badge/latestdoi/575819362)
+
 This git includes all processed data that have been generated and used in the study "Random genetic drift sets an upper limit on mRNA splicing accuracy in metazoans", as well as the scripts used to analyze the data and to generate the figures.
 
 Developed by Florian Bénitière, Anamaria Necsulea and Laurent Duret.
