@@ -1,0 +1,53 @@
+---
+title: ""
+geometry: "left=0cm,right=0cm,top=0cm,bottom=0cm"
+output: pdf_document
+---
+
+Supplementary Table 1: Description of the main features of the samples analyzed in this study.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(kableExtra)    # alternatively, this also loads %>%
+options(kableExtra.auto_format= F)
+options(kableExtra.latex.Hold = FALSE)
+library(stringr)
+data_1 = read.delim("../data/Data1_supp.tab",comment.char = "#")
+data_1 = data_1[data_1$nb_busco > .8 * 978,]
+data_1 = data_1[data_1$CoverageBuscoExon > 197 ,]
+rownames(data_1 ) = str_replace_all(data_1$species,"_"," ")
+data_1 = data_1[,c("clade","nb_rnaseq","CoverageBuscoExon","prop_analyzable_busco","mean_intron_per_gene_busco","prop_major_sv_busco","mean_as_busco","prop_rare_sv_protein_coding")]
+data_1$CoverageBuscoExon = round(data_1$CoverageBuscoExon,3)
+data_1$prop_analyzable_busco = round(data_1$prop_analyzable_busco,3)
+data_1$prop_rare_sv_protein_coding = round(data_1$prop_rare_sv_protein_coding/100,3)
+data_1$mean_intron_per_gene_busco = round(data_1$mean_intron_per_gene_busco,1)
+data_1$prop_major_sv_busco = round(data_1$prop_major_sv_busco,3)
+data_1$mean_as_busco = round(data_1$mean_as_busco,2)
+data_1$mean_as_busco = paste(data_1$mean_as_busco,"\\%")
+colnames(data_1) = c("Clade","RNA-seq","Sequencing depth","Analyzable introns" ,"Major alt. spliced","Intron per gene","AS busco","Rare SVs")
+
+data_1 = data_1[order(data_1$Clade,decreasing = T),]
+data_1 = data_1[order(data_1$Clade=="Crocodylia",decreasing = T),]
+data_1 = data_1[order(data_1$Clade=="Aves",decreasing = T),]
+data_1 = data_1[order(data_1$Clade=="Chondrichthyes",decreasing = T),]
+# data_1 = data_1[1:10,]
+
+kbl(data_1, format="latex" , booktabs = T, escape = F, align = "c", 
+    col.names = linebreak(c("Clade", "Number of\nRNA-seq samples",paste0("Sequencing depth","\n(\\textit{per}","-base read)",footnote_marker_alphabet(1)),
+                            paste0("Fraction of\nanalyzable introns",footnote_marker_alphabet(2)),"Average number of introns\n\\textit{per} BUSCO gene",
+                            paste0("Fraction of major introns\nalternatively spliced",footnote_marker_alphabet(3)),
+                            "Average AS rate\namong BUSCO introns",
+                            paste0("Fraction of\nrare SVs",footnote_marker_alphabet(4)) 
+                            
+                            ), align = "c"))%>% 
+  kable_styling(latex_options = c("striped", "scale_down","hold_position"),position = "center")%>%
+  pack_rows("Vertebrates", 1, 15) %>%
+  pack_rows("Insects", 16, 53) %>%
+  footnote(
+           alphabet = c("Median \\\\textit{per}-base read coverage computed on BUSCO gene exons",
+                        "Fraction of analyzable introns (\\\\textit{i.e.} with N $\\\\geq$ 10) among BUSCO genes",
+                        "Proportion of major introns for which alternative splicing has been detected (\\\\textit{i.e.} with N2 $\\>$ 0) among BUSCO genes",
+                        "Fraction of rare spliced variants introns (\\\\textit{i.e.} with MIRA $\\\\leq$ 5\\\\%) among all protein-coding genes")
+,  escape=F )
+# "The fraction of analyzable introns (i.e. with N $\\geq$ 10) among BUSCO genes"
+
+```

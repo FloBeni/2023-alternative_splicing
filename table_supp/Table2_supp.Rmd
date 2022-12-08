@@ -1,0 +1,39 @@
+---
+title: ""
+geometry: "left=0cm,right=0cm,top=0cm,bottom=0cm"
+output: pdf_document
+---
+
+Supplementary Table 2: Longevity and body lenth across the 53 metazoans studied.
+
+```{r, echo=FALSE, message=FALSE, setup, warning=FALSE}
+library(kableExtra)    # alternatively, this also loads %>%
+options(kableExtra.auto_format= T)
+options(kableExtra.latex.Hold = FALSE)
+library(stringr)
+data_1 = read.delim("../data/Data1_supp.tab",comment.char = "#")
+
+data_1 = data_1[data_1$nb_busco > .8 * 978,]
+data_1 = data_1[data_1$CoverageBuscoExon > 197 ,]
+rownames(data_1 ) = str_replace_all(data_1$species,"_"," ")
+data_1 = data_1[,c("clade","longevity","body_size")]
+colnames(data_1) = c("Clade","longevity","body_size")
+data_1$longevity = round(data_1$longevity)
+data_1$body_size = round(data_1$body_size,2)
+
+data_1 = data_1[order(data_1$longevity,decreasing = T),]
+data_1 = data_1[order(data_1$Clade,decreasing = T),]
+data_1 = data_1[order(data_1$Clade=="Crocodylia",decreasing = T),]
+data_1 = data_1[order(data_1$Clade=="Aves",decreasing = T),]
+data_1 = data_1[order(data_1$Clade=="Chondrichthyes",decreasing = T),]
+
+kbl(data_1, format="latex",booktabs = T, escape = F, align = "c",
+    col.names = linebreak(c("Clade", "Longevity\n(Days)","Body length\n(cm)" ), align = "c")) %>%
+  kable_styling(latex_options = c("striped","hold_position"),font_size = 9,position = "center")%>%
+  pack_rows("Vertebrates", 1, 15) %>%
+  pack_rows("Insects", 16, 53) %>%
+  footnote(
+    symbol = c("The sources from which the lifespan and the body length information was taken are listed in data/Data9 supp.pdf in the GitHub repository (see Data and code availability).")
+    ,  escape=F, threeparttable=T)
+
+```
