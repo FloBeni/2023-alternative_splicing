@@ -1,7 +1,6 @@
 source("figure generator/library_path.R")
 
 
-
 ############## Pannel 2 B
 ylabel="mean_as_busco"
 xlabel="longevity"
@@ -27,7 +26,6 @@ p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=specie
   labs(
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
   ) 
-
 p1
 
 
@@ -41,15 +39,17 @@ dev.off()
 
 ############## Pannel 2 C
 point_color = c("Brain"="#5c89b2","Cerebellum"="#7bc7eb","Heart"="#8c1b1f","Liver"="#54833b","Kidney"="#c19e40",
-                "Testis"="#e16527","Ovary"="#ac3495")
-
+                "Testis"="#e16527","Ovary"="#ac3495","Head"="#A6CEE3")
+ # "#1F78B4" "#B2DF8A" "#33A02C" "#FB9A99" "#E31A1C" "#FDBF6F" "#FF7F00" "#fdfd99" "#e2cc1a"
 point_shape=c("Gallus gallus"=5,
               "Homo sapiens"=0,
               "Macaca mulatta"=8,
               "Monodelphis domestica"=2,
               "Mus musculus"=1,
               "Oryctolagus cuniculus"=4,
-              "Rattus norvegicus"=6)
+              "Rattus norvegicus"=6,
+              "Dendroctonus ponderosae"=9
+              )
 
 data_4 = read.delim("data/Data4_supp.tab",comment.char = "#")
 data_4$species_name = str_replace_all(data_4$species,"_"," ")
@@ -67,7 +67,7 @@ data_4$species_name = factor( data_4$species_name, levels = names(life_span_orde
 p2 = ggplot(font.label = c(50, "plain"),font.legend= c(20, "plain"),font.x= c(20, "plain"),font.y= c(20, "plain"),
             data_4, aes(x=longevity, y=SVR,group=species_name,shape=species_name)) +   ggtitle("Major introns (BUSCO genes)")+ 
   geom_point(size=5,alpha=1,aes(color=organs),stroke=1.5)+ scale_color_manual("Organs",values=point_color) +
-  scale_y_continuous(breaks=seq(0.5,4.5,0.5),labels=paste(seq(0.5,4.5,0.5),"%"),limits=c(1,4)) +
+  scale_y_continuous(breaks=seq(0.5,4.5,0.5),labels=paste(seq(0.5,4.5,0.5),"%"),limits=c(0.5,4)) +
   scale_shape_manual("Species",values=point_shape) + labs(fill="Species") +
   xlab("Longevity (days, log scale)") + theme_bw() + theme(
     axis.title.x = element_text(color="black",margin = margin(t = 15, r = 0, b = 0, l = 0), size=31,family="serif"),
@@ -80,7 +80,7 @@ p2 = ggplot(font.label = c(50, "plain"),font.legend= c(20, "plain"),font.x= c(20
     plot.caption = element_text(hjust = 0.365, face= "italic", size=23),
     plot.caption.position =  "plot"
   ) + labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
-  scale_x_log10(breaks=c(0.05,0.1,0.5,1,5,10,50,100,1000,5000,10000,50000), limits=c(1000,50000)) +
+  scale_x_log10(breaks=c(0.05,0.1,0.5,1,5,10,50,100,1000,10000,50000), limits=c(7,50000)) +
   guides(shape = guide_legend(override.aes = list(stroke=1.1), 
                               label.theme = element_text(color="black", size=26,face="italic", family="serif",vjust = 1.5,margin = margin(t = 5)))
          ,color = guide_legend(override.aes = list(shape = 16, size = 6), 
