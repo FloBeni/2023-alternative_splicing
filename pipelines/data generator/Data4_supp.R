@@ -12,7 +12,7 @@ for(species in c("Gallus_gallus","Homo_sapiens","Macaca_mulatta","Monodelphis_do
   intron_all$id = paste(intron_all$gene_id,intron_all$splice3,intron_all$splice5,intron_all$seqname,intron_all$strand,sep=";")
   rownames(intron_all) = intron_all$id
   
-  sra_table = read.delim(paste("/home/fbenitiere/data/Projet-SplicedVariants/Annotations/",species,"/SRAruninfo.tab",sep=""))
+  sra_table = read.delim(paste(pathData,"Annotations/",species,"/SRAruninfo.tab",sep=""))
   listBioproject=read.delim(paste(pathData,"RNAseq_table/",species,"/list_Acc.tab",sep=""))
   for (Bioproject in unique(listBioproject$BioProjet)){
     print(Bioproject)
@@ -50,8 +50,8 @@ df$organs = sapply(df$Bioproject,function(x) str_split(x," ")[[1]][1])
 #selection des bioprojets interessants, garde pour les mammifères que le forebrain
 
 
-# df = read.delim("data/Data4_supp.tab",comment.char = "#")
-
+df = read.delim("data/Data4_supp.tab",comment.char = "#")
+df = df[df$species != "Callorhinchus_milii",]
 
 
 
@@ -121,6 +121,8 @@ for(species in c("Dendroctonus_ponderosae")){print(species)
 df[df$organs=="_ovar",]$organs = "Ovary"
 df[df$organs=="_head",]$organs = "Head"
 df[df$organs=="_test",]$organs = "Testis"
+
+
 
 
 write.table(df,paste("data/Data4_supp.tab",sep=""), row.names=F, col.names=T, sep="\t", quote=F)
