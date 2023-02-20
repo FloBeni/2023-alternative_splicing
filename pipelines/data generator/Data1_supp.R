@@ -6,7 +6,6 @@ library(stringr)
 library(dplyr)
 library(tidyr)
 
-
 get_rsquared_slope = function(prop.quantile = 0.1,Xaxis,Yaxis){
   quantile = unique(quantile(Xaxis, probs = seq(0, 1,prop.quantile),na.rm=T))
   intervalle = cut(Xaxis, quantile,include.lowest = T,include.higher=T)
@@ -38,7 +37,7 @@ read_excel_allsheets <- function(filename, tibble = FALSE) {
 
 
 pathData="/home/fbenitiere/data//Projet-SplicedVariants/"
-pathData="/beegfs/data/XXXXX/Projet-SplicedVariants/"
+pathData="/beegfs/data/fbenitiere/Projet-SplicedVariants/"
 
 mysheets <- read_excel_allsheets(paste(pathData,"Fichiers-data/metazoa_species.xls",sep=""))
 
@@ -56,13 +55,11 @@ get_CM_dNdS<-function(D) {
   # Compute the cumulated number of substitutions over all genes
   cum_KS=sum(D$num_dS)
   cum_KN=sum(D$num_dN)
-  cum_OS=sum(D$den_dS)
-  cum_ON=sum(D$den_dN)
-  
+  cum_OS=sum(D$den_dS/D$branch_length)
+  cum_ON=sum(D$den_dS/D$branch_length)
   # Compute cumulated DN, DS
-  cum_dS=cum_KS/cum_OS
-  cum_dN=cum_KN/cum_ON
-  
+  cum_dS = cum_KS/cum_OS
+  cum_dN = cum_KN/cum_ON
   # Compute cumulated dN/dS
   cum_dNdS=cum_dN/cum_dS
   
@@ -71,6 +68,7 @@ get_CM_dNdS<-function(D) {
 
 
 all_data = data.frame()
+species = "Drosophila_melanogaster"
 for (species in sp_studied ){
   print(species)
   con <- file(paste(pathData,"/Annotations/",species,"/data_source/annotation.gff",sep=""),"r")
@@ -189,7 +187,7 @@ for (species in sp_studied ){
     CoverageBuscoExon,
     
     prop_analyzable_busco = sum(all_intron_busco$Annotation & (all_intron_busco$n1 + all_intron_busco$n2_spl3 + all_intron_busco$n2_spl5) >= 10 ) / sum(all_intron_busco$Annotation),
-    prop_analyzable_proteincoding = sum(all_intron$Annotation & (all_intron$n1 + all_intron$n2_spl3 + all_intron$n2_spl5) >= 10 ) / sum(all_intron$Annotation),
+    prop_analyzable_proteincoding = sum(all_intron$Annotation & (all_intron$n1 + all_intron$n2_spl3 + all_intron$n2_spl5) >= 10 ) / sum(all_intron$Annotation,na.rm = T),
     
     splsite_gtag_minor_busco = sum(all_intron_busco[all_intron_busco$intron_class == "minor",]$splicesite %in% c("GT AG")) / sum(all_intron_busco$intron_class == "minor"),
     splsite_gtag_major_busco = sum(all_intron_busco[all_intron_busco$intron_class == "major",]$splicesite %in% c("GT AG")) / sum(all_intron_busco$intron_class == "major"),
