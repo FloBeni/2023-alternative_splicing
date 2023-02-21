@@ -12,7 +12,7 @@ arbrePhylo = read.tree(paste("data/tree.rooted",sep=""))
 sp_studied = arbrePhylo$tip.label
 
 std <- function(x) sd(x)/sqrt(length(x))
-data_sp = data.frame()
+data_2 = data.frame()
 for (species in sp_studied) {# recupere les especes a analyser
   print(species)
   
@@ -40,7 +40,7 @@ for (species in sp_studied) {# recupere les especes a analyser
     return(sum(x=="0")/length(x) )
   })
   
-  data_sp=rbind(data_sp,data.frame(species,
+  data_2 = rbind(data_2,data.frame(species,
                                    average_mira=X,
                                    framepreserving_proportion=Y,
                                    XerrorBar=XerrorBar,
@@ -50,5 +50,5 @@ for (species in sp_studied) {# recupere les especes a analyser
 }
 
 
-write.table(data_sp,paste("data/Data2_supp.tab",sep=""), row.names=F, col.names=T, sep="\t", quote=F)
+write.table(data_2,paste("data/Data2_supp.tab",sep=""), row.names=F, col.names=T, sep="\t", quote=F)
 

@@ -5,7 +5,7 @@ pathData="~/data/Projet-SplicedVariants/"
 options(stringsAsFactors = F, scipen = 999)
 
 
-df = data.frame()
+data_4 = data.frame()
 for(species in c("Gallus_gallus","Homo_sapiens","Macaca_mulatta","Monodelphis_domestica","Mus_musculus","Oryctolagus_cuniculus","Rattus_norvegicus")){print(species)
   # species="Gallus_gallus"
   intron_all = read.delim(paste(pathData,"Analyses/",species,"/by_intron_cds.tab",sep=""), header=T , sep="\t",comment.char = "#")
@@ -35,7 +35,7 @@ for(species in c("Gallus_gallus","Homo_sapiens","Macaca_mulatta","Monodelphis_do
     by_intron = by_intron[by_intron$into_cds =="True",]
     
     # Collecte les données
-    df = rbind(df,data.frame(
+    data_4 = rbind(data_4,data.frame(
       species,
       SVR=mean(by_intron$splice_variant_rate)*100,
       Bioproject,
@@ -45,15 +45,9 @@ for(species in c("Gallus_gallus","Homo_sapiens","Macaca_mulatta","Monodelphis_do
   }
 }
 
-df$organs = sapply(df$Bioproject,function(x) str_split(x," ")[[1]][1])
+data_4$organs = sapply(data_4$Bioproject,function(x) str_split(x," ")[[1]][1])
 
 #selection des bioprojets interessants, garde pour les mammifères que le forebrain
-
-
-df = read.delim("data/Data4_supp.tab",comment.char = "#")
-df = df[df$species != "Callorhinchus_milii",]
-
-
 
 
 tissue_list = c( "_ovar","_head","_test")
@@ -108,7 +102,7 @@ for(species in c("Dendroctonus_ponderosae")){print(species)
     by_intron = by_intron[by_intron$into_cds =="True",]
     
     # Collecte les données
-    df = rbind(df , data.frame(
+    data_4 = rbind(data_4 , data.frame(
       species ,
       SVR = mean(by_intron$splice_variant_rate)*100 ,
       Bioproject = tissue ,
@@ -118,11 +112,9 @@ for(species in c("Dendroctonus_ponderosae")){print(species)
     ))
   }
 }
-df[df$organs=="_ovar",]$organs = "Ovary"
-df[df$organs=="_head",]$organs = "Head"
-df[df$organs=="_test",]$organs = "Testis"
+data_4[data_4$organs=="_ovar",]$organs = "Ovary"
+data_4[data_4$organs=="_head",]$organs = "Head"
+data_4[data_4$organs=="_test",]$organs = "Testis"
 
 
-
-
-write.table(df,paste("data/Data4_supp.tab",sep=""), row.names=F, col.names=T, sep="\t", quote=F)
+write.table(data_4,paste("data/Data4_supp.tab",sep=""), row.names=F, col.names=T, sep="\t", quote=F)

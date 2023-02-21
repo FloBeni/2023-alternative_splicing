@@ -7,7 +7,7 @@ pathData = "/home/XXXXX/data//Projet-SplicedVariants/"
 
 n1_n2_treshold = 100
 
-data_sp = data.frame()
+data_6 = data.frame()
 for (species in c("Homo_sapiens","Drosophila_melanogaster")){
   fpkm_cov = read.delim(paste(pathData,"/Analyses/",species,"/by_gene_analysis.tab",sep="") , header=T , sep="\t",comment.char = "#")
   fpkm_cov = fpkm_cov[fpkm_cov$type == "gene" & grepl("gene_biotype=protein_coding" , fpkm_cov$attributes),]
@@ -34,7 +34,7 @@ for (species in c("Homo_sapiens","Drosophila_melanogaster")){
   Y = tapply(yaxis, intervalle, mean)
   YerrorBar = tapply(yaxis, intervalle, std)
   
-  data_sp = rbind(data_sp,data.frame(median_gene_expression=X ,average_as=Y*100 ,median_gene_expression_errorBar=XerrorBar ,
+  data_6 = rbind(data_6,data.frame(median_gene_expression=X ,average_as=Y*100 ,median_gene_expression_errorBar=XerrorBar ,
                                      average_as_errorBar=YerrorBar*100,effectif=table(intervalle),intron="All",
                                      group=paste("All protein-codingenterN=",nrow(intron))
                                      ,species ))
@@ -60,7 +60,7 @@ for (species in c("Homo_sapiens","Drosophila_melanogaster")){
   Y = tapply(yaxis, intervalle, mean)
   YerrorBar = tapply(yaxis, intervalle, std)
   
-  data_sp = rbind(data_sp,data.frame(median_gene_expression=X ,average_as=Y*100 ,median_gene_expression_errorBar=XerrorBar ,
+  data_6 = rbind(data_6,data.frame(median_gene_expression=X ,average_as=Y*100 ,median_gene_expression_errorBar=XerrorBar ,
                                      average_as_errorBar=YerrorBar*100,effectif=table(intervalle),intron="All",group=paste("BUSCOenterN=",nrow(intron))
                                      ,species ))
   
@@ -81,7 +81,7 @@ for (species in c("Homo_sapiens","Drosophila_melanogaster")){
   Y = tapply(yaxis, intervalle, mean)
   YerrorBar = tapply(yaxis, intervalle, std)
   
-  data_sp = rbind(data_sp,data.frame(median_gene_expression=X ,average_as=Y*100 ,median_gene_expression_errorBar=XerrorBar ,
+  data_6 = rbind(data_6,data.frame(median_gene_expression=X ,average_as=Y*100 ,median_gene_expression_errorBar=XerrorBar ,
                                      average_as_errorBar=YerrorBar*100,effectif=table(intervalle),intron="Rare_SV",group=paste("All protein-codingenterN=",nrow(intron))
                                      ,species ))
   
@@ -89,4 +89,4 @@ for (species in c("Homo_sapiens","Drosophila_melanogaster")){
 }
 
 
-write.table(data_sp,paste("data/Data6_supp.tab",sep=""), row.names=F, col.names=T, sep="\t", quote=F)
+write.table(data_6 , paste("data/Data6_supp.tab",sep=""), row.names=F, col.names=T, sep="\t", quote=F)

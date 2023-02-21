@@ -10,7 +10,7 @@ pathData="~/data/Projet-SplicedVariants/"
 arbrePhylo = read.tree(paste("data/phylogenetic_tree.nwk",sep=""))
 
 
-data_sp = data.frame()
+data_3 = data.frame()
 for (species in arbrePhylo$tip.label){print(species)
   
   # species="Homo_sapiens"
@@ -35,14 +35,14 @@ for (species in arbrePhylo$tip.label){print(species)
   nsv = table(intervalle)/sum(table(intervalle)) *100
   
   
-  data_sp = rbind(data_sp,data.frame(
+  data_3 = rbind(data_3,data.frame(
     species,
     rate = seq(1/100/2, 1,(1/100)),
     sv,
     nsv
   ))
 }
-write.table(data_sp,paste("data/Data3_supp.tab",sep=""), row.names=F, col.names=T, sep="\t", quote=F)
+write.table(data_3 , paste("data/Data3_supp.tab",sep=""), row.names=F, col.names=T, sep="\t", quote=F)
 
 
 

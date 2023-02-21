@@ -6,7 +6,7 @@ pathData="/home/XXXXX/data//Projet-SplicedVariants/"
 
 freq=0
 
-data_table_pooled = data.frame()
+data_5 = data.frame()
 
 
 ### DROSO FREQUENT
@@ -201,7 +201,7 @@ polymorphisme = polymorphisme[polymorphisme$mira > 0.05 ,]
 }
 
 df$filtering = paste(species,"abundant_sv",sep="_")
-data_table_pooled = rbind(data_table_pooled,df)
+data_5 = rbind(data_5,df)
 
 
 
@@ -484,7 +484,7 @@ species = "Homo_sapiens"
 }
 
 df$filtering = paste(species,"abundant_sv",sep="_")
-data_table_pooled = rbind(data_table_pooled,df)
+data_5 = rbind(data_5,df)
 
 
 
@@ -687,7 +687,7 @@ polymorphisme = polymorphisme[polymorphisme$mira <= 0.05 ,]
   df$color_group = c("green","blue","blue","red","red","green","blue","blue","red","red")
 }
 df$filtering = paste(species,"rare_sv",sep="_")
-data_table_pooled = rbind(data_table_pooled,df)
+data_5 = rbind(data_5,df)
 
 
 ### HOMO SAPIENS FREQUENT
@@ -970,7 +970,7 @@ species = "Homo_sapiens"
 }
 
 df$filtering = paste(species,"rare_sv",sep="_")
-data_table_pooled = rbind(data_table_pooled,df)
+data_5 = rbind(data_5,df)
 
 
 ### CpG Homo sapiens
@@ -1248,7 +1248,7 @@ species = "Homo_sapiens"
 }
 
 df$filtering = paste(species,"CpG_abundant_sv",sep="_")
-data_table_pooled = rbind(data_table_pooled,df)
+data_5 = rbind(data_5,df)
 ### CpG Homo sapiens
 
 
@@ -1524,7 +1524,7 @@ species = "Homo_sapiens"
 }
 
 df$filtering = paste(species,"CpG_rare_sv",sep="_")
-data_table_pooled = rbind(data_table_pooled,df)
+data_5 = rbind(data_5,df)
 
-write.table(data_table_pooled,paste("data/Data5_supp.tab",sep=""), row.names=F, col.names=T, sep="\t", quote=F)
+write.table(data_5,paste("data/Data5_supp.tab",sep=""), row.names=F, col.names=T, sep="\t", quote=F)
 

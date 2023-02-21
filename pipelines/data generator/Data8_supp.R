@@ -11,7 +11,7 @@ arbrePhylo = read.tree(paste("data/tree.rooted",sep=""))
 sp_studied = arbrePhylo$tip.label
 
 std <- function(x) sd(x)/sqrt(length(x))
-data_sp = data.frame()
+data_8 = data.frame()
 for (species in sp_studied){
   print(species)
   fpkm_cov = read.delim(paste(pathData,"Analyses/",species,"/by_gene_analysis.tab",sep="") , header=T , sep="\t",comment.char = "#")
@@ -56,7 +56,7 @@ for (species in sp_studied){
   value = lm(Y ~ X)$coefficients[1] + lm(Y ~ X)$coefficients[2] * 0.1
   
   
-  data_sp=rbind(data_sp,data.frame(
+  data_8=rbind(data_8,data.frame(
     species,
     reg_linear=value,
     prop_fp_sv_abundant,
@@ -68,7 +68,7 @@ for (species in sp_studied){
   ))
 } 
 
-write.table(data_sp,paste("data/Data8_supp.tab",sep=""), row.names=F, col.names=T, sep="\t", quote=F)
+write.table(data_8 , paste("data/Data8_supp.tab",sep=""), row.names=F, col.names=T, sep="\t", quote=F)
 
 
 
