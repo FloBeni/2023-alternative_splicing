@@ -38,7 +38,7 @@ read_excel_allsheets <- function(filename, tibble = FALSE) {
 
 
 pathData="/home/fbenitiere/data//Projet-SplicedVariants/"
-# pathData="/beegfs/data/XXXXX/Projet-SplicedVariants/"
+pathData="/beegfs/data/fbenitiere/Projet-SplicedVariants/"
 
 mysheets <- read_excel_allsheets(paste(pathData,"Fichiers-data/metazoa_species.xls",sep=""))
 
@@ -70,7 +70,7 @@ get_CM_dNdS<-function(D) {
 
 all_data = data.frame()
 species = "Drosophila_melanogaster"
-for (species in rev(sp_studied) ){
+for (species in sp_studied){
   print(species)
   con <- file(paste(pathData,"/Annotations/",species,"/data_source/annotation.gff",sep=""),"r")
   first_line <- readLines(con,n=5)
