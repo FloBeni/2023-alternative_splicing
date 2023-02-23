@@ -37,7 +37,7 @@ read_excel_allsheets <- function(filename, tibble = FALSE) {
 
 
 pathData="/home/fbenitiere/data//Projet-SplicedVariants/"
-# pathData="/beegfs/data/fbenitiere/Projet-SplicedVariants/"
+pathData="/beegfs/data/fbenitiere/Projet-SplicedVariants/"
 
 mysheets <- read_excel_allsheets(paste(pathData,"Fichiers-data/metazoa_v53.xls",sep=""))
 
