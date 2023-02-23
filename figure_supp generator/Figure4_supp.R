@@ -12,7 +12,7 @@ p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=specie
   scale_x_log10(breaks=c(0.01,0.1,0.5,1,5,10,100,1000),labels=c(0.01,0.1,0.5,1,5,10,100,1000),limits = c(0.01,1000)) + theme_bw() +
   scale_y_continuous(breaks=seq(0.5,4.5,0.5), labels=paste(seq(0.5,4.5,0.5),"%"),limits=c(.5,4)) +
   labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
-  xlab("Body length (cm log scale)") +  theme(
+  xlab("Body length (cm, log scale)") +  theme(
     axis.title.x = element_text(color="black",margin = margin(t = 15, r = 0, b = 0, l = 0), size=31,family="serif"),
     axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=31, family="serif"),
     axis.text.y =  element_text(color="black", size=26, family="serif"),
@@ -25,7 +25,7 @@ p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=specie
   )+
   labs(
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
-  ) + theme(legend.position = "none")
+  ) + theme(legend.position = "none") + annotation_logticks(sides="b")
 
 p1
 
@@ -82,7 +82,7 @@ p6=ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species)
   scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Low-AS major introns (BUSCO genes)")+
   theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
-  xlab("Body length (cm log scale)") +
+  xlab("Body length (cm, log scale)") +
   scale_x_log10(breaks=c(0.01,0.1,0.5,1,5,10,100,1000),labels=c(0.01,0.1,0.5,1,5,10,100,1000),limits = c(0.01,1000))+
   scale_y_continuous(breaks=seq(0,10,0.2), labels=paste("",seq(0,10,0.2),"%")) +
   theme(
@@ -98,7 +98,7 @@ p6=ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species)
   )+
   labs(
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
-  ) + theme(legend.position = "none")
+  ) + theme(legend.position = "none") + annotation_logticks(sides="b")
 p6
 
 
@@ -156,7 +156,7 @@ p = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species
   scale_fill_manual("Clades",values=vectorColor)+ ggtitle("High-AS major introns (BUSCO genes)") +
   theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
-  xlab("Body length (cm log scale)")  +
+  xlab("Body length (cm, log scale)")  +
   scale_x_log10(breaks=c(0.01,0.1,0.5,1,5,10,100,1000),labels=c(0.01,0.1,0.5,1,5,10,100,1000),limits = c(0.01,1000))+
   scale_y_continuous(breaks=seq(10,25,2), labels=paste(seq(10,25,2),"%")) +
   theme(
@@ -172,7 +172,7 @@ p = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species
   )+
   labs(
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
-  ) + theme(legend.position = "none")
+  ) + theme(legend.position = "none") + annotation_logticks(sides="b")
 
 p
 

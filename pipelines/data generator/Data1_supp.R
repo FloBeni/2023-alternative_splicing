@@ -39,7 +39,7 @@ read_excel_allsheets <- function(filename, tibble = FALSE) {
 pathData="/home/fbenitiere/data//Projet-SplicedVariants/"
 # pathData="/beegfs/data/fbenitiere/Projet-SplicedVariants/"
 
-mysheets <- read_excel_allsheets(paste(pathData,"Fichiers-data/metazoa_species.xls",sep=""))
+mysheets <- read_excel_allsheets(paste(pathData,"Fichiers-data/metazoa_v53.xls",sep=""))
 
 
 sp_studied = c()
@@ -86,8 +86,8 @@ for (species in sp_studied){
   list_rnaseq = paste(bioproj$SRA_accession_ID ,collapse = ";")
   
   
-  by_intron = read.delim(paste(pathData,species,".tab.gz",sep=""),  sep="\t")
-  fpkm_cov = read.delim(paste(pathData,species,"fpkm.tab.gz",sep=""),  sep="\t")
+  by_intron = read.delim(paste(pathData,"per_species/",species,".tab.gz",sep=""),  sep="\t")
+  fpkm_cov = read.delim(paste(pathData,"per_species/",species,"fpkm.tab.gz",sep=""),  sep="\t")
   
   fpkm_cov = fpkm_cov[fpkm_cov$type == "gene" & grepl("gene_biotype=protein_coding" , fpkm_cov$attributes),]
   
@@ -147,8 +147,10 @@ for (species in sp_studied){
     nb_busco = sum(fpkm_cov$busco_metazoa),
     CoverageBuscoExon,
     
-    prop_analyzable_busco = sum(all_intron_busco$Annotation & (all_intron_busco$n1 + all_intron_busco$n2_spl3 + all_intron_busco$n2_spl5) >= 10 ) / sum(all_intron_busco$Annotation),
-    prop_analyzable_proteincoding = sum(all_intron$Annotation & (all_intron$n1 + all_intron$n2_spl3 + all_intron$n2_spl5) >= 10 ) /sum(all_intron$Annotation,na.rm = T),
+    annotated_intron_proteincoding = sum(all_intron$Annotation),
+    analyzable_intron_proteincoding = sum(all_intron$Annotation & (all_intron$n1 + all_intron$n2_spl3 + all_intron$n2_spl5) >= 10 ),
+    annotated_intron_busco = sum(all_intron_busco$Annotation),
+    analyzable_intron_busco = sum(all_intron_busco$Annotation & (all_intron_busco$n1 + all_intron_busco$n2_spl3 + all_intron_busco$n2_spl5) >= 10 ),
     
     splsite_gtag_minor_busco = sum(all_intron_busco[all_intron_busco$intron_class == "minor",]$splicesite %in% c("GT AG")) / sum(all_intron_busco$intron_class == "minor"),
     splsite_gtag_major_busco = sum(all_intron_busco[all_intron_busco$intron_class == "major",]$splicesite %in% c("GT AG")) / sum(all_intron_busco$intron_class == "major"),
@@ -188,5 +190,5 @@ for (species in sp_studied){
   ))
 }
 
-write.table(data_1 , paste("data/Data1_supp.tab",sep=""), row.names=F, col.names=T, sep="\t", quote=F)
+# write.table(data_1 , paste("data/Data1_supp.tab",sep=""), row.names=F, col.names=T, sep="\t", quote=F)
 

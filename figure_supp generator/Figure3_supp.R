@@ -22,7 +22,7 @@ p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel]*100, fill=clade,text=sp
   )+
   labs(
     caption = substitute(paste("LM model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(lm((data_1[,ylabel])~log10(data_1[,xlabel])))))
-  ) + scale_x_log10()
+  ) + scale_x_log10() + annotation_logticks(sides="b")
 p1
 
 jpeg(paste(path_figure,"p18_prop_major_sv_busco_coverage.jpg",sep=""), width = 8200/resolution, height = 5500/resolution,res=700/resolution)

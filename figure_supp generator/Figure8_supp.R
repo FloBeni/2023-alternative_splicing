@@ -28,7 +28,7 @@ p4 = ggplot(data_8, aes(x=body_size,y=ratio,fill=clade))  + theme_bw() +
   )+
   labs(
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
-  )  + theme(legend.position = "none")
+  )  + theme(legend.position = "none")+ annotation_logticks(sides="b")
 
 p4
 

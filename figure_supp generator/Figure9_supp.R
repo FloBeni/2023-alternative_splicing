@@ -28,7 +28,7 @@ p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=specie
   )+
   labs(
     caption = substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
-  )  + scale_y_continuous(breaks=seq(0,50,5), labels=paste(seq(0,50,5),"%"),limits=c(1,25)) + theme(legend.position = "none")
+  )  + scale_y_continuous(breaks=seq(0,50,5), labels=paste(seq(0,50,5),"%"),limits=c(1,25)) + theme(legend.position = "none")+ annotation_logticks(sides="b")
 
 p1
 
@@ -65,7 +65,7 @@ p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=specie
   )+
   labs(
     caption = substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
-  )  + scale_y_continuous(breaks=seq(0,50,5), labels=paste(seq(0,50,5),"%"),limits=c(1,25)) + theme(legend.position = "none")
+  )  + scale_y_continuous(breaks=seq(0,50,5), labels=paste(seq(0,50,5),"%"),limits=c(1,25)) + theme(legend.position = "none")+ annotation_logticks(sides="b")
 
 p1
 
@@ -137,7 +137,7 @@ p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=specie
   )+
   labs(
     caption = substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
-  )  + scale_y_continuous(breaks=seq(0,50,5), labels=paste(seq(0,50,5),"%"))+ theme(legend.position = "none")
+  )  + scale_y_continuous(breaks=seq(0,50,5), labels=paste(seq(0,50,5),"%"))+ theme(legend.position = "none")+ annotation_logticks(sides="b")
 p1
 jpeg(paste(path_figure,"busco_gene_svrlow_longevity.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
 print(p1)
@@ -172,7 +172,7 @@ p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=specie
   )+
   labs(
     caption = substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
-  )  + scale_y_continuous(breaks=seq(0,50,5), labels=paste(seq(0,50,5),"%"))+ theme(legend.position = "none")
+  )  + scale_y_continuous(breaks=seq(0,50,5), labels=paste(seq(0,50,5),"%"))+ theme(legend.position = "none")+ annotation_logticks(sides="b")
 p1
 jpeg(paste(path_figure,"busco_gene_svrlow_body_size.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
 print(p1)

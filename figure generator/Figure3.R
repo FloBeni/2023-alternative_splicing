@@ -78,7 +78,7 @@ p4 = ggplot(data_8, aes(x=longevity,y=ratio,fill=clade))  + theme_bw() +
   )+
   labs(
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
-  ) 
+  )  + annotation_logticks(sides="b")
 
 p4
 
@@ -115,7 +115,7 @@ p6=ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species)
   )+
   labs(
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
-  ) + theme(legend.position = "none")
+  ) + theme(legend.position = "none") + annotation_logticks(sides="b")
 p6
 
 
@@ -155,7 +155,7 @@ p5 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=specie
   )+
   labs(
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
-  ) + theme(legend.position = "none")
+  ) + theme(legend.position = "none") + annotation_logticks(sides="b")
 
 p5
 

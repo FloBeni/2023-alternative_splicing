@@ -25,7 +25,7 @@ p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=specie
   )+
   labs(
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
-  ) 
+  )  + annotation_logticks(sides="b")
 p1
 
 
@@ -87,7 +87,7 @@ p2 = ggplot(font.label = c(50, "plain"),font.legend= c(20, "plain"),font.x= c(20
                                label.theme = element_text(color="black", size=26, family="serif",vjust = 1.5,margin = margin(t = 5))))+
   labs(
     caption = substitute(paste("LM model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(lm((data_4$SVR)~log10(data_4$longevity)))))
-  )
+  ) + annotation_logticks(sides="b")
 p2
 
 jpeg(paste(path_figure,"C_Moreira_svr.jpg",sep=""), width = 8500/resolution, height = 5100/resolution,res=600/resolution)

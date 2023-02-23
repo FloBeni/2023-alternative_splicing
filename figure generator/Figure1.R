@@ -25,9 +25,8 @@ p1=ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species)
   )+
   labs(
     caption = substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls(log10(ylabel)~log10(xlabel),shorebird))))
-  )
+  )+ annotation_logticks()
 p1
-
 
 jpeg(paste(path_figure,"history_traits_cor.jpg",sep=""), width = 8500/resolution, height = 6000/resolution,res=700/resolution)
 print(p1)
@@ -61,7 +60,7 @@ p2=ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species)
   )+
   labs(
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
-  ) + scale_y_continuous(breaks=c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12), labels =c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12))
+  ) + scale_y_continuous(breaks=c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12), labels =c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12)) + annotation_logticks(sides="b")
 p2
 
 jpeg(paste(path_figure,"dNdS_longevity_cor.jpg",sep=""),width = 8500/resolution, height = 6000/resolution,res=700/resolution)

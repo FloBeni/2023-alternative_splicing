@@ -27,7 +27,7 @@ p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=specie
   )+
   labs(
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
-  )  + theme(legend.position = "none")
+  )  + theme(legend.position = "none")+ annotation_logticks(sides="b")
 
 p1
 
@@ -63,7 +63,7 @@ p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=specie
   )+
   labs(
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
-  )  + theme(legend.position = "none")
+  )  + theme(legend.position = "none")+ annotation_logticks(sides="b")
 
 p1
 
@@ -137,7 +137,7 @@ p6=ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species)
   )+
   labs(
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
-  ) + theme(legend.position = "none")
+  ) + theme(legend.position = "none")+ annotation_logticks(sides="b")
 p6
 
 
@@ -172,7 +172,7 @@ p6=ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species)
   )+
   labs(
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
-  ) + theme(legend.position = "none")
+  ) + theme(legend.position = "none")+ annotation_logticks(sides="b")
 p6
 
 
@@ -243,7 +243,7 @@ p = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species
   )+
   labs(
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
-  ) + theme(legend.position = "none")
+  ) + theme(legend.position = "none")+ annotation_logticks(sides="b")
 
 p
 
@@ -282,7 +282,7 @@ p = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species
   )+
   labs(
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
-  ) + theme(legend.position = "none")
+  ) + theme(legend.position = "none")+ annotation_logticks(sides="b")
 
 p
 
