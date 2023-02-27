@@ -10,7 +10,7 @@ p1 =  ggplot(data_3,aes(x=rate*100,group=species,y=Freq))  + theme_bw() + ylab("
   geom_line(data=data_3[data_3$species=="Drosophila_melanogaster",],size=.7,col="red") +
   geom_line(data=data_3[data_3$species=="Homo_sapiens",],size=.7,col="#66281A") +
   geom_point(data=data_3[data_3$species=="Drosophila_melanogaster",],alpha=0.7,pch=21,size=1,fill="red") +
-  geom_point(data=data_3[data_3$species=="Homo_sapiens",],alpha=0.7,pch=21,size=1,fill="#66281A") +theme_bw()+
+  geom_point(data=data_3[data_3$species=="Homo_sapiens",],alpha=0.7,pch=21,size=1,fill="#66281A") + theme_bw()+
   theme(
     axis.title.x = element_text(color="black", size=31,family="serif"),
     axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=31, family="serif"),
@@ -20,7 +20,9 @@ p1 =  ggplot(data_3,aes(x=rate*100,group=species,y=Freq))  + theme_bw() + ylab("
     text =  element_text(color="black", size=31, family="serif"),
     legend.text =  element_text(color="black", size=26, family="serif")
   ) + scale_x_continuous(breaks=seq(0,100,25), labels=paste(seq(0,100,25),"%"))+ scale_y_continuous(breaks=seq(0,100,25), labels=paste(seq(0,100,25),"%"),limits=c(0,75)) +
-  labs(x=expression(paste("RAS ",italic("per")," intron")))
+  labs(x=expression(paste("RAS ",italic("per")," intron")))+
+  annotate("text", x = 75, y = 50, parse = TRUE,size=10, family="serif",
+           label = "RAS==frac(N1, N1+N2)")
 p1
 
 
@@ -55,7 +57,9 @@ p1 =  ggplot(data_3,aes(x=rate*100,group=species,y=Freq.1))  + theme_bw() + ylab
     text =  element_text(color="black", size=31, family="serif"),
     legend.text =  element_text(color="black", size=26, family="serif")
   ) + scale_x_continuous(breaks=seq(0,100,25), labels=paste(seq(0,100,25),"%"))+ scale_y_continuous(breaks=seq(0,100,25), labels=paste(seq(0,100,25),"%"),limits=c(0,75))+
-  labs(x=expression(paste("RANS ",italic("per")," intron")))
+  labs(x=expression(paste("RANS ",italic("per")," intron")))+
+  annotate("text", x = 75, y = 50, parse = TRUE,size=10, family="serif",
+           label = "RANS==frac(N1, N1+N3/2)")
 p1
 
 
