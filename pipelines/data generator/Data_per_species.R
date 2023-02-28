@@ -21,45 +21,37 @@ read_excel_allsheets <- function(filename, tibble = FALSE) {
 pathData="/home/fbenitiere/data/Projet-SplicedVariants/"
 pathData="/beegfs/data/fbenitiere/Projet-SplicedVariants/"
 
-mysheets <- read_excel_allsheets(paste(pathData,"Fichiers-data/metazoa_species.xls",sep=""))
+mysheets <- read_excel_allsheets(paste(pathData,"Fichiers-data/metazoa_69species.xls",sep=""))
+sp_studied = names(mysheets)
 
 
-sp_studied = c()
-for (species in names(mysheets)){
-  if (!is.na(mysheets[[species]]$Group_study[1]) & (mysheets[[species]]$Group_study[1] == "53_sp" | mysheets[[species]]$Group_study[1] == "69_sp")){
-    sp_studied = append(sp_studied,species)
-  }
-}
-
-
-species = "Musca_domestica"
-for (species in rev(sp_studied) ){
+# species = "Musca_domestica"
+for (species in (sp_studied) ){
   print(species)
   ## INTRON
-  # busco_tab = read.delim(paste(pathData,"Annotations/",species,"/busco_analysis/busco_to_gene_id_metazoa",sep="" ) )
-  # 
-  # busco_tab = busco_tab[!(duplicated(busco_tab$busco_id,fromLast = FALSE) | duplicated(busco_tab$busco_id,fromLast = TRUE)) &
-  #                         !(duplicated(busco_tab$gene_id,fromLast = FALSE) | duplicated(busco_tab$gene_id,fromLast = TRUE)) ,]
-  # 
-  # fpkm_cov = read.delim(paste(pathData,"Analyses/",species,"/by_gene_analysis.tab",sep="") , header=T , sep="\t",comment.char = "#")
-  # fpkm_cov$busco_metazoa = fpkm_cov$gene_id %in% busco_tab$gene_id
-  # rownames(fpkm_cov) = fpkm_cov$gene_id
-  # 
-  by_intron = read.delim(file=paste(pathData,"per_species/",species,".tab.gz",sep=""), header=T , sep="\t",comment.char = "#")
-  # by_intron = read.delim(file=paste(pathData,"Analyses/",species,"/by_intron_cds.tab",sep=""), header=T , sep="\t",comment.char = "#")
-  # by_intron$id = paste(by_intron$seqname,by_intron$gene_id,by_intron$splice5,by_intron$splice3,by_intron$strand,sep=";")
-  # by_intron$fpkm = fpkm_cov[by_intron$gene_id,]$weighted_fpkm
-  # 
-  # IntronLibrary = read.delim(paste(pathData,"Analyses/",species,"/IntronLibrary_inclusive.txt",sep=""))
-  # IntronLibrary = IntronLibrary %>%
-  #   mutate(Gene = strsplit(as.character(Gene), ",")) %>%
-  #   unnest(Gene) %>%
-  #   filter(Gene != "")
-  # IntronLibrary$id = paste(IntronLibrary$Chr,IntronLibrary$Gene,IntronLibrary$Splice5,IntronLibrary$Splice3,IntronLibrary$Strand,sep=";")
-  # IntronLibrary$Annotation = grepl("Annotation",IntronLibrary$Source)
-  # rownames(IntronLibrary) = IntronLibrary$id
-  # by_intron$Annotation = IntronLibrary[by_intron$id,]$Annotation
-  # by_intron$splicesite = paste(IntronLibrary[by_intron$id,]$SpliceSignal5,IntronLibrary[by_intron$id,]$SpliceSignal3)
+  busco_tab = read.delim(paste(pathData,"Annotations/",species,"/busco_analysis/busco_to_gene_id_metazoa",sep="" ) )
+  
+  busco_tab = busco_tab[!(duplicated(busco_tab$busco_id,fromLast = FALSE) | duplicated(busco_tab$busco_id,fromLast = TRUE)) &
+                          !(duplicated(busco_tab$gene_id,fromLast = FALSE) | duplicated(busco_tab$gene_id,fromLast = TRUE)) ,]
+  
+  fpkm_cov = read.delim(paste(pathData,"Analyses/",species,"/by_gene_analysis.tab",sep="") , header=T , sep="\t",comment.char = "#")
+  fpkm_cov$busco_metazoa = fpkm_cov$gene_id %in% busco_tab$gene_id
+  rownames(fpkm_cov) = fpkm_cov$gene_id
+  
+  by_intron = read.delim(file=paste(pathData,"Analyses/",species,"/by_intron_cds.tab",sep=""), header=T , sep="\t",comment.char = "#")
+  by_intron$id = paste(by_intron$seqname,by_intron$gene_id,by_intron$splice5,by_intron$splice3,by_intron$strand,sep=";")
+  by_intron$fpkm = fpkm_cov[by_intron$gene_id,]$weighted_fpkm
+  
+  IntronLibrary = read.delim(paste(pathData,"Analyses/",species,"/IntronLibrary_inclusive.txt",sep=""))
+  IntronLibrary = IntronLibrary %>%
+    mutate(Gene = strsplit(as.character(Gene), ",")) %>%
+    unnest(Gene) %>%
+    filter(Gene != "")
+  IntronLibrary$id = paste(IntronLibrary$Chr,IntronLibrary$Gene,IntronLibrary$Splice5,IntronLibrary$Splice3,IntronLibrary$Strand,sep=";")
+  IntronLibrary$Annotation = grepl("Annotation",IntronLibrary$Source)
+  rownames(IntronLibrary) = IntronLibrary$id
+  by_intron$Annotation = IntronLibrary[by_intron$id,]$Annotation
+  by_intron$splicesite = paste(IntronLibrary[by_intron$id,]$SpliceSignal5,IntronLibrary[by_intron$id,]$SpliceSignal3)
   
   IntronLibrary = read.delim(paste(pathData,"Annotations/",species,"/formatted_data/IntronCoords.tab",sep=""))
   IntronLibrary = IntronLibrary %>%
@@ -75,9 +67,6 @@ for (species in rev(sp_studied) ){
   IntronLibrary$id = paste(IntronLibrary$Chr,IntronLibrary$Genes,IntronLibrary$Splice5,IntronLibrary$Splice3,IntronLibrary$Strand,sep=";")
   IntronLibrary$Annotation = TRUE
   rownames(IntronLibrary) = IntronLibrary$id
-  by_intron$Annotationv2 = by_intron$id %in% IntronLibrary$id
-  by_intron$splicesitev2 = paste(IntronLibrary[by_intron$id,]$X5SpliceSignal,IntronLibrary[by_intron$id,]$X3SpliceSignal)
-  print(table(by_intron$Annotationv2 == by_intron$Annotation))
   
   IntronCoord = read.table(paste(pathData,"Temporary_phase_intronCoord/",species,"_IntronCoordsv2.tab",sep=""))
   df = IntronCoord[grepl(":CDS",IntronCoord$Transcripts),]
@@ -90,20 +79,23 @@ for (species in rev(sp_studied) ){
   df$id = paste(df$Chr,df$Genes,df$Splice5,df$Splice3,df$Strand,sep=";")
   
   by_intron$phase = tapply(df$phase,df$id,function(x) paste(unique(x),collapse = ","))[by_intron$id]
-   
+  
   table(grepl(",",by_intron$phase),by_intron$intron_class)
   
-  # minor_introns = read.delim(file=paste(pathData,"Analyses/",species,"/by_minor_intron.tab",sep=""), header=T , sep="\t",comment.char = "#")
-  # minor_introns$id = paste(minor_introns$seqname,minor_introns$gene_id,minor_introns$splice5,minor_introns$splice3,minor_introns$strand,sep=";")
-  # rownames(minor_introns) = minor_introns$id
-  # by_intron$mira = minor_introns[by_intron$id,]$mira
-  # 
-  # major_introns = read.delim(paste(pathData,"/Analyses/",species,"/by_intron_major_overlap.tab",sep=""))
-  # major_introns$id = paste(major_introns$seqname,major_introns$gene_id,major_introns$splice5,major_introns$splice3,major_introns$strand,sep=";")
-  # rownames(major_introns) = major_introns$id
-  # by_intron$have_abundant_sv = major_introns[by_intron$id,]$have_abundant_sv
+  minor_introns = read.delim(file=paste(pathData,"Analyses/",species,"/by_minor_intron.tab",sep=""), header=T , sep="\t",comment.char = "#")
+  minor_introns$id = paste(minor_introns$seqname,minor_introns$gene_id,minor_introns$splice5,minor_introns$splice3,minor_introns$strand,sep=";")
+  rownames(minor_introns) = minor_introns$id
+  by_intron$mira = minor_introns[by_intron$id,]$mira
+  by_intron$criptic_intron = minor_introns[by_intron$id,]$criptic_intron
+  by_intron$distance_from_major = minor_introns[by_intron$id,]$distance_from_major
+  by_intron$frame_shift = minor_introns[by_intron$id,]$frame_shift
+  
+  major_introns = read.delim(paste(pathData,"/Analyses/",species,"/by_intron_major_overlap.tab",sep=""))
+  major_introns$id = paste(major_introns$seqname,major_introns$gene_id,major_introns$splice5,major_introns$splice3,major_introns$strand,sep=";")
+  rownames(major_introns) = major_introns$id
+  by_intron$have_abundant_sv = major_introns[by_intron$id,]$have_abundant_sv
   
   
-  write.table(by_intron,paste(pathData,species,".tab",sep=""), row.names=F, col.names=T, sep="\t", quote=F)
-  # write.table(fpkm_cov,paste(pathData,species,"fpkm.tab",sep=""), row.names=F, col.names=T, sep="\t", quote=F)
+  write.table(by_intron,paste(pathData,"per_species/",species,"_by_intron_analysis.tab",sep=""), row.names=F, col.names=T, sep="\t", quote=F)
+  write.table(fpkm_cov,paste(pathData,"per_species/",species,"_by_gene_analysis.tab",sep=""), row.names=F, col.names=T, sep="\t", quote=F)
 }

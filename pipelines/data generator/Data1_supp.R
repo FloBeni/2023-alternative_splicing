@@ -39,15 +39,9 @@ read_excel_allsheets <- function(filename, tibble = FALSE) {
 pathData="/home/fbenitiere/data//Projet-SplicedVariants/"
 pathData="/beegfs/data/fbenitiere/Projet-SplicedVariants/"
 
-mysheets <- read_excel_allsheets(paste(pathData,"Fichiers-data/metazoa_v53.xls",sep=""))
+mysheets <- read_excel_allsheets(paste(pathData,"Fichiers-data/metazoa_69species.xls",sep=""))
+sp_studied = names(mysheets)
 
-
-sp_studied = c()
-for (species in names(mysheets)){
-  if (!is.na(mysheets[[species]]$Group_study[1]) & (mysheets[[species]]$Group_study[1] == "53_sp" | mysheets[[species]]$Group_study[1] == "69_sp")){
-    sp_studied = append(sp_studied,species)
-  }
-}
 
 data_dNdS_subset_200k_v2 = read.delim(paste(pathData , "DnDs/Metazoa_species_filtered_v53.2/subset_200_ksites_GC3_v2/data_calculation.tab",sep=""))
 
@@ -86,8 +80,8 @@ for (species in sp_studied){
   list_rnaseq = paste(bioproj$SRA_accession_ID ,collapse = ";")
   
   
-  by_intron = read.delim(paste(pathData,"per_species/",species,".tab.gz",sep=""),  sep="\t")
-  fpkm_cov = read.delim(paste(pathData,"per_species/",species,"fpkm.tab.gz",sep=""),  sep="\t")
+  by_intron = read.delim(paste(pathData,"per_species/",species,"_by_intron_analysis.tab.gz",sep=""),  sep="\t")
+  fpkm_cov = read.delim(paste(pathData,"per_species/",species,"_by_gene_analysis.tab.gz",sep=""),  sep="\t")
   
   fpkm_cov = fpkm_cov[fpkm_cov$type == "gene" & grepl("gene_biotype=protein_coding" , fpkm_cov$attributes),]
   
