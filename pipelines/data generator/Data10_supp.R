@@ -1,4 +1,4 @@
-# Generate Data 8
+# Generate Data 10
 
 options(stringsAsFactors = F, scipen = 999)
 library(readxl)
@@ -17,14 +17,8 @@ read_excel_allsheets <- function(filename, tibble = FALSE) {
   x
 }
 
-mysheets <- read_excel_allsheets(paste(pathData,"Fichiers-data/metazoa_species.xls",sep=""))
-
-sp_studied = c()
-for (species in names(mysheets)){
-  if (!is.na(mysheets[[species]]$Group_study[1]) & (mysheets[[species]]$Group_study[1] == "53_sp" | mysheets[[species]]$Group_study[1] == "69_sp")){
-    sp_studied = append(sp_studied,species)
-  }
-}
+mysheets <- read_excel_allsheets(paste(pathData,"Fichiers-data/metazoa_69species.xls",sep=""))
+sp_studied = names(mysheets)
 
 data_10 = data.frame()
 for (species in sp_studied ){
@@ -32,6 +26,5 @@ for (species in sp_studied ){
   table_sra$species = species
   data_10 = rbind(data_10 , table_sra)
 }
-
 
 write.table(data_10,paste("data/Data10_supp.tab",sep=""), row.names=F, col.names=T, sep="\t", quote=F)

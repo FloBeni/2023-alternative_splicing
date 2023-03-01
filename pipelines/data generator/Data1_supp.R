@@ -36,7 +36,7 @@ read_excel_allsheets <- function(filename, tibble = FALSE) {
 }
 
 
-pathData="/home/fbenitiere/data//Projet-SplicedVariants/"
+pathData="/home/fbenitiere/data/Projet-SplicedVariants/"
 pathData="/beegfs/data/fbenitiere/Projet-SplicedVariants/"
 
 mysheets <- read_excel_allsheets(paste(pathData,"Fichiers-data/metazoa_69species.xls",sep=""))
@@ -80,8 +80,8 @@ for (species in sp_studied){
   list_rnaseq = paste(bioproj$SRA_accession_ID ,collapse = ";")
   
   
-  by_intron = read.delim(paste(pathData,"per_species/",species,"_by_intron_analysis.tab.gz",sep=""),  sep="\t")
-  fpkm_cov = read.delim(paste(pathData,"per_species/",species,"_by_gene_analysis.tab.gz",sep=""),  sep="\t")
+  by_intron = read.delim(paste(pathData,"per_species/",species,"_by_intron_analysis.tab.gz",sep=""),  sep="\t",comment.char = "#")
+  fpkm_cov = read.delim(paste(pathData,"per_species/",species,"_by_gene_analysis.tab.gz",sep=""),  sep="\t",comment.char = "#")
   
   fpkm_cov = fpkm_cov[fpkm_cov$type == "gene" & grepl("gene_biotype=protein_coding" , fpkm_cov$attributes),]
   
@@ -184,5 +184,5 @@ for (species in sp_studied){
   ))
 }
 
-# write.table(data_1 , paste("data/Data1_supp.tab",sep=""), row.names=F, col.names=T, sep="\t", quote=F)
+write.table(data_1 , paste("data/Data1_supp.tab",sep=""), row.names=F, col.names=T, sep="\t", quote=F)
 

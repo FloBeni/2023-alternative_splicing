@@ -1,85 +1,90 @@
 source("figure_supp generator/library_path.R")
 
+lm_eqn <- function(m=cor.test(X, Y,method="pearson")){
+  cor = m$estimate
+  pval_cor = m$p.value
+  paste(" =", format(cor, digits = 3) , "   p =",formatC(pval_cor,format = "e", digits = 2))
+}
+
+
+data_6 = read.delim(paste("data/Data6_supp.tab",sep=""),comment.char = "#")
+data_6$group = str_replace(data_6$group,"enter","\n")
 
 
 ############## Supplementary Pannel 5 A
+data_sp = data_6[data_6$species=="Homo_sapiens" & data_6$intron == "All"  ,]
 
-data_5 = read.delim(paste("data/Data5_supp.tab",sep=""),comment.char = "#")
-
-df = data_5[data_5$filtering == "Homo_sapiens_CpG_abundant_sv",]
-
-df$pos=c(2.19,2.78,1.45,3.46,4.16)
-
-p3  = ggplot(df,aes(x=pos,y=mean_polymorphism,fill=color_group)) + geom_col(width=0.1,col="black") + theme_bw()+
-  geom_errorbar(aes(ymin=error_bar, ymax=error_bar_2),width=00.03,show.legend=FALSE)+ggtitle("Abundant SVs (all protein-coding genes)")+ 
-  geom_text(data=df,aes(x=pos-0.07,y=mean_polymorphism+0.004, family="serif",label=paste(round(Nb_introns_minor,3))),angle=90,vjust=0,size=6)+
-  theme(legend.position = "none") + xlim(c(1,5))  +labs(y=expression(paste("SNP density (",italic("per")," bp)")))+
+p1 = ggplot(data_sp,aes(x=median_gene_expression+10^-10,y=average_as,fill=group))  +
+  geom_errorbar(aes(ymin=average_as-average_as_errorBar, ymax=average_as+average_as_errorBar),size=0.5,width = 0) +
+  geom_point(pch=21,size=5) +   theme_bw()+ scale_fill_manual("Introns set",values=set_color[c(2,1)])+
   theme( 
-    axis.title.x = element_text(color=NA, size=NA,family="serif"),
-    axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=28, family="serif"),
-    axis.text.y =  element_text(color="black", size=22, family="serif"),
-    axis.text.x =  element_text(color=NA, size=NA, family="serif"),
-    title =  element_text(color="black", size=20, family="serif"),
+    axis.title.x = element_text(color="black",margin = margin(t = 20, r = 0, b = 0, l = 0), size=31,family="serif"),
+    axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=31, family="serif"),
+    axis.text.y =  element_text(color="black", size=26, family="serif"),
+    axis.text.x =  element_text(color="black", size=26, family="serif"),
+    title =  element_text(color="black", size=23, family="serif"),
     text =  element_text(color="black", size=31, family="serif"),
-    legend.text =  element_text(color="black", size=26, family="serif"),
-    panel.grid.minor = element_blank(),
-    panel.grid.major.x = element_blank() ,
-    panel.grid.major.y = element_line( size=.1, color="black" ) ,
-  ) +scale_y_continuous(limits=c(0,0.185))
+    legend.text =  element_text(color="black", size=22, family="serif",vjust = 1.5,margin = margin(t = 10)),
+    plot.caption = element_text(hjust = .41, face= "italic", size=23),
+    plot.caption.position =  "plot"
+  ) + xlab("Gene expression level (FPKM, log scale)") + 
+  labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
+  scale_x_log10(
+    breaks=c(0.005,0.01,0.05,0.1,0.5,1,5,10,50,100,500,1000,10000,50000),
+    labels=c(0.005,0.01,0.05,0.1,0.5,1,5,10,50,100,500,1000,10000,50000),
+    limits=c(0.1,100)
+  ) +ggtitle("Major introns") +  labs(
+    caption = substitute(paste("Pearson correlation:"," R",pgls_eq), list(pgls_eq=lm_eqn(
+      m=cor.test(log10(data_sp[grepl("All protein-coding",data_sp$group),]$median_gene_expression),
+                 data_sp[grepl("All protein-coding",data_sp$group),]$average_as_errorBar,method="pearson")))))+
+  scale_y_continuous(breaks=seq(0,100,1), labels=paste(seq(0,100,1),"%")) + annotation_logticks(sides="b")
+p1
 
+p = ggdraw() + draw_plot(p1, 0, 0, 1, 1)+
+  draw_image(paste(path_require,"human.png",sep=""),.65,.7,.1,.2)
 
-p3
-
-resolution=1
-
-
-p = ggdraw() + draw_plot(p3, 0, 0.25, 1, .7) + draw_image(paste(path_require,"polymorphism_position_CpG.png",sep=""),0.09,-0.31,0.91,1)+ 
-  draw_image(paste(path_require,"human.png",sep=""),.85,.65,0.15,.17)
-p
-
-resolution=1
-jpeg(paste(path_figure,"p29_snp_cpg_abundant_sv.jpg",sep=""), width = 3600/resolution, height = 2500/resolution,res=350/resolution)
+jpeg(paste(path_figure,"p16_as_fpkm_Hsap.jpg",sep="") , width = 10000/resolution, height = 5000/resolution,res=700/resolution)
 print(p)
 dev.off()
 
 
 
 ############## Supplementary Pannel 5 B
-df = data_5[data_5$filtering == "Homo_sapiens_CpG_rare_sv",]
+data_sp = data_6[data_6$species=="Drosophila_melanogaster" & data_6$intron == "All"  ,]
 
-df$pos=c(2.19,2.78,1.45,3.46,4.16)
-
-
-
-p3  = ggplot(df,aes(x=pos,y=mean_polymorphism,fill=color_group)) + geom_col(width=0.1,col="black") + theme_bw()+
-  geom_errorbar(aes(ymin=error_bar, ymax=error_bar_2),width=00.03,show.legend=FALSE)+ggtitle("Rare SVs (all protein-coding genes)")+ 
-  geom_text(data=df,aes(x=pos-0.07,y=mean_polymorphism+0.004, family="serif",label=paste(round(Nb_introns_minor,3))),angle=90,vjust=0,size=6)+
-  theme(legend.position = "none") + xlim(c(1,5)) +labs(y=expression(paste("SNP density (",italic("per")," bp)")))+
+p2 = ggplot(data_sp,aes(x=median_gene_expression+10^-10,y=average_as,fill=group))  +theme_bw() +
+  geom_errorbar(aes(ymin=average_as-average_as_errorBar, ymax=average_as+average_as_errorBar),size=0.5,width = 0) +
+  geom_point(pch=21,size=5) +   theme_bw()+ scale_fill_manual("Introns set",values=set_color[c(2,1)])+
   theme( 
-    axis.title.x = element_text(color=NA, size=NA,family="serif"),
-    axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=28, family="serif"),
-    axis.text.y =  element_text(color="black", size=22, family="serif"),
-    axis.text.x =  element_text(color=NA, size=NA, family="serif"),
-    title =  element_text(color="black", size=20, family="serif"),
+    axis.title.x = element_text(color="black",margin = margin(t = 20, r = 0, b = 0, l = 0), size=31,family="serif"),
+    axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=31, family="serif"),
+    axis.text.y =  element_text(color="black", size=26, family="serif"),
+    axis.text.x =  element_text(color="black", size=26, family="serif"),
+    title =  element_text(color="black", size=23, family="serif"),
     text =  element_text(color="black", size=31, family="serif"),
-    legend.text =  element_text(color="black", size=26, family="serif"),
-    panel.grid.minor = element_blank(),
-    panel.grid.major.x = element_blank() ,
-    panel.grid.major.y = element_line( size=.1, color="black" ) ,
-  ) +scale_y_continuous(limits=c(0,0.185))
+    legend.text =  element_text(color="black", size=22, family="serif",vjust = 1.5,margin = margin(t = 10)),
+    plot.caption = element_text(hjust = .41, face= "italic", size=23),
+    plot.caption.position =  "plot"
+  ) + xlab("Gene expression level (FPKM, log scale)") + 
+  labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
+  scale_x_log10(
+    breaks=c(0.005,0.01,0.05,0.1,0.5,1,5,10,50,100,500,1000,10000,50000),
+    labels=c(0.005,0.01,0.05,0.1,0.5,1,5,10,50,100,500,1000,10000,50000),
+    limits=c(1,500)
+  ) +ggtitle("Major introns") +  labs(
+    caption = substitute(paste("Pearson correlation:"," R",pgls_eq), list(pgls_eq=lm_eqn(
+      m=cor.test(log10(data_sp[grepl("All protein-coding",data_sp$group),]$median_gene_expression),
+                 data_sp[grepl("All protein-coding",data_sp$group),]$average_as,method="pearson")))))+
+  scale_y_continuous(breaks=seq(0,100,1), labels=paste(seq(0,100,1),"%")) + annotation_logticks(sides="b")
+p2
 
 
-p3
-
-resolution=1
-
-
-p = ggdraw() + draw_plot(p3, 0, 0.25, 1, .7) + draw_image(paste(path_require,"polymorphism_position_CpG.png",sep=""),0.09,-0.31,0.91,1)+ 
-  draw_image(paste(path_require,"human.png",sep=""),.85,.65,0.15,.17)
+p = ggdraw() + draw_plot(p2, 0, 0, 1, 1)+
+  draw_image(paste(path_require,"Drosophila_melanogaster.png",sep=""),.7,.7,.05,.2)
 p
 
-resolution=1
-jpeg(paste(path_figure,"p30_snp_cpg_rare_sv.jpg",sep=""), width = 3600/resolution, height = 2500/resolution,res=350/resolution)
+
+jpeg(paste(path_figure,"p17_as_fpkm_Dmel.jpg",sep="") , width = 10000/resolution, height = 5000/resolution,res=700/resolution)
 print(p)
 dev.off()
 
@@ -87,24 +92,25 @@ dev.off()
 
 ############## Supplementary Figure 5
 
-imgA = load.image(paste(path_figure,"p29_snp_cpg_abundant_sv.jpg",sep=""))
-imgB = load.image(paste(path_figure,"p30_snp_cpg_rare_sv.jpg",sep=""))
+imgA = load.image(paste(path_figure,"p16_as_fpkm_Hsap.jpg",sep=""))
+imgB = load.image(paste(path_figure,"p17_as_fpkm_Dmel.jpg",sep=""))
 
 {
-  pdf(file=paste(path_pannel,"Figure5_supp.pdf",sep=""), width=4, height=6)
+  pdf(file=paste(path_pannel,"Figure5_supp.pdf",sep=""), width=4, height=4.5)
   
   m=matrix(c(1,2), nrow=2)
+  
+  
   m
   layout(m)
   
   par(mar=c(1, 0, 1, 0))
   plot(imgA, axes = F)
-  mtext("A", side=2,at=0,adj=-3, line=1, font=2, cex=1.3,las=2)
+  mtext("A", side=2,at=0,adj=-2, line=1, font=2, cex=1.1,las=2)
   par(mar=c(1, 0, 1, 0))
   plot(imgB, axes = F)
-  mtext("B", side=2,at=0,adj=-3, line=1, font=2, cex=1.3,las=2)
+  mtext("B", side=2,at=0,adj=-2, line=1, font=2, cex=1.1,las=2)
   dev.off()
 }
-
 
 

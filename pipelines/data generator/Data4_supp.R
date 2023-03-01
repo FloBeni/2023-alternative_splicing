@@ -1,20 +1,20 @@
 # Generate Data 4
 
 library(stringr)
-pathData="~/data/Projet-SplicedVariants/"
+pathData = "/home/fbenitiere/data/Projet-SplicedVariants/"
 options(stringsAsFactors = F, scipen = 999)
 
 
 data_4 = data.frame()
 for(species in c("Gallus_gallus","Homo_sapiens","Macaca_mulatta","Monodelphis_domestica","Mus_musculus","Oryctolagus_cuniculus","Rattus_norvegicus")){print(species)
   # species="Gallus_gallus"
-  intron_all = read.delim(paste(pathData,"Analyses/",species,"/by_intron_cds.tab",sep=""), header=T , sep="\t",comment.char = "#")
+  intron_all = read.delim(paste("data/per_species/",species,"_by_intron_analysis.tab.gz",sep=""),  sep="\t",comment.char = "#")
   intron_all$id = paste(intron_all$gene_id,intron_all$splice3,intron_all$splice5,intron_all$seqname,intron_all$strand,sep=";")
   rownames(intron_all) = intron_all$id
   
-  sra_table = read.delim(paste(pathData,"Annotations/",species,"/SRAruninfo.tab",sep=""))
-  listBioproject=read.delim(paste(pathData,"RNAseq_table/",species,"/list_Acc.tab",sep=""))
+  listBioproject = read.delim(paste(pathData,"RNAseq_table/",species,"/list_Acc.tab",sep=""))
   for (Bioproject in unique(listBioproject$BioProjet)){
+    list_rnaseq = paste(listBioproject[listBioproject$BioProjet == Bioproject,]$SRA_accession_ID ,collapse = ";")
     print(Bioproject)
     busco_tab = read.delim(paste(pathData,"Annotations/",species,"/busco_analysis/busco_to_gene_id_metazoa",sep="" ) )
     
@@ -32,7 +32,7 @@ for(species in c("Gallus_gallus","Homo_sapiens","Macaca_mulatta","Monodelphis_do
     by_intron$id = paste(by_intron$gene_id,by_intron$splice3,by_intron$splice5,by_intron$seqname,by_intron$strand,sep=";")
     by_intron$into_cds = intron_all[by_intron$id,]$into_cds
     
-    by_intron = by_intron[by_intron$into_cds =="True",]
+    by_intron = by_intron[by_intron$into_cds == "True",]
     
     # Collecte les données
     data_4 = rbind(data_4,data.frame(
@@ -40,21 +40,24 @@ for(species in c("Gallus_gallus","Homo_sapiens","Macaca_mulatta","Monodelphis_do
       SVR=mean(by_intron$splice_variant_rate)*100,
       Bioproject,
       couverture=CoverageBuscoExon,
-      nbIntron=nrow(by_intron)
+      nbIntron=nrow(by_intron),
+      list_rnaseq
     ))
   }
 }
 
 data_4$organs = sapply(data_4$Bioproject,function(x) str_split(x," ")[[1]][1])
 
-#selection des bioprojets interessants, garde pour les mammifères que le forebrain
+# Selection des bioprojets interessants, garde pour les mammifères que le forebrain
 
 
 tissue_list = c( "_ovar","_head","_test")
-for(species in c("Dendroctonus_ponderosae")){print(species)
-  sra_table = read.delim(paste(pathData,"Annotations/",species,"/SRAruninfo.tab",sep=""))
+for(species in c( "Dendroctonus_ponderosae" )){print(species)
+  sra_table = read.delim(paste( "data/Data10_supp.tab" , sep = "" ),comment.char = "#")
+  sra_table = sra_table[sra_table$species == species ,]
   
-  intron_all = read.delim(paste(pathData,"Analyses/",species,"/by_intron_cds.tab",sep=""), header=T , sep="\t",comment.char = "#")
+  intron_all = read.delim(paste("data/per_species/",species,"_by_intron_analysis.tab.gz",sep=""),  sep="\t")
+  # intron_all = read.delim(paste(pathData,"Analyses/",species,"/by_intron_cds.tab",sep=""), header=T , sep="\t",comment.char = "#")
   intron_all$id = paste(intron_all$gene_id,intron_all$splice3,intron_all$splice5,intron_all$seqname,intron_all$strand,sep=";")
   rownames(intron_all) = intron_all$id
   
@@ -62,8 +65,9 @@ for(species in c("Dendroctonus_ponderosae")){print(species)
   
   for (tissue in tissue_list){print(tissue)
     samples = sra_table[grepl(tissue,sra_table$LibraryName),]$Run
+    list_rnaseq = paste(samples ,collapse = ";")
     print(samples)
-    by_intron = read.delim(paste(pathData,"Analyses/",species,"/by_intron_db.tab.gz",sep=""), header=T , sep="\t",comment.char = "#")
+    by_intron = read.delim(paste(pathData,"Analyses/" , species , "/by_intron_db.tab.gz" , sep=""), header=T , sep="\t",comment.char = "#")
     by_intron = by_intron[colnames(by_intron)[grepl(paste(c("gene_id","seqname","strand","splice5","splice3",samples),collapse = "|"),colnames(by_intron))]]
     by_intron$sum_n1 = rowSums(by_intron[grepl("n1",colnames(by_intron))])
     by_intron$sum_n2 = rowSums(by_intron[grepl("n2",colnames(by_intron))])
@@ -75,7 +79,6 @@ for(species in c("Dendroctonus_ponderosae")){print(species)
     fpkm_cov$sum_exon_coverage = rowSums(fpkm_cov[grepl("exon_coverage_",colnames(fpkm_cov))])
     
     CoverageBuscoExon = round(median(tapply(fpkm_cov$sum_exon_coverage,fpkm_cov$gene_id,mean),na.rm=T)) # detection de la couverture médiane des gènes Busco
-    
     
     busco_tab = busco_tab[!(duplicated(busco_tab$busco_id,fromLast = FALSE) | duplicated(busco_tab$busco_id,fromLast = TRUE)) &
                             !(duplicated(busco_tab$gene_id,fromLast = FALSE) | duplicated(busco_tab$gene_id,fromLast = TRUE)) ,]
@@ -99,7 +102,7 @@ for(species in c("Dendroctonus_ponderosae")){print(species)
     by_intron$id = paste(by_intron$gene_id,by_intron$splice3,by_intron$splice5,by_intron$seqname,by_intron$strand,sep=";")
     by_intron$into_cds = intron_all[by_intron$id,]$into_cds
     
-    by_intron = by_intron[by_intron$into_cds =="True",]
+    by_intron = by_intron[by_intron$into_cds == "True",]
     
     # Collecte les données
     data_4 = rbind(data_4 , data.frame(
@@ -108,7 +111,8 @@ for(species in c("Dendroctonus_ponderosae")){print(species)
       Bioproject = tissue ,
       couverture = CoverageBuscoExon ,
       nbIntron = nrow(by_intron) ,
-      organs = tissue
+      organs = tissue ,
+      list_rnaseq
     ))
   }
 }

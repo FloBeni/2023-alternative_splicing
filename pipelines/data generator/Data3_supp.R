@@ -13,11 +13,10 @@ arbrePhylo = read.tree(paste("data/phylogenetic_tree.nwk",sep=""))
 data_3 = data.frame()
 for (species in arbrePhylo$tip.label){print(species)
   
-  fpkm_cov = read.delim(paste(pathData,"per_species/",species,"by_gene_analysis.tab.gz",sep=""),  sep="\t")
+  fpkm_cov = read.delim(paste(pathData,"per_species/",species,"by_gene_analysis.tab.gz",sep=""),  sep="\t",comment.char = "#")
   fpkm_cov = fpkm_cov[fpkm_cov$type == "gene" & grepl("gene_biotype=protein_coding" , fpkm_cov$attributes),]
   
-  # SPintron_original = read.delim(paste(pathData,"Analyses/",species,"/by_intron_cds.tab",sep=""), header=T , sep="\t",comment.char = "#")
-  SPintron_original = read.delim(paste(pathData,"per_species/",species,"_by_intron_analysis.tab.gz",sep=""),  sep="\t")
+  SPintron_original = read.delim(paste(pathData,"per_species/",species,"_by_intron_analysis.tab.gz",sep=""),  sep="\t",comment.char = "#")
   
   SPintron_original = SPintron_original[SPintron_original$gene_id  %in% fpkm_cov$gene_id ,]
   SPintron_original = SPintron_original[SPintron_original$into_cds == "True",]

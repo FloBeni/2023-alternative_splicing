@@ -3,25 +3,24 @@
 options(stringsAsFactors = F, scipen = 999)
 library(ape)
 
-pathData="/home/XXXXX/data//Projet-SplicedVariants/"
-# pathData="/beegfs/data/XXXXX/Projet-SplicedVariants/"
+pathData = "/home/fbenitiere/data/Projet-SplicedVariants/"
+# pathData = "/beegfs/data/XXXXX/Projet-SplicedVariants/"
 
 
-arbrePhylo = read.tree(paste("data/tree.rooted",sep=""))
+arbrePhylo = read.tree(paste("data/phylogenetic_tree.nwk",sep=""))
 sp_studied = arbrePhylo$tip.label
 
 std <- function(x) sd(x)/sqrt(length(x))
 data_8 = data.frame()
 for (species in sp_studied){
   print(species)
-  fpkm_cov = read.delim(paste(pathData,"Analyses/",species,"/by_gene_analysis.tab",sep="") , header=T , sep="\t",comment.char = "#")
+  fpkm_cov = read.delim(paste("data/per_species/",species,"_by_gene_analysis.tab.gz",sep=""),  sep="\t",comment.char = "#")
   fpkm_cov = fpkm_cov[fpkm_cov$type == "gene" & grepl("gene_biotype=protein_coding" , fpkm_cov$attributes),]
   rownames(fpkm_cov) = fpkm_cov$gene_id
   
-  
-  minor_introns = read.delim(file=paste(pathData,"Analyses/",species,"/by_minor_intron.tab",sep=""))
+  minor_introns = read.delim(paste("data/per_species/",species,"_by_intron_analysis.tab.gz",sep=""),  sep="\t",comment.char = "#")
   minor_introns = minor_introns[minor_introns$intron_class == "minor" & minor_introns$into_cds == "True" & minor_introns$gene_id %in% fpkm_cov$gene_id,]
-  minor_introns = minor_introns[minor_introns$criptic_intron == "False",]
+  minor_introns = minor_introns[minor_introns$criptic_intron == "False" & !is.na(minor_introns$criptic_intron),]
   minor_introns = minor_introns[( minor_introns$distance_from_major < 30 ) ,]
   print(table(minor_introns$which_shared_site))
   
@@ -41,16 +40,16 @@ for (species in sp_studied){
   
   minor_introns = minor_introns[minor_introns$mira > 0.05,]
   
-  xaxis= minor_introns[,"mira"]
-  proportion= 20/100
+  xaxis = minor_introns[,"mira"]
+  proportion = 20/100
   quantile = unique(quantile(xaxis, probs = seq(0, 1,proportion),na.rm=T))
   intervalle = cut(xaxis, quantile,include.lowest = T,include.higher=T)
-  X=tapply(xaxis, intervalle, mean)
-  XerrorBar=tapply(xaxis, intervalle, std)
+  X = tapply(xaxis, intervalle, mean)
+  XerrorBar = tapply(xaxis, intervalle, std)
   
   
   Y = tapply(minor_introns$frame_shift, intervalle, function(x) {
-    return(sum(x=="0")/sum(x!="05") * 100)
+    return(sum(x == "0")/sum(x != "05") * 100)
   })
   
   value = lm(Y ~ X)$coefficients[1] + lm(Y ~ X)$coefficients[2] * 0.1
@@ -58,7 +57,7 @@ for (species in sp_studied){
   
   data_8=rbind(data_8,data.frame(
     species,
-    reg_linear=value,
+    reg_linear = value,
     prop_fp_sv_abundant,
     prop_fp_sv_abundant_busco,
     prop_fp_sv_rare,

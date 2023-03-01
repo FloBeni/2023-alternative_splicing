@@ -3,19 +3,19 @@
 options(stringsAsFactors = F, scipen = 999)
 std <- function(x) sd(x)/sqrt(length(x))
 
-pathData = "/home/XXXXX/data//Projet-SplicedVariants/"
+pathData = "/home/fbenitiere/data/Projet-SplicedVariants/"
 
 n1_n2_treshold = 100
 
 data_6 = data.frame()
 for (species in c("Homo_sapiens","Drosophila_melanogaster")){
-  fpkm_cov = read.delim(paste(pathData,"/Analyses/",species,"/by_gene_analysis.tab",sep="") , header=T , sep="\t",comment.char = "#")
+  fpkm_cov = read.delim(paste("data/per_species/",species,"_by_gene_analysis.tab.gz",sep=""),  sep="\t",comment.char = "#")
   fpkm_cov = fpkm_cov[fpkm_cov$type == "gene" & grepl("gene_biotype=protein_coding" , fpkm_cov$attributes),]
   rownames(fpkm_cov) = fpkm_cov$gene_id
-  all_major = read.delim(paste(pathData,"/Analyses/",species,"/by_intron_major_overlap.tab",sep=""))
+  
+  all_major = read.delim(paste("data/per_species/",species,"_by_intron_analysis.tab.gz",sep=""),  sep="\t",comment.char = "#")
   all_major = all_major[all_major$gene_id %in% fpkm_cov$gene_id,]
   all_major = all_major[all_major$intron_class == "major" & all_major$into_cds == "True",]
-  all_major$fpkm = fpkm_cov[all_major$gene_id,]$weighted_fpkm
   all_major$n1_n2_treshold =  (all_major$n1 +all_major$n2_spl3+all_major$n2_spl5) >= n1_n2_treshold
   all_major = all_major[all_major$n1_n2_treshold,]
   

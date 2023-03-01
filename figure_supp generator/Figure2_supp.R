@@ -2,97 +2,48 @@ source("figure_supp generator/library_path.R")
 
 
 ############## Supplementary Pannel 2 A
-data_3 = read.delim(paste("data/Data3_supp.tab",sep=""),comment.char = "#")
+ylabel="prop_major_sv_busco"
+xlabel="CoverageBuscoExon"
 
-p1 =  ggplot(data_3,aes(x=rate*100,group=species,y=Freq))  + theme_bw() + ylab("Proportion of introns")+ 
-  geom_line(size=0.5,col="grey")+
-  geom_point(pch=21,col="grey",fill="grey",size=.5) + ggtitle("All introns (all protein-coding genes)")+ 
-  geom_line(data=data_3[data_3$species=="Drosophila_melanogaster",],size=.7,col="red") +
-  geom_line(data=data_3[data_3$species=="Homo_sapiens",],size=.7,col="#66281A") +
-  geom_point(data=data_3[data_3$species=="Drosophila_melanogaster",],alpha=0.7,pch=21,size=1,fill="red") +
-  geom_point(data=data_3[data_3$species=="Homo_sapiens",],alpha=0.7,pch=21,size=1,fill="#66281A") + theme_bw()+
-  theme(
-    axis.title.x = element_text(color="black", size=31,family="serif"),
-    axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=31, family="serif"),
+p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel]*100, fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major introns (BUSCO genes)")+ 
+  theme_bw() + ylab("Proportion with N2 > 0")+
+  xlab("Median read coverage on BUSCO genes\n(reads/bp, log scale)" ) +
+  scale_y_continuous(breaks=seq(0,100,20), labels=paste(seq(0,100,20),"%"),limits=c(0,100)) + theme(
+    axis.title.x = element_text(color="black",margin = margin(t = 15, r = 0, b = 0, l = 0), size=31,family="serif"),
+    axis.title.y = element_text(color="black",margin = margin(t = 0, r = 15, b = 0, l = 0), size=31, family="serif"),
     axis.text.y =  element_text(color="black", size=26, family="serif"),
     axis.text.x =  element_text(color="black", size=26, family="serif"),
-    title =  element_text(color="black", size=31, family="serif"),
+    title =  element_text(color="black", size=22 ,family="serif"),
     text =  element_text(color="black", size=31, family="serif"),
-    legend.text =  element_text(color="black", size=26, family="serif")
-  ) + scale_x_continuous(breaks=seq(0,100,25), labels=paste(seq(0,100,25),"%"))+ scale_y_continuous(breaks=seq(0,100,25), labels=paste(seq(0,100,25),"%"),limits=c(0,75)) +
-  labs(x=expression(paste("RAS ",italic("per")," intron")))+
-  annotate("text", x = 75, y = 50, parse = TRUE,size=10, family="serif",
-           label = "RAS==frac(N1, N1+N2)")
+    legend.text =  element_text(color="black", size=26, family="serif",vjust = 1.5,margin = margin(t = 10)),
+    plot.caption = element_text(hjust = 0.4, face= "italic", size=23),
+    plot.caption.position =  "plot"
+  )+
+  labs(
+    caption = substitute(paste("LM model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(lm((data_1[,ylabel])~log10(data_1[,xlabel])))))
+  ) + scale_x_log10() + annotation_logticks(sides="b")
 p1
 
-
-p = ggdraw() + draw_plot(p1, 0, 0, 1, 1)  
-p
-
-jpeg(paste(path_figure,"p5_hist_ras.png",sep=""), width = 6000/resolution, height = 2500/resolution,res=350/resolution)
-print(p)
+jpeg(paste(path_figure,"p18_prop_major_sv_busco_coverage.jpg",sep=""), width = 8200/resolution, height = 5500/resolution,res=700/resolution)
+print(p1)
 dev.off()
 
 
-
-
-
-
-
-############## Supplementary Pannel 2 B
-
-p1 =  ggplot(data_3,aes(x=rate*100,group=species,y=Freq.1))  + theme_bw() + ylab("Proportion of introns")+ 
-  geom_line(size=0.5,col="grey")+
-  geom_point(pch=21,col="grey",fill="grey") +ggtitle("All introns (all protein-coding genes)")+
-  geom_line(data=data_3[data_3$species=="Drosophila_melanogaster",],size=.7,col="red") +
-  geom_line(data=data_3[data_3$species=="Homo_sapiens",],size=.7,col="#66281A") +
-  geom_point(data=data_3[data_3$species=="Drosophila_melanogaster",],alpha=0.7,pch=21,size=1,fill="red") +
-  geom_point(data=data_3[data_3$species=="Homo_sapiens",],alpha=0.7,pch=21,size=1,fill="#66281A") +theme_bw()+
-  theme(
-    axis.title.x = element_text(color="black", size=31,family="serif"),
-    axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=31, family="serif"),
-    axis.text.y =  element_text(color="black", size=26, family="serif"),
-    axis.text.x =  element_text(color="black", size=26, family="serif"),
-    title =  element_text(color="black", size=31, family="serif"),
-    text =  element_text(color="black", size=31, family="serif"),
-    legend.text =  element_text(color="black", size=26, family="serif")
-  ) + scale_x_continuous(breaks=seq(0,100,25), labels=paste(seq(0,100,25),"%"))+ scale_y_continuous(breaks=seq(0,100,25), labels=paste(seq(0,100,25),"%"),limits=c(0,75))+
-  labs(x=expression(paste("RANS ",italic("per")," intron")))+
-  annotate("text", x = 75, y = 50, parse = TRUE,size=10, family="serif",
-           label = "RANS==frac(N1, N1+N3/2)")
-p1
-
-
-p = ggdraw() + draw_plot(p1, 0, 0, 1, 1)  
-p
-
-jpeg(paste(path_figure,"p6_hist_rans.png",sep=""), width = 6000/resolution, height = 2500/resolution,res=350/resolution)
-print(p)
-dev.off()
-
-
-
-
-############## Supplementary Figure 2 
-imgA = load.image(paste(path_figure,"p5_hist_ras.png",sep=""))
-imgB = load.image(paste(path_figure,"p6_hist_rans.png",sep=""))
-
+############## Supplementary Figure 2
+imgA = load.image(paste(path_figure,"p18_prop_major_sv_busco_coverage.jpg",sep=""))
 {
-  pdf(file=paste(path_pannel,"Figure2_supp.pdf",sep=""), width=4, height=4)
+  pdf(file= paste(path_pannel,"Figure2_supp.pdf",sep=""), width=6.75*1/2, height=2.75)
   
-  m=matrix(c(1,2), nrow=2)
-  
+  m=matrix(rep(1,15*2), nrow=2)
   
   m
   layout(m)
   
-  par(mar=c(1, 0, 1, 0))
-  plot(imgA, axes = F)
-  mtext("A", side=2,at=0,adj=-2, line=1, font=2, cex=1.1,las=2)
-  par(mar=c(1, 0, 1, 0))
-  plot(imgB, axes = F)
-  mtext("B", side=2,at=0,adj=-2, line=1, font=2, cex=1.1,las=2)
+  
+  par(mar=c(0, 0.5, 0.5, 0.5))
+  plot(imgA, axes=F)
+  # mtext("A",at=-100,adj=-2, side=2, line=1, font=2, cex=1.2,las=2)
+  
   dev.off()
 }
-
-

@@ -1,7 +1,7 @@
 # Generate Data 5
 
 options(stringsAsFactors = F, scipen = 999)
-pathData="/home/XXXXX/data//Projet-SplicedVariants/"
+pathData="/home/fbenitiere/data/Projet-SplicedVariants/"
 # pathData="/beegfs/data/XXXXX/Projet-SplicedVariants/"
 
 freq=0
