@@ -14,7 +14,7 @@ library(stringr)
 data_1 = read.delim("../data/Data1_supp.tab",comment.char = "#")
 
 data_1 = data_1[data_1$nb_busco > .8 * 978,]
-data_1 = data_1[data_1$CoverageBuscoExon > 197 ,]
+data_1 = data_1[data_1$CoverageBuscoExon >= 197 ,]
 rownames(data_1 ) = str_replace_all(data_1$species,"_"," ")
 data_1 = data_1[,c("clade","longevity","body_size")]
 colnames(data_1) = c("Clade","longevity","body_size")

@@ -6,7 +6,7 @@
   
   data_1 = read.delim("data/Data1_supp.tab",comment.char = "#")
   data_1 = data_1[data_1$nb_busco > .8 * 978,]
-  data_1 = data_1[data_1$CoverageBuscoExon > 197 ,]
+  data_1 = data_1[data_1$CoverageBuscoExon > 196 ,]
   print(paste("To test this hypothesis, we performed a meta-analysis of ",
               sum(data_1$nb_rnaseq)," transcriptome sequencing samples to quantify AS in ",nrow(data_1),
               " metazoan species spanning a wide range of Ne values",sep=""))
@@ -33,7 +33,7 @@
   
   data_1 = read.delim("data/Data1_supp.tab",comment.char = "#")
   data_1 = data_1[data_1$nb_busco > .8*978,]
-  data_1 = data_1[data_1$CoverageBuscoExon > 197 ,]
+  data_1 = data_1[data_1$CoverageBuscoExon > 196 ,]
   
   
   print(paste("Our final dataset thus consisted of ",nrow(data_1)," species (",nrow(data_1[data_1$clade %in% c("Mammalia", "Crocodylia","Aves", "Chondrichthyes" ),]),
@@ -44,8 +44,10 @@
   print(paste(", and of ",sum(data_1$nb_rnaseq)," RNA-seq samples (",
               round(sum(data_1$nb_rnaseq)/nrow(data_1))," per species on average).",sep=""))
   
-  print(paste("among BUSCO genes ranges from ",round(min(data_1$prop_analyzable_busco*100),1),"% to ",round(max(data_1$prop_analyzable_busco*100),1),
-              "% (median=",round(median(data_1$prop_analyzable_busco*100),1),"%;",sep=""))
+  print(paste("among BUSCO genes ranges from ",round(min(data_1$analyzable_intron_busco),1)," to ",
+              round(max(data_1$analyzable_intron_busco),1)," which represents "
+              ,round(min(data_1$analyzable_intron_busco/data_1$annotated_intron_busco*100),1),"% to ",round(max(data_1$analyzable_intron_busco/data_1$annotated_intron_busco*100),1),
+              "% (median=",round(median(data_1$analyzable_intron_busco/data_1$annotated_intron_busco*100),1),"%;",sep=""))
   
   
   ######

@@ -53,22 +53,28 @@ for (species in (sp_studied) ){
   by_intron$Annotation = IntronLibrary[by_intron$id,]$Annotation
   by_intron$splicesite = paste(IntronLibrary[by_intron$id,]$SpliceSignal5,IntronLibrary[by_intron$id,]$SpliceSignal3)
   
-  IntronLibrary = read.delim(paste(pathData,"Annotations/",species,"/formatted_data/IntronCoords.tab",sep=""))
-  IntronLibrary = IntronLibrary %>%
-    mutate(Genes = strsplit(as.character(Genes), ",")) %>%
-    unnest(Genes) %>%
-    filter(Genes != "")
-  IntronLibrary$Splice5 = -100
-  IntronLibrary$Splice3 = -100
-  IntronLibrary[IntronLibrary$Strand == 1,]$Splice5 = IntronLibrary[IntronLibrary$Strand == 1,]$Start
-  IntronLibrary[IntronLibrary$Strand == 1,]$Splice3 = IntronLibrary[IntronLibrary$Strand == 1,]$End
-  IntronLibrary[IntronLibrary$Strand == -1,]$Splice3 = IntronLibrary[IntronLibrary$Strand == -1,]$Start
-  IntronLibrary[IntronLibrary$Strand == -1,]$Splice5 = IntronLibrary[IntronLibrary$Strand == -1,]$End
-  IntronLibrary$id = paste(IntronLibrary$Chr,IntronLibrary$Genes,IntronLibrary$Splice5,IntronLibrary$Splice3,IntronLibrary$Strand,sep=";")
-  IntronLibrary$Annotation = TRUE
-  rownames(IntronLibrary) = IntronLibrary$id
+  annotation_gtf = read.delim(paste("/home/fbenitiere/data/Projet-SplicedVariants/Annotations/",species,"/data_source/annotation.gtf",sep=""),header=F)
+  annotation_gtf$exon_splice3 = -100
+  annotation_gtf[annotation_gtf$V7 == "+",]$exon_splice3 = annotation_gtf[annotation_gtf$V7 == "+",]$V5
+  annotation_gtf[annotation_gtf$V7 == "-",]$exon_splice3 = annotation_gtf[annotation_gtf$V7 == "-",]$V4
+  annotation_gtf$transcrit = sapply( annotation_gtf$V9 , function(x) str_split(x,";")[[1]][1])
+  annotation_gtf$transcrit = str_replace_all(annotation_gtf$transcrit,"transcript_id ","")
+  rownames(annotation_gtf) = paste(annotation_gtf$transcrit,annotation_gtf$V3,annotation_gtf$exon_splice3,sep=":")
   
-  IntronCoord = read.table(paste(pathData,"Temporary_phase_intronCoord/",species,"_IntronCoordsv2.tab",sep=""))
+  IntronCoord = read.delim(paste("/home/fbenitiere/data/Projet-SplicedVariants/Annotations/",species,"/formatted_data/IntronCoords.tab",sep=""))
+  IntronCoord = IntronCoord %>%
+    mutate(Transcripts = strsplit(as.character(Transcripts), ",")) %>%
+    unnest(Transcripts) %>%
+    filter(Transcripts != "")
+  IntronCoord$exon_splice5 = -100
+  IntronCoord[IntronCoord$Strand == 1,]$exon_splice5 = IntronCoord[IntronCoord$Strand == 1,]$Start-1
+  IntronCoord[IntronCoord$Strand == -1,]$exon_splice5 = IntronCoord[IntronCoord$Strand == -1,]$End+1
+  IntronCoord$id = paste(IntronCoord$Transcripts,IntronCoord$exon_splice5,sep=":")
+  IntronCoord$phase = annotation_gtf[IntronCoord$id,]$V8
+  
+  
+  
+  # IntronCoord = read.table(paste(pathData,"Temporary_phase_intronCoord/",species,"_IntronCoordsv2.tab",sep=""))
   df = IntronCoord[grepl(":CDS",IntronCoord$Transcripts),]
   df$Splice5 = NA
   df$Splice3 = NA
@@ -79,8 +85,6 @@ for (species in (sp_studied) ){
   df$id = paste(df$Chr,df$Genes,df$Splice5,df$Splice3,df$Strand,sep=";")
   
   by_intron$phase = tapply(df$phase,df$id,function(x) paste(unique(x),collapse = ","))[by_intron$id]
-  
-  table(grepl(",",by_intron$phase),by_intron$intron_class)
   
   minor_introns = read.delim(file=paste(pathData,"Analyses/",species,"/by_minor_intron.tab",sep=""), header=T , sep="\t",comment.char = "#")
   minor_introns$id = paste(minor_introns$seqname,minor_introns$gene_id,minor_introns$splice5,minor_introns$splice3,minor_introns$strand,sep=";")

@@ -24,10 +24,8 @@ for (species in sp_studied){
   minor_introns = minor_introns[( minor_introns$distance_from_major < 30 ) ,]
   print(table(minor_introns$which_shared_site))
   
-  busco_tab = read.delim(paste(pathData,"Annotations/",species,"/busco_analysis/busco_to_gene_id_metazoa",sep="" ) )
-  busco_tab = busco_tab[!(duplicated(busco_tab$busco_id,fromLast = FALSE) | duplicated(busco_tab$busco_id,fromLast = TRUE)) &
-                          !(duplicated(busco_tab$gene_id,fromLast = FALSE) | duplicated(busco_tab$gene_id,fromLast = TRUE)) ,]
-  intron_busco = minor_introns[minor_introns$gene_id %in% busco_tab$gene_id,]
+  fpkm_cov = fpkm_cov[fpkm_cov$busco_metazoa ,]
+  intron_busco = minor_introns[minor_introns$gene_id %in% fpkm_cov$gene_id,]
   
   prop_fp_sv_abundant = sum(minor_introns$mira > 0.05 & minor_introns$frame_shift == 0) / sum(minor_introns$mira > 0.05)
   prop_fp_sv_rare = sum(minor_introns$mira <= 0.05 & minor_introns$frame_shift == 0) / sum(minor_introns$mira <= 0.05)
@@ -55,7 +53,7 @@ for (species in sp_studied){
   value = lm(Y ~ X)$coefficients[1] + lm(Y ~ X)$coefficients[2] * 0.1
   
   
-  data_8=rbind(data_8,data.frame(
+  data_8 = rbind(data_8,data.frame(
     species,
     reg_linear = value,
     prop_fp_sv_abundant,

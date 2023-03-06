@@ -1,10 +1,3 @@
-#species: Scientific name.
-#prop_fp_sv_abundant: Fraction of frame-preserving spliced variants among abundant variants of protein-coding genes.
-#prop_fp_sv_abundant_busco: Fraction of frame-preserving spliced variants among abundant variants of BUSCO genes.
-#prop_fp_sv_rare: Fraction of frame-preserving spliced variants among rare variants of protein-coding genes.
-#prop_fp_sv_rare_busco: Fraction of frame-preserving spliced variants among rare variants of BUSCO genes.
-#prop_fp_sv_all: Fraction of frame-preserving spliced variants among protein-coding genes.
-#prop_fp_sv_all_busco: Fraction of frame-preserving spliced variants among BUSCO genes.
 species	reg_linear	prop_fp_sv_abundant	prop_fp_sv_abundant_busco	prop_fp_sv_rare	prop_fp_sv_rare_busco	prop_fp_sv_all	prop_fp_sv_all_busco
 Callorhinchus_milii	65.9943461114918	0.740858505564388	0.666666666666667	0.378581907090465	0.336273428886439	0.435023117569353	0.357731958762887
 Gallus_gallus	58.6583103828989	0.678774120317821	0.596153846153846	0.348672566371681	0.354939009806266	0.362499603790928	0.360793465577596

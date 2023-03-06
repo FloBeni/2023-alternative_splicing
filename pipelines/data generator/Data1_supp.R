@@ -37,7 +37,7 @@ read_excel_allsheets <- function(filename, tibble = FALSE) {
 
 
 pathData="/home/fbenitiere/data/Projet-SplicedVariants/"
-pathData="/beegfs/data/fbenitiere/Projet-SplicedVariants/"
+# pathData="/beegfs/data/fbenitiere/Projet-SplicedVariants/"
 
 mysheets <- read_excel_allsheets(paste(pathData,"Fichiers-data/metazoa_69species.xls",sep=""))
 sp_studied = names(mysheets)
@@ -50,7 +50,7 @@ get_CM_dNdS<-function(D) {
   cum_KS=sum(D$num_dS)
   cum_KN=sum(D$num_dN)
   cum_OS=sum(D$den_dS/D$branch_length)
-  cum_ON=sum(D$den_dS/D$branch_length)
+  cum_ON=sum(D$den_dN/D$branch_length)
   # Compute cumulated DN, DS
   cum_dS = cum_KS/cum_OS
   cum_dN = cum_KN/cum_ON
@@ -80,8 +80,8 @@ for (species in sp_studied){
   list_rnaseq = paste(bioproj$SRA_accession_ID ,collapse = ";")
   
   
-  by_intron = read.delim(paste(pathData,"per_species/",species,"_by_intron_analysis.tab.gz",sep=""),  sep="\t",comment.char = "#")
-  fpkm_cov = read.delim(paste(pathData,"per_species/",species,"_by_gene_analysis.tab.gz",sep=""),  sep="\t",comment.char = "#")
+  by_intron = read.delim(paste("data/per_species/",species,"_by_intron_analysis.tab.gz",sep=""),  sep="\t",comment.char = "#")
+  fpkm_cov = read.delim(paste("data/per_species/",species,"_by_gene_analysis.tab.gz",sep=""),  sep="\t",comment.char = "#")
   
   fpkm_cov = fpkm_cov[fpkm_cov$type == "gene" & grepl("gene_biotype=protein_coding" , fpkm_cov$attributes),]
   

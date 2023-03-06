@@ -40,11 +40,8 @@ for (species in c("Homo_sapiens","Drosophila_melanogaster")){
                                      ,species ))
   
   
-  busco_tab = read.delim(paste(pathData,"Annotations/",species,"/busco_analysis/busco_to_gene_id_metazoa",sep="" ) )
-  busco_tab = busco_tab[!(duplicated(busco_tab$busco_id,fromLast = FALSE) | duplicated(busco_tab$busco_id,fromLast = TRUE)) &
-                          !(duplicated(busco_tab$gene_id,fromLast = FALSE) | duplicated(busco_tab$gene_id,fromLast = TRUE)) ,]
-  
-  intron = all_major[all_major$gene_id %in% busco_tab$gene_id,]
+  fpkm_cov = fpkm_cov[fpkm_cov$busco_metazoa ,]
+  intron = all_major[all_major$gene_id %in% fpkm_cov$gene_id,]
   
   xaxis = unlist(intron$fpkm)
   proportion = .1

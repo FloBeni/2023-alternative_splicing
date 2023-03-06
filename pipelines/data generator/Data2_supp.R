@@ -23,7 +23,6 @@ for (species in sp_studied) {# recupere les especes a analyser
   minor_introns = read.delim(paste("data/per_species/",species,"_by_intron_analysis.tab.gz",sep=""),  sep="\t",comment.char = "#")
   minor_introns = minor_introns[minor_introns$intron_class == "minor" & minor_introns$into_cds == "True" & minor_introns$gene_id %in% fpkm_cov$gene_id,]
   
-  # minor_introns = minor_introns[minor_introns$which_shared_site != "both",]
   minor_introns = minor_introns[minor_introns$criptic_intron == "False",]
   minor_introns = minor_introns[minor_introns$distance_from_major < 30 ,]
   
