@@ -25,8 +25,9 @@ mysheets <- read_excel_allsheets(paste(pathData,"Fichiers-data/metazoa_69species
 sp_studied = names(mysheets)
 
 
-species = "Drosophila_melanogaster"
-for (species in sp_studied[1:10] ){
+# species = "Drosophila_melanogaster"
+# for (species in sp_studied[1:10] ){
+for (species in c("Acromyrmex_echinatior","Acyrthosiphon_pisum")){
   print(species)
   ## INTRON
   busco_tab = read.delim(paste(pathData,"Annotations/",species,"/busco_analysis/busco_to_gene_id_metazoa",sep="" ) )
