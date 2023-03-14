@@ -88,7 +88,7 @@ imgC = load.image(paste(path_figure,"p6_hist_rans.jpg",sep=""))
 imgD = load.image(paste(path_require,"mira.png",sep=""))
 
 {
-  pdf(file=paste(path_pannel,"Figure2.pdf",sep=""), width=6.75, height=6)
+  pdf(file=paste(path_pannel,"Figure2.pdf",sep=""), width=6.75, height=6/1.1)
   
   m=matrix(rep(1,10*17), nrow=17)
   
