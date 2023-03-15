@@ -21,7 +21,7 @@ p3 = ggplot(df[df$echantillon == "all introns",],aes(x=sequencing_depth,y=annot_
   ) + 
   scale_y_continuous(breaks=c(0,25,50,75,100),limits= c(0,100), labels = paste(c(0,25,50,75,100),"%",sep="")) +
   scale_x_continuous(limits = c(0,800))+ggtitle("Annotated introns (BUSCO genes)")+
-  ylab(expression(paste("Proportion with ", italic(N[s]), " + ", italic(N[a]), "\u226510"  )))+ 
+  ylab(expression(paste("Proportion with ", N[s], " + ", N[a], "\u226510"  )))+ 
   scale_fill_gradient("Number of\nRNA-seq\nsamples", low = "grey", high = color)
 p3
 
@@ -54,7 +54,7 @@ p4 =ggplot(df[df$echantillon == "all introns",],aes(x=sequencing_depth,y=annot_N
     legend.text =  element_text(color="black", size=26, family="serif")
   )+ scale_x_continuous(breaks=c(0,200,400,600,800,1000,1200))+ 
   scale_y_continuous(breaks=c(0,25,50,75,100),limits= c(0,100), labels = paste(c(0,25,50,75,100),"%",sep=""))+
-  ylab(expression(paste("Proportion with ", italic(N[s]), " + ", italic(N[a]), "\u226510"  )))+ 
+  ylab(expression(paste("Proportion with ", N[s], " + ", N[a], "\u226510"  )))+ 
   scale_fill_gradient("Number of\nRNA-seq\nsamples",
                       low = "grey", high = color)
 p4
