@@ -5,6 +5,7 @@ source("figure/figure_supp generator/library_path.R")
 ############## Supplementary Pannel 4 A
 
 data_5 = read.delim(paste("data/Data5_supp.tab",sep=""),comment.char = "#")
+data_5$color_group = factor(data_5$color_group,levels = c("red","green","blue"))
 
 df = data_5[data_5$filtering == "Homo_sapiens_CpG_abundant_sv",]
 
