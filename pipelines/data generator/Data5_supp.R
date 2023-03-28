@@ -197,7 +197,7 @@ polymorphisme = polymorphisme[polymorphisme$mira > 0.05 ,]
   
   
   df = polymorphisme_data[c(2,4,5,6,7,9,11,12,13,14),]
-  df$color_group = c("green","blue","blue","red","red","green","blue","blue","red","red")
+  df$color_group = c("green","red","red","blue","blue","green","red","red","blue","blue")
 }
 
 df$filtering = paste(species,"abundant_sv",sep="_")
@@ -480,7 +480,7 @@ species = "Homo_sapiens"
   
   
   df = polymorphisme_data[c(2,4,5,6,7,9,11,12,13,14),]
-  df$color_group = c("green","blue","blue","red","red","green","blue","blue","red","red")
+  df$color_group = c("green","red","red","blue","blue","green","red","red","blue","blue")
 }
 
 df$filtering = paste(species,"abundant_sv",sep="_")
@@ -684,7 +684,7 @@ polymorphisme = polymorphisme[polymorphisme$mira <= 0.05 ,]
   
   
   df = polymorphisme_data[c(2,4,5,6,7,9,11,12,13,14),]
-  df$color_group = c("green","blue","blue","red","red","green","blue","blue","red","red")
+  df$color_group = c("green","red","red","blue","blue","green","red","red","blue","blue")
 }
 df$filtering = paste(species,"rare_sv",sep="_")
 data_5 = rbind(data_5,df)
@@ -964,7 +964,7 @@ species = "Homo_sapiens"
   polymorphisme_data$proportion = polymorphisme_data$prop_intron_5svr / polymorphisme_data$Nb_introns_minor *100
   
   df = polymorphisme_data[c(2,4,5,6,7,9,11,12,13,14),]
-  df$color_group = c("green","blue","blue","red","red","green","blue","blue","red","red")
+  df$color_group = c("green","red","red","blue","blue","green","red","red","blue","blue")
   
   
 }
@@ -1244,7 +1244,7 @@ species = "Homo_sapiens"
   polymorphisme_data$proportion = polymorphisme_data$prop_intron_5svr / polymorphisme_data$Nb_introns_minor *100
   
   df = polymorphisme_data[c(16,18,19,20,21),]
-  df$color_group = c("green","blue","blue","red","red")
+  df$color_group = c("green","red","red","blue","blue")
 }
 
 df$filtering = paste(species,"CpG_abundant_sv",sep="_")
@@ -1520,7 +1520,7 @@ species = "Homo_sapiens"
   polymorphisme_data$proportion = polymorphisme_data$prop_intron_5svr / polymorphisme_data$Nb_introns_minor *100
   
   df = polymorphisme_data[c(16,18,19,20,21),]
-  df$color_group = c("green","blue","blue","red","red")
+  df$color_group = c("green","red","red","blue","blue")
 }
 
 df$filtering = paste(species,"CpG_rare_sv",sep="_")

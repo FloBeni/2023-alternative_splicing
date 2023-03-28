@@ -93,7 +93,7 @@ p4 = ggplot(data_8, aes(x=longevity,y=ratio,fill=clade))  + theme_bw() +
 
 p4
 
-jpeg(paste(path_figure,"md3_10_percent.jpg",sep=""), width = 8300/resolution, height = 5300/resolution,res=700/resolution)
+jpeg(paste(path_figure,"md3_10_percent.jpg",sep=""), width = 7900/resolution, height = 5300/resolution,res=700/resolution)
 print(p4)
 dev.off()
 

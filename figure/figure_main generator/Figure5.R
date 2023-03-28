@@ -3,8 +3,9 @@ source("figure/figure_main generator/library_path.R")
 
 ############## Pannel 5 A
 data_5 = read.delim(paste("data/Data5_supp.tab",sep=""),comment.char = "#")
-df = data_5[data_5$filtering == "Drosophila_melanogaster_abundant_sv",]
+data_5$color_group = factor(data_5$color_group,levels = c("red","green","blue"))
 
+df = data_5[data_5$filtering == "Drosophila_melanogaster_abundant_sv",]
 {
   df$pos=c(3.73,3.13,4.48,2.46,1.75
            ,2.19,2.78,1.45,3.46,4.16)

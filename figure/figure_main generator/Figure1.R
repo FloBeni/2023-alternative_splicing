@@ -28,7 +28,7 @@ p1=ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species)
   )+ annotation_logticks()
 p1
 
-jpeg(paste(path_figure,"history_traits_cor.jpg",sep=""), width = 8500/resolution, height = 6000/resolution,res=700/resolution)
+jpeg(paste(path_figure,"history_traits_cor.jpg",sep=""), width = 9000/resolution, height = 6000/resolution,res=700/resolution)
 print(p1)
 dev.off()
 

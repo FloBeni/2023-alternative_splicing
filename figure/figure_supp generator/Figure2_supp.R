@@ -7,7 +7,7 @@ xlabel="CoverageBuscoExon"
 
 p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel]*100, fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major introns (BUSCO genes)")+ 
-  theme_bw() + ylab(expression(paste("Proportion with ", italic(N[a]), " > 0")))+
+  theme_bw() + ylab(expression(paste("Proportion with ", N[a], " > 0")))+
   xlab("Median read coverage on BUSCO genes\n(reads/bp, log scale)" ) +
   scale_y_continuous(breaks=seq(0,100,20), labels=paste(seq(0,100,20),"%"),limits=c(0,100)) + theme(
     axis.title.x = element_text(color="black",margin = margin(t = 15, r = 0, b = 0, l = 0), size=31,family="serif"),
@@ -33,7 +33,7 @@ dev.off()
 ############## Supplementary Figure 2
 imgA = load.image(paste(path_figure,"p18_prop_major_sv_busco_coverage.jpg",sep=""))
 {
-  pdf(file= paste(path_pannel,"Figure2_supp.pdf",sep=""), width=7.75*1/2, height=2.75)
+  pdf(file= paste(path_pannel,"Figure2_supp.pdf",sep=""), width=7.75*1/1, height=2.75)
   
   m=matrix(rep(1,15*2), nrow=2)
   
@@ -43,7 +43,7 @@ imgA = load.image(paste(path_figure,"p18_prop_major_sv_busco_coverage.jpg",sep="
   
   par(mar=c(0, 0.5, 0.5, 0.5))
   plot(imgA, axes=F)
-  # mtext("A",at=-100,adj=-2, side=2, line=1, font=2, cex=1.2,las=2)
+  mtext("A",at=20,adj=-12, side=2, line=1, font=2, cex=1.2,las=2)
   
   dev.off()
 }

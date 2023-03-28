@@ -26,9 +26,6 @@ p1
 p = ggdraw() + draw_plot(p1, 0, 0, 1, 1)  
 p
 
-jpeg(paste(path_figure,"p5_hist_ras.jpg",sep=""), width = 3000/resolution, height = 2500/resolution,res=250/resolution)
-print(p)
-dev.off()
 
 
 {
@@ -36,7 +33,7 @@ dev.off()
     draw_image(paste(path_require,"Drosophila_melanogaster_red.png",sep=""),.26,.775,.19,.065)+
     draw_image(paste(path_require,"human_brown.png",sep=""),.245,.73,.08,.17) 
   p
-  jpeg(paste(path_figure,"p5_hist_ras.jpg",sep=""), width = 3000/resolution, height = 2500/resolution,res=250/resolution)
+  jpeg(paste(path_figure,"p5_hist_ras.jpg",sep=""), width = 4000/resolution, height = 2500/resolution,res=250/resolution)
   print(p)
   dev.off()
 }
@@ -66,16 +63,13 @@ p1
 p = ggdraw() + draw_plot(p1, 0, 0, 1, 1)  
 p
 
-jpeg(paste(path_figure,"p6_hist_rans.jpg",sep=""), width = 3000/resolution, height = 2500/resolution,res=250/resolution)
-print(p)
-dev.off()
 
 {
   p = ggdraw()+ draw_plot(p,0,0,1,1)  + 
     draw_image(paste(path_require,"Drosophila_melanogaster_red.png",sep=""),.26,.775,.19,.065)+
     draw_image(paste(path_require,"human_brown.png",sep=""),.245,.73,.08,.17) 
   p
-  jpeg(paste(path_figure,"p6_hist_rans.jpg",sep=""), width = 3000/resolution, height = 2500/resolution,res=250/resolution)
+  jpeg(paste(path_figure,"p6_hist_rans.jpg",sep=""), width = 4000/resolution, height = 2500/resolution,res=250/resolution)
   print(p)
   dev.off()
 }
@@ -88,7 +82,7 @@ imgC = load.image(paste(path_figure,"p6_hist_rans.jpg",sep=""))
 imgD = load.image(paste(path_require,"mira.png",sep=""))
 
 {
-  pdf(file=paste(path_pannel,"Figure2.pdf",sep=""), width=6.75, height=6)
+  pdf(file=paste(path_pannel,"Figure2.pdf",sep=""), width=6.75, height=6/1.1)
   
   m=matrix(rep(1,10*17), nrow=17)
   
@@ -105,12 +99,12 @@ imgD = load.image(paste(path_require,"mira.png",sep=""))
   par(mar=c(0, 0, 1, 0))
   plot(imgA, axes = F)
   mtext("A", side=2,at=10,adj=-5, line=1, font=2, cex=1.2,las=2)
-  par(mar=c(0, 3, 1, 1))
+  par(mar=c(0, 0, 1, 0))
   plot(imgB, axes = F)
-  mtext("B",at=50,adj=-1, side=2, line=1, font=2, cex=1.2,las=2)
+  mtext("B",side=2,at=30,adj=-1.5,  line=1, font=2, cex=1.2,las=2)
   par(mar=c(0, 0, 1, 0))
   plot(imgC, axes = F)
-  mtext("C", side=2,at=60,adj=-3, line=1, font=2, cex=1.2,las=2)
+  mtext("C", side=2,at=40,adj=-1.5, line=1, font=2, cex=1.2,las=2)
   par(mar=c(0, 0, 1, 0))
   plot(imgD, axes = F)
   mtext("D", side=2,at=10,adj=-5, line=1, font=2, cex=1.2,las=2)
