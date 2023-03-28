@@ -44,8 +44,13 @@ kbl(data_1, format="latex" , booktabs = T, escape = F, align = "c",
   footnote(
            alphabet = c("Median \\\\textit{per}-base read coverage computed on BUSCO gene exons",
 <<<<<<< HEAD
+<<<<<<< HEAD
                         "Number of analyzable introns (\\\\textit{i.e.} with $\\\\mathrm{N_s+N_a}\\\\geq$ 10) among BUSCO genes",
                         "Proportion of major introns for which alternative splicing has been detected (\\\\textit{i.e.} with $\\\\mathrm{N_a}\\>$ 0) among BUSCO genes",
+=======
+                        "Number of analyzable introns (\\\\textit{i.e.} with $\\\\mathrm{N_s+N_a\\\\geq}$ 10) among BUSCO genes",
+                        "Proportion of major introns for which alternative splicing has been detected (\\\\textit{i.e.} with $\\\\mathrm{N^m\\>}$ 0) among BUSCO genes",
+>>>>>>> 55af559ec5e28a120e1e60b825b5f1f7e5cfee16
 =======
                         "Number of analyzable introns (\\\\textit{i.e.} with $\\\\mathrm{N_s+N_a\\\\geq}$ 10) among BUSCO genes",
                         "Proportion of major introns for which alternative splicing has been detected (\\\\textit{i.e.} with $\\\\mathrm{N^m\\>}$ 0) among BUSCO genes",
