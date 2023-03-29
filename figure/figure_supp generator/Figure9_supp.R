@@ -75,7 +75,7 @@ imgA = load.image(paste(path_figure,"p1_C_Moreira_svr.jpg",sep=""))
   
   par(mar=c(0, 0.5, 0.5, 0.5))
   plot(imgA, axes=F)
-  mtext("A",at=-0,adj=-1, side=2, line=1, font=2, cex=1.2,las=2)
+  # mtext("A",at=-0,adj=-1, side=2, line=1, font=2, cex=1.2,las=2)
   
   dev.off()
 }

@@ -9,10 +9,15 @@ lm_eqn <- function(m=cor.test(X, Y,method="pearson")){
 
 data_6 = read.delim(paste("data/Data6_supp.tab",sep=""),comment.char = "#")
 data_6$group = str_replace(data_6$group,"enter","\n")
+data_6$group = sapply(data_6$group,function(x){
+  split = str_split(x,"\n")[[1]]
+  paste(split[1]," genes\n",split[2]," introns",sep="")
+} )
 
 
 ############## Supplementary Pannel 5 A
 data_sp = data_6[data_6$species=="Homo_sapiens" & data_6$intron == "All"  ,]
+
 
 p1 = ggplot(data_sp,aes(x=median_gene_expression+10^-10,y=average_as,fill=group))  +
   geom_errorbar(aes(ymin=average_as-average_as_errorBar, ymax=average_as+average_as_errorBar),size=0.5,width = 0) +

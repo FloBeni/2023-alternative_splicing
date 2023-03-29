@@ -5,6 +5,10 @@ source("figure/figure_supp generator/library_path.R")
 ############## Supplementary Pannel 4 A
 
 data_5 = read.delim(paste("data/Data5_supp.tab",sep=""),comment.char = "#")
+data_5[!is.na(data_5$pvalue_vs_control) & data_5$pvalue_vs_control < 0.05,"significance"] = "*"
+data_5[!is.na(data_5$pvalue_vs_control) & data_5$pvalue_vs_control < 0.005,"significance"] = "**"
+data_5[!is.na(data_5$pvalue_vs_control) & data_5$pvalue_vs_control < 0.0005,"significance"] = "***"
+
 data_5$color_group = factor(data_5$color_group,levels = c("red","green","blue"))
 
 df = data_5[data_5$filtering == "Homo_sapiens_CpG_abundant_sv",]
@@ -14,6 +18,7 @@ df$pos=c(2.19,2.78,1.45,3.46,4.16)
 p3  = ggplot(df,aes(x=pos,y=mean_polymorphism,fill=color_group)) + geom_col(width=0.1,col="black") + theme_bw()+
   geom_errorbar(aes(ymin=error_bar, ymax=error_bar_2),width=00.03,show.legend=FALSE)+ggtitle("Abundant SVs (all protein-coding genes)")+ 
   geom_text(data=df,aes(x=pos-0.07,y=mean_polymorphism+0.004, family="serif",label=paste(round(Nb_introns_minor,3))),angle=90,vjust=0,size=6)+
+  # geom_text(data=df,aes(x=pos+0.07,y=mean_polymorphism+0.004, family="serif",label=significance),angle=90,vjust=0,size=6)+
   theme(legend.position = "none") + xlim(c(1,5))  +labs(y=expression(paste("SNP density (",italic("per")," bp)")))+
   theme( 
     axis.title.x = element_text(color=NA, size=NA,family="serif"),
@@ -55,6 +60,7 @@ df$pos=c(2.19,2.78,1.45,3.46,4.16)
 p3  = ggplot(df,aes(x=pos,y=mean_polymorphism,fill=color_group)) + geom_col(width=0.1,col="black") + theme_bw()+
   geom_errorbar(aes(ymin=error_bar, ymax=error_bar_2),width=00.03,show.legend=FALSE)+ggtitle("Rare SVs (all protein-coding genes)")+ 
   geom_text(data=df,aes(x=pos-0.07,y=mean_polymorphism+0.004, family="serif",label=paste(round(Nb_introns_minor,3))),angle=90,vjust=0,size=6)+
+  # geom_text(data=df,aes(x=pos+0.07,y=mean_polymorphism+0.004, family="serif",label=significance),angle=90,vjust=0,size=6)+
   theme(legend.position = "none") + xlim(c(1,5)) +labs(y=expression(paste("SNP density (",italic("per")," bp)")))+
   theme( 
     axis.title.x = element_text(color=NA, size=NA,family="serif"),

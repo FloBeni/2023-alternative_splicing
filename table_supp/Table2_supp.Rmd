@@ -33,7 +33,6 @@ kbl(data_1, format="latex",booktabs = T, escape = F, align = "c",
   pack_rows("Vertebrates", 1, 15) %>%
   pack_rows("Insects", 16, 53) %>%
   footnote(
-    symbol = c("The sources from which the lifespan and the body length information was taken are listed in data/Data9 supp.pdf in the GitHub repository (see Data and code availability).")
+    symbol = c("The sources from which the lifespan and the body length information was taken are listed in Data9supp.pdf in the Zenodo data repository (see Data and code availability).")
     ,  escape=F, threeparttable=T)
-
 ```

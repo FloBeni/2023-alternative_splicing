@@ -13,6 +13,8 @@ df = data_5[data_5$filtering == "Drosophila_melanogaster_abundant_sv",]
   p1  = ggplot(df,aes(x=pos,y=mean_polymorphism,fill=color_group)) + geom_col(width=0.1,col="black") + theme_bw()+
     geom_errorbar(aes(ymin=error_bar, ymax=error_bar_2),width=0.03,show.legend=FALSE)+ggtitle("Abundant SVs (all protein-coding genes)")+ 
     geom_text(data=df,aes(x=pos-0.07,y=mean_polymorphism+0.004, family="serif",label=paste(round(Nb_introns_minor,3))),angle=90,vjust=0,size=6)+
+    # geom_text(data=df,aes(x=pos+0.07,y=mean_polymorphism+0.004, family="serif",label=paste(round(percent_difference_vs_control,0))),angle=90,vjust=0,size=6)+
+    # geom_text(data=df,aes(x=pos+0.07,y=mean_polymorphism+0.004, family="serif",label=significance),angle=90,vjust=0,size=6)+
     theme(legend.position = "none") + xlim(c(1,5))  + ylab("SNP density (per bp)") +labs(y=expression(paste("SNP density (",italic("per")," bp)")))+
     theme( 
       axis.title.x = element_text(color=NA, size=NA,family="serif"),
@@ -42,6 +44,8 @@ df = data_5[data_5$filtering == "Homo_sapiens_abundant_sv",]
   p2  = ggplot(df,aes(x=pos,y=mean_polymorphism,fill=color_group)) + geom_col(width=0.1,col="black") + theme_bw()+
     geom_errorbar(aes(ymin=error_bar, ymax=error_bar_2),width=00.03,show.legend=FALSE)+ggtitle("  ")+
     geom_text(data=df,aes(x=pos-0.08,y=mean_polymorphism-0.002, family="serif",label=paste(round(Nb_introns_minor,3))),angle=90,vjust=0,size=6)+
+    # geom_text(data=df,aes(x=pos+0.07,y=mean_polymorphism+0.004, family="serif",label=paste(round(percent_difference_vs_control,0))),angle=90,vjust=0,size=6)+
+    # geom_text(data=df,aes(x=pos+0.07,y=mean_polymorphism+0.004, family="serif",label=significance),angle=90,vjust=0,size=6)+
     theme(legend.position = "none") + xlim(c(1,5))  + ylab("SNP density (per bp)") +labs(y=expression(paste("SNP density (",italic("per")," bp)")))+
     theme( 
       axis.title.x = element_text(color=NA, size=NA,family="serif"),
@@ -86,6 +90,8 @@ df = data_5[data_5$filtering == "Drosophila_melanogaster_rare_sv",]
   p1  = ggplot(df,aes(x=pos,y=mean_polymorphism,fill=color_group)) + geom_col(width=0.1,col="black") + theme_bw()+
     geom_errorbar(aes(ymin=error_bar, ymax=error_bar_2),width=0.03,show.legend=FALSE)+ggtitle("Rare SVs (all protein-coding genes)")+ 
     geom_text(data=df,aes(x=pos-0.07,y=mean_polymorphism+0.004, family="serif",label=paste(round(Nb_introns_minor,3))),angle=90,vjust=0,size=6)+
+    # geom_text(data=df,aes(x=pos+0.07,y=mean_polymorphism+0.004, family="serif",label=paste(round(percent_difference_vs_control,0))),angle=90,vjust=0,size=6)+
+    # geom_text(data=df,aes(x=pos+0.07,y=mean_polymorphism+0.004, family="serif",label=significance),angle=90,vjust=0,size=6)+
     theme(legend.position = "none") + xlim(c(1,5))  + ylab("SNP density (per bp)") +labs(y=expression(paste("SNP density (",italic("per")," bp)")))+
     theme( 
       axis.title.x = element_text(color=NA, size=NA,family="serif"),
@@ -121,6 +127,8 @@ df = data_5[data_5$filtering == "Homo_sapiens_rare_sv",]
   p2  = ggplot(df,aes(x=pos,y=mean_polymorphism,fill=color_group)) + geom_col(width=0.1,col="black") + theme_bw()+
     geom_errorbar(aes(ymin=error_bar, ymax=error_bar_2),width=00.03,show.legend=FALSE)+ggtitle(" ")+ 
     geom_text(data=df,aes(x=pos-0.08,y=mean_polymorphism-0.002, family="serif",label=paste(round(Nb_introns_minor,3))),angle=90,vjust=0,size=6)+
+    # geom_text(data=df,aes(x=pos+0.07,y=mean_polymorphism+0.004, family="serif",label=paste(round(percent_difference_vs_control,0))),angle=90,vjust=0,size=6)+
+    # geom_text(data=df,aes(x=pos+0.07,y=mean_polymorphism+0.004, family="serif",label=significance),angle=90,vjust=0,size=6)+
     theme(legend.position = "none") + xlim(c(1,5))  + ylab("SNP density (per bp)") +labs(y=expression(paste("SNP density (",italic("per")," bp)")))+
     theme( 
       axis.title.x = element_text(color=NA, size=NA,family="serif"),

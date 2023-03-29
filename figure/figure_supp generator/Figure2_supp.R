@@ -43,7 +43,7 @@ imgA = load.image(paste(path_figure,"p18_prop_major_sv_busco_coverage.jpg",sep="
   
   par(mar=c(0, 0.5, 0.5, 0.5))
   plot(imgA, axes=F)
-  mtext("A",at=20,adj=-12, side=2, line=1, font=2, cex=1.2,las=2)
+  # mtext("A",at=20,adj=-12, side=2, line=1, font=2, cex=1.2,las=2)
   
   dev.off()
 }

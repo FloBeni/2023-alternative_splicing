@@ -116,102 +116,23 @@
   
   #########
   print("Investigating selective pressures on minor splice sites")
-  print(paste("located within the major intron show a weak but significant SNP deficit relative to corresponding control sites (p < ), ",sep=""))
-  
-  #######################################################################################
-  data_5 = read.delim(paste("data/Data5_supp.tab",sep=""),comment.char = "#")
-  data_5$color_group = factor(data_5$color_group,levels = c("red","green","blue"))
-  data_5$occurences = data_5$mean_polymorphism * 2 * data_5$Nb_introns_minor
-  data_5$length = 2 * data_5$Nb_introns_minor
-  data_5 = data_5[order(data_5$group),]
-  data_5 = data_5[data_5$filtering == "Homo_sapiens_abundant_sv",]
-  
-  dt = data_5[data_5$group %in% c("AG control 20-60bp into major intron 5' side", "AG unshared minor splice site into major intron"),]
-  prop.test(x = dt$occurences[1], n = dt$length[1], p = dt$occurences[2]/dt$length[2], alternative = "greater")
-  
-  
-  dt = data_5[data_5$group %in% c("AG control 20-60bp into major exon 5' side", "AG unshared minor splice site into major exon"),]
-  prop.test(x = dt$occurences[1], n = dt$length[1], p = dt$occurences[2]/dt$length[2], alternative = "greater")
-  
-  dt = data_5[data_5$group %in% c("GT no CpG control 20-60bp into major intron 3' side", "GT no CpG unshared minor splice site into major intron"),]
-  prop.test(x = dt$occurences[1], n = dt$length[1], p = dt$occurences[2]/dt$length[2], alternative = "greater")
-  
-  
-  dt = data_5[data_5$group %in% c("GT no CpG control 20-60bp into major exon 3' side", "GT no CpG unshared minor splice site into major exon"),]
-  prop.test(x = dt$occurences[1], n = dt$length[1], p = dt$occurences[2]/dt$length[2], alternative = "greater")
-  
-  #######"
   
   data_5 = read.delim(paste("data/Data5_supp.tab",sep=""),comment.char = "#")
   data_5$color_group = factor(data_5$color_group,levels = c("red","green","blue"))
   data_5$occurences = data_5$mean_polymorphism * 2 * data_5$Nb_introns_minor
   data_5$length = 2 * data_5$Nb_introns_minor
   data_5 = data_5[order(data_5$group),]
-  data_5 = data_5[data_5$filtering == "Homo_sapiens_rare_sv",]
+  dt = data_5[data_5$filtering == "Drosophila_melanogaster_abundant_sv",]
   
-  dt = data_5[data_5$group %in% c("AG control 20-60bp into major intron 5' side", "AG unshared minor splice site into major intron"),]
-  prop.test(x = dt$occurences[1], n = dt$length[1], p = dt$occurences[2]/dt$length[2], alternative = "greater")
+  print(paste("the SNP density at minor splice signals of abundant SVs is much lower than in corresponding controls (from ",round(max(dt$percent_difference_vs_control,na.rm = T),0),
+        "% to ",round(min(dt$percent_difference_vs_control,na.rm = T),0),"%,",sep=""))
   
+  print(paste("and than in minor splice signals of rare SVs (from ",round(max(dt[!is.na(dt$pvalue_vs_control),]$difference_vs_rare,na.rm = T),0),
+        "% to ",round(min(dt[!is.na(dt$pvalue_vs_control),]$difference_vs_rare,na.rm = T),0),"%,",sep=""))
   
-  dt = data_5[data_5$group %in% c("AG control 20-60bp into major exon 5' side", "AG unshared minor splice site into major exon"),]
-  prop.test(x = dt$occurences[1], n = dt$length[1], p = dt$occurences[2]/dt$length[2], alternative = "greater")
-  
-  dt = data_5[data_5$group %in% c("GT no CpG control 20-60bp into major intron 3' side", "GT no CpG unshared minor splice site into major intron"),]
-  prop.test(x = dt$occurences[1], n = dt$length[1], p = dt$occurences[2]/dt$length[2], alternative = "greater")
-  
-  
-  dt = data_5[data_5$group %in% c("GT no CpG control 20-60bp into major exon 3' side", "GT no CpG unshared minor splice site into major exon"),]
-  prop.test(x = dt$occurences[1], n = dt$length[1], p = dt$occurences[2]/dt$length[2], alternative = "greater")
-  
-  
-  
-  #######"
-  
-  data_5 = read.delim(paste("data/Data5_supp.tab",sep=""),comment.char = "#")
-  data_5$color_group = factor(data_5$color_group,levels = c("red","green","blue"))
-  data_5$occurences = data_5$mean_polymorphism * 2 * data_5$Nb_introns_minor
-  data_5$length = 2 * data_5$Nb_introns_minor
-  data_5 = data_5[order(data_5$group),]
-  data_5 = data_5[data_5$filtering == "Drosophila_melanogaster_abundant_sv",]
-  
-  dt = data_5[data_5$group %in% c("AG control 20-60bp into major intron 5' side", "AG unshared minor splice site into major intron"),]
-  prop.test(x = dt$occurences[1], n = dt$length[1], p = dt$occurences[2]/dt$length[2], alternative = "greater")
-  
-  
-  dt = data_5[data_5$group %in% c("AG control 20-60bp into major exon 5' side", "AG unshared minor splice site into major exon"),]
-  prop.test(x = dt$occurences[1], n = dt$length[1], p = dt$occurences[2]/dt$length[2], alternative = "greater")
-  
-  dt = data_5[data_5$group %in% c("GT control 20-60bp into major intron 3' side", "GT unshared minor splice site into major intron"),]
-  prop.test(x = dt$occurences[1], n = dt$length[1], p = dt$occurences[2]/dt$length[2], alternative = "greater")
-  
-  
-  dt = data_5[data_5$group %in% c("GT control 20-60bp into major exon 3' side", "GT unshared minor splice site into major exon"),]
-  prop.test(x = dt$occurences[1], n = dt$length[1], p = dt$occurences[2]/dt$length[2], alternative = "greater")
-  
-  #######"
-  
-  data_5 = read.delim(paste("data/Data5_supp.tab",sep=""),comment.char = "#")
-  data_5$color_group = factor(data_5$color_group,levels = c("red","green","blue"))
-  data_5$occurences = data_5$mean_polymorphism * 2 * data_5$Nb_introns_minor
-  data_5$length = 2 * data_5$Nb_introns_minor
-  data_5 = data_5[order(data_5$group),]
-  data_5 = data_5[data_5$filtering == "Drosophila_melanogaster_rare_sv",]
-  
-  dt = data_5[data_5$group %in% c("AG control 20-60bp into major intron 5' side", "AG unshared minor splice site into major intron"),]
-  prop.test(x = dt$occurences[1], n = dt$length[1], p = dt$occurences[2]/dt$length[2], alternative = "greater")
-  
-  
-  dt = data_5[data_5$group %in% c("AG control 20-60bp into major exon 5' side", "AG unshared minor splice site into major exon"),]
-  prop.test(x = dt$occurences[1], n = dt$length[1], p = dt$occurences[2]/dt$length[2], alternative = "greater")
-  
-  dt = data_5[data_5$group %in% c("GT control 20-60bp into major intron 3' side", "GT unshared minor splice site into major intron"),]
-  prop.test(x = dt$occurences[1], n = dt$length[1], p = dt$occurences[2]/dt$length[2], alternative = "greater")
-  
-  
-  dt = data_5[data_5$group %in% c("GT control 20-60bp into major exon 3' side", "GT unshared minor splice site into major exon"),]
-  prop.test(x = dt$occurences[1], n = dt$length[1], p = dt$occurences[2]/dt$length[2], alternative = "greater")
-  
-  #######################################################################################
+  dt = data_5[grepl("Homo_sapiens",data_5$filtering) & grepl("AG unshared minor splice site into major intron",data_5$group),]
+  print(paste("(AG) located within the major intron show a weak but significant SNP deficit relative to corresponding control sites (p-value < ",
+        formatC(max(dt$pvalue_vs_control,na.rm = T), format = "e", digits = 1), ")",sep=""))
   
   #########
   print("The splicing rate of rare SVs is negatively correlated with gene expression levels")
