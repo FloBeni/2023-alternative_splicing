@@ -15,7 +15,7 @@ df = data_5[data_5$filtering == "Homo_sapiens_CpG_abundant_sv",]
 
 df$pos=c(2.19,2.78,1.45,3.46,4.16)
 
-p3  = ggplot(df,aes(x=pos,y=mean_polymorphism,fill=color_group)) + geom_col(width=0.1,col="black") + theme_bw()+
+p4A  = ggplot(df,aes(x=pos,y=mean_polymorphism,fill=color_group)) + geom_col(width=0.1,col="black") + theme_bw()+
   geom_errorbar(aes(ymin=error_bar, ymax=error_bar_2),width=00.03,show.legend=FALSE)+ggtitle("Abundant SVs (all protein-coding genes)")+ 
   geom_text(data=df,aes(x=pos-0.07,y=mean_polymorphism+0.004, family="serif",label=paste(round(Nb_introns_minor,3))),angle=90,vjust=0,size=6)+
   # geom_text(data=df,aes(x=pos+0.07,y=mean_polymorphism+0.004, family="serif",label=significance),angle=90,vjust=0,size=6)+
@@ -34,18 +34,18 @@ p3  = ggplot(df,aes(x=pos,y=mean_polymorphism,fill=color_group)) + geom_col(widt
   ) +scale_y_continuous(limits=c(0,0.185))
 
 
-p3
+p4A
 
 resolution=1
 
 
-p = ggdraw() + draw_plot(p3, 0, 0.25, 1, .7) + draw_image(paste(path_require,"polymorphism_position_CpG.png",sep=""),0.09,-0.31,0.91,1)+ 
+p4A = ggdraw() + draw_plot(p4A, 0, 0.25, 1, .7) + draw_image(paste(path_require,"polymorphism_position_CpG.png",sep=""),0.09,-0.31,0.91,1)+ 
   draw_image(paste(path_require,"human.png",sep=""),.85,.65,0.15,.17)
-p
+p4A
 
 resolution=1
-jpeg(paste(path_figure,"p29_snp_cpg_abundant_sv.jpg",sep=""), width = 3600/resolution, height = 2500/resolution,res=350/resolution)
-print(p)
+jpeg(paste(path_figure,"supp_p4A.jpg",sep=""), width = 3600/resolution, height = 2500/resolution,res=350/resolution)
+print(p4A)
 dev.off()
 
 
@@ -57,7 +57,7 @@ df$pos=c(2.19,2.78,1.45,3.46,4.16)
 
 
 
-p3  = ggplot(df,aes(x=pos,y=mean_polymorphism,fill=color_group)) + geom_col(width=0.1,col="black") + theme_bw()+
+p4B  = ggplot(df,aes(x=pos,y=mean_polymorphism,fill=color_group)) + geom_col(width=0.1,col="black") + theme_bw()+
   geom_errorbar(aes(ymin=error_bar, ymax=error_bar_2),width=00.03,show.legend=FALSE)+ggtitle("Rare SVs (all protein-coding genes)")+ 
   geom_text(data=df,aes(x=pos-0.07,y=mean_polymorphism+0.004, family="serif",label=paste(round(Nb_introns_minor,3))),angle=90,vjust=0,size=6)+
   # geom_text(data=df,aes(x=pos+0.07,y=mean_polymorphism+0.004, family="serif",label=significance),angle=90,vjust=0,size=6)+
@@ -76,26 +76,26 @@ p3  = ggplot(df,aes(x=pos,y=mean_polymorphism,fill=color_group)) + geom_col(widt
   ) +scale_y_continuous(limits=c(0,0.185))
 
 
-p3
+p4B
 
 resolution=1
 
 
-p = ggdraw() + draw_plot(p3, 0, 0.25, 1, .7) + draw_image(paste(path_require,"polymorphism_position_CpG.png",sep=""),0.09,-0.31,0.91,1)+ 
+p4B = ggdraw() + draw_plot(p4B, 0, 0.25, 1, .7) + draw_image(paste(path_require,"polymorphism_position_CpG.png",sep=""),0.09,-0.31,0.91,1)+ 
   draw_image(paste(path_require,"human.png",sep=""),.85,.65,0.15,.17)
-p
+p4B
 
 resolution=1
-jpeg(paste(path_figure,"p30_snp_cpg_rare_sv.jpg",sep=""), width = 3600/resolution, height = 2500/resolution,res=350/resolution)
-print(p)
+jpeg(paste(path_figure,"supp_p4B.jpg",sep=""), width = 3600/resolution, height = 2500/resolution,res=350/resolution)
+print(p4B)
 dev.off()
 
 
 
 ############## Supplementary Figure 4
 
-imgA = load.image(paste(path_figure,"p29_snp_cpg_abundant_sv.jpg",sep=""))
-imgB = load.image(paste(path_figure,"p30_snp_cpg_rare_sv.jpg",sep=""))
+imgA = load.image(paste(path_figure,"supp_p4A.jpg",sep=""))
+imgB = load.image(paste(path_figure,"supp_p4B.jpg",sep=""))
 
 {
   pdf(file=paste(path_pannel,"Figure4_supp.pdf",sep=""), width=4, height=6)

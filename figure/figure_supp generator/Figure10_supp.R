@@ -1,6 +1,6 @@
 source("figure/figure_supp generator/library_path.R")
 
-#### Figure 10
+############## Supplementary Figure 10
 
 imgA = load.image(paste(path_require,"pipeline.png",sep=""))
 
@@ -12,6 +12,5 @@ imgA = load.image(paste(path_require,"pipeline.png",sep=""))
   
   par(mar=c(0, 0, 1, 0))
   plot(imgA, axes = F)
-  # mtext("A", side=2,at=5,adj=-2, line=1, font=2, cex=1.2,las=2)
   dev.off()
 }

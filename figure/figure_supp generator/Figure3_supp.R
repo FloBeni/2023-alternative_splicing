@@ -7,7 +7,7 @@ xlabel="body_size"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p3A = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major introns (BUSCO genes)")+ 
   scale_x_log10(breaks=c(0.01,0.1,0.5,1,5,10,100,1000),labels=c(0.01,0.1,0.5,1,5,10,100,1000),limits = c(0.01,1000)) + theme_bw() +
   scale_y_continuous(breaks=seq(0.5,4.5,0.5), labels=paste(seq(0.5,4.5,0.5),"%"),limits=c(.5,4)) +
@@ -27,12 +27,12 @@ p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=specie
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
   ) + theme(legend.position = "none") + annotation_logticks(sides="b")
 
-p1
+p3A
 
 
 
-jpeg(paste(path_figure,"p7_busco_as_body.jpg",sep=""), width = 6000/resolution, height = 5500/resolution,res=700/resolution)
-print(p1)
+jpeg(paste(path_figure,"supp_p3A.jpg",sep=""), width = 6000/resolution, height = 5500/resolution,res=700/resolution)
+print(p3A)
 dev.off()
 
 
@@ -42,7 +42,7 @@ xlabel="dNdS_200k"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p3B = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major introns (BUSCO genes)")+ 
   scale_x_continuous(breaks=c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12), labels =c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12)) + theme_bw() +
   scale_y_continuous(breaks=seq(0.5,4.5,0.5), labels=paste(seq(0.5,4.5,0.5),"%"),limits=c(.5,4)) +
@@ -62,12 +62,12 @@ p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=specie
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~(xlabel),shorebird))))
   ) 
 
-p1
+p3B
 
 
 
-jpeg(paste(path_figure,"p8_busco_as_dNdS.jpg",sep=""), width = 8000/resolution, height = 5500/resolution,res=700/resolution)
-print(p1)
+jpeg(paste(path_figure,"supp_p3B.jpg",sep=""), width = 8000/resolution, height = 5500/resolution,res=700/resolution)
+print(p3B)
 dev.off()
 
 
@@ -78,7 +78,7 @@ xlabel = "body_size"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p6=ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p3C = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Low-AS major introns (BUSCO genes)")+
   theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
@@ -99,11 +99,11 @@ p6=ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species)
   labs(
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
   ) + theme(legend.position = "none") + annotation_logticks(sides="b")
-p6
+p3C
 
 
-jpeg(paste(path_figure,"p13_busco_lowas_as_body.jpg",sep=""), width = 6000/resolution, height = 5500/resolution,res=700/resolution)
-print(p6)
+jpeg(paste(path_figure,"supp_p3C.jpg",sep=""), width = 6000/resolution, height = 5500/resolution,res=700/resolution)
+print(p3C)
 dev.off()
 
 
@@ -113,7 +113,7 @@ xlabel = "dNdS_200k"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p6=ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p3D = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Low-AS major introns (BUSCO genes)")+
   theme_bw() +
    labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
@@ -134,11 +134,11 @@ p6=ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species)
   labs(
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~(xlabel),shorebird))))
   ) 
-p6
+p3D
 
 
-jpeg(paste(path_figure,"p12_busco_lowas_as_dNdS.jpg",sep=""), width = 8000/resolution, height = 5500/resolution,res=700/resolution)
-print(p6)
+jpeg(paste(path_figure,"supp_p3D.jpg",sep=""), width = 8000/resolution, height = 5500/resolution,res=700/resolution)
+print(p3D)
 dev.off()
 
 
@@ -152,7 +152,7 @@ xlabel = "body_size"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p3E = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual("Clades",values=vectorColor)+ ggtitle("High-AS major introns (BUSCO genes)") +
   theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
@@ -174,12 +174,12 @@ p = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
   ) + theme(legend.position = "none") + annotation_logticks(sides="b")
 
-p
+p3E
 
 
 
-jpeg(paste(path_figure,"p15_busco_highas_as_body.jpg",sep=""), width = 6000/resolution, height = 5500/resolution,res=700/resolution)
-print(p)
+jpeg(paste(path_figure,"supp_p3E.jpg",sep=""), width = 6000/resolution, height = 5500/resolution,res=700/resolution)
+print(p3E)
 dev.off()
 
 
@@ -189,7 +189,7 @@ xlabel = "dNdS_200k"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p3F = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual("Clades",values=vectorColor)+ ggtitle("High-AS major introns (BUSCO genes)") +
   theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
@@ -211,23 +211,23 @@ p = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~(xlabel),shorebird))))
   ) 
 
-p
+p3F
 
 
-jpeg(paste(path_figure,"p14_busco_highas_as_dNdS.jpg",sep=""), width = 8000/resolution, height = 5500/resolution,res=700/resolution)
-print(p)
+jpeg(paste(path_figure,"supp_p3F.jpg",sep=""), width = 8000/resolution, height = 5500/resolution,res=700/resolution)
+print(p3F)
 dev.off()
 
 
 
 ############## Supplementary Figure 3
 
-imgA = load.image(paste(path_figure,"p7_busco_as_body.jpg",sep=""))
-imgB = load.image(paste(path_figure,"p8_busco_as_dNdS.jpg",sep=""))
-imgC = load.image(paste(path_figure,"p13_busco_lowas_as_body.jpg",sep=""))
-imgD = load.image(paste(path_figure,"p12_busco_lowas_as_dNdS.jpg",sep=""))
-imgE = load.image(paste(path_figure,"p15_busco_highas_as_body.jpg",sep=""))
-imgF = load.image(paste(path_figure,"p14_busco_highas_as_dNdS.jpg",sep=""))
+imgA = load.image(paste(path_figure,"supp_p3A.jpg",sep=""))
+imgB = load.image(paste(path_figure,"supp_p3B.jpg",sep=""))
+imgC = load.image(paste(path_figure,"supp_p3C.jpg",sep=""))
+imgD = load.image(paste(path_figure,"supp_p3D.jpg",sep=""))
+imgE = load.image(paste(path_figure,"supp_p3E.jpg",sep=""))
+imgF = load.image(paste(path_figure,"supp_p3F.jpg",sep=""))
 
 {
   pdf(file= paste(path_pannel,"Figure3_supp.pdf",sep=""), width=6.75, height=2.75*3)

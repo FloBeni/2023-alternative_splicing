@@ -7,7 +7,7 @@ xlabel="longevity"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p3A = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major introns (BUSCO genes)")+ 
   scale_x_log10(breaks=c(0.05,0.1,0.5,1,5,10,50,100,1000,10000,50000), limits=c(7,50000)) + theme_bw() +
   scale_y_continuous(breaks=seq(0.5,4.5,0.5), labels=paste(seq(0.5,4.5,0.5),"%"),limits=c(.5,4)) +
@@ -26,12 +26,12 @@ p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=specie
   labs(
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
   )  + annotation_logticks(sides="b")
-p1
+p3A
 
 
 
-jpeg(paste(path_figure,"svr_busco_longevity.jpg",sep=""), width = 8500/resolution, height = 6000/resolution,res=700/resolution)
-print(p1)
+jpeg(paste(path_figure,"p3A.jpg",sep=""), width = 8500/resolution, height = 6000/resolution,res=700/resolution)
+print(p3A)
 dev.off()
 
 
@@ -66,7 +66,7 @@ data_4$species_name = factor( data_4$species_name, levels = names(life_span_orde
 
 
 
-p2 = ggplot(font.label = c(50, "plain"),font.legend= c(20, "plain"),font.x= c(20, "plain"),font.y= c(20, "plain"),
+p3B = ggplot(font.label = c(50, "plain"),font.legend= c(20, "plain"),font.x= c(20, "plain"),font.y= c(20, "plain"),
             data_4, aes(x=longevity, y=SVR,group=species_name,shape=species_name)) + ggtitle("Major introns (BUSCO genes)")+ 
   geom_point(size=5,alpha=1,aes(color=organs),stroke=1.5)+ scale_color_manual("Organs",values=point_color) +
   scale_y_continuous(breaks=seq(0.5,4.5,0.5),labels=paste(seq(0.5,4.5,0.5),"%"),limits=c(0.5,4)) +
@@ -91,17 +91,17 @@ p2 = ggplot(font.label = c(50, "plain"),font.legend= c(20, "plain"),font.x= c(20
   labs(
     caption = substitute(paste("LM model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(lm((data_4$SVR)~log10(data_4$longevity)))))
   ) + annotation_logticks(sides="b")
-p2
+p3B
 
-jpeg(paste(path_figure , "C_Moreira_svr.jpg",sep=""), width = 8000/resolution, height = 5100/resolution,res=600/resolution)
-print(p2)
+jpeg(paste(path_figure , "p3B.jpg",sep=""), width = 8000/resolution, height = 5100/resolution,res=600/resolution)
+print(p3B)
 dev.off()
 
 
 #### Figure 3
 
-imgA = load.image(paste(path_figure,"svr_busco_longevity.jpg",sep=""))
-imgB = load.image(paste(path_figure,"C_Moreira_svr.jpg",sep=""))
+imgA = load.image(paste(path_figure,"p3A.jpg",sep=""))
+imgB = load.image(paste(path_figure,"p3B.jpg",sep=""))
 
 {
   pdf(file=paste(path_pannel,"Figure3.pdf",sep=""), width=6.75, height=2)

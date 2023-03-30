@@ -1,7 +1,6 @@
 # Generate Data 5
-
 options(stringsAsFactors = F, scipen = 999)
-pathData="/home/fbenitiere/data/Projet-SplicedVariants/"
+pathData="/home/XXXXX/data/Projet-SplicedVariants/"
 # pathData="/beegfs/data/XXXXX/Projet-SplicedVariants/"
 
 freq=0
@@ -11,7 +10,7 @@ data_5 = data.frame()
 
 ### DROSO FREQUENT
 species = "Drosophila_melanogaster"
-polymorphisme = read.delim(file=paste(pathData,"Annotations/",species,"/polymorphism/by_minor_intron.tab",sep=""))
+polymorphisme = read.delim(file=paste(pathData , "Annotations/" , species , "/polymorphism/by_minor_intron.tab",sep=""))
 
 polymorphisme = polymorphisme[polymorphisme$which_shared_site != "both",]
 polymorphisme = polymorphisme[polymorphisme$criptic_intron == "False",]

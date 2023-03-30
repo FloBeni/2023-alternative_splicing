@@ -7,7 +7,7 @@ xlabel="longevity"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p1=ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p1B = ggplot( data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual("Clades",values=vectorColor)+
   scale_x_log10(breaks=c(0.05,0.1,0.5,1,5,10,50,100,1000,10000,50000))+ 
   scale_y_log10(breaks=c(0.01,0.05,0.1,0.5,1,5,10,50,100,500,1000),limits = c(0.01,1000))+ theme_bw() +
@@ -26,10 +26,10 @@ p1=ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species)
   labs(
     caption = substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls(log10(ylabel)~log10(xlabel),shorebird))))
   )+ annotation_logticks()
-p1
+p1B
 
-jpeg(paste(path_figure,"history_traits_cor.jpg",sep=""), width = 9000/resolution, height = 6000/resolution,res=700/resolution)
-print(p1)
+jpeg(paste(path_figure,"p1B.jpg",sep=""), width = 9000/resolution, height = 6000/resolution,res=700/resolution)
+print(p1B)
 dev.off()
 
 
@@ -43,7 +43,7 @@ xlabel="longevity"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p2=ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p1C = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual("Clades",values=vectorColor)+ 
   scale_x_log10(breaks=c(0.01,0.05,0.1,0.5,1,5,10,50,100,1000,10000,50000)) + theme_bw() +
   ylab("dN/dS")+
@@ -61,10 +61,10 @@ p2=ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species)
   labs(
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
   ) + scale_y_continuous(breaks=c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12), labels =c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12)) + annotation_logticks(sides="b")
-p2
+p1C
 
-jpeg(paste(path_figure,"dNdS_longevity_cor.jpg",sep=""),width = 8500/resolution, height = 6000/resolution,res=700/resolution)
-print(p2)
+jpeg(paste(path_figure,"p1C.jpg",sep=""),width = 8500/resolution, height = 6000/resolution,res=700/resolution)
+print(p1C)
 dev.off()
 
 ############## Pannel 1 A
@@ -88,8 +88,8 @@ dev.off()
 
 #### Figure 1
 
-imgB = load.image(paste(path_figure,"history_traits_cor.jpg",sep="") )
-imgC = load.image(paste(path_figure,"dNdS_longevity_cor.jpg",sep="") )
+imgB = load.image(paste(path_figure,"p1B.jpg",sep="") )
+imgC = load.image(paste(path_figure,"p1C.jpg",sep="") )
 
 
 

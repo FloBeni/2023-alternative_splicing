@@ -11,7 +11,7 @@ xlabel="longevity"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p8A = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual("Clades",values=vectorColor)+ ggtitle("BUSCO genes")+ 
   scale_x_log10(breaks=c(0.05,0.1,0.5,1,5,10,50,100,1000,10000,50000), limits=c(7,51000)) + theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," gene")))+
@@ -30,10 +30,10 @@ p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=specie
     caption = substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
   )  + scale_y_continuous(breaks=seq(0,50,5), labels=paste(seq(0,50,5),"%"),limits=c(1,25)) + theme(legend.position = "none")+ annotation_logticks(sides="b")
 
-p1
+p8A
 
-jpeg(paste(path_figure,"busco_gene_svr_longevity.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
-print(p1)
+jpeg(paste(path_figure,"supp_p8A.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
+print(p8A)
 dev.off()
 
 
@@ -48,7 +48,7 @@ xlabel="body_size"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p8B = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual("Clades",values=vectorColor)+ ggtitle("BUSCO genes")+ 
   scale_x_log10(breaks=c(0.01,0.1,0.5,1,5,10,100,1000),labels=c(0.01,0.1,0.5,1,5,10,100,1000),limits = c(0.01,1000))+  theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," gene")))+
@@ -67,10 +67,10 @@ p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=specie
     caption = substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
   )  + scale_y_continuous(breaks=seq(0,50,5), labels=paste(seq(0,50,5),"%"),limits=c(1,25)) + theme(legend.position = "none")+ annotation_logticks(sides="b")
 
-p1
+p8B
 
-jpeg(paste(path_figure,"busco_gene_svr_body_size.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
-print(p1)
+jpeg(paste(path_figure,"supp_p8B.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
+print(p8B)
 dev.off()
 
 
@@ -83,7 +83,7 @@ xlabel="dNdS_200k"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p8C = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual("Clades",values=vectorColor)+ ggtitle("BUSCO genes")+ 
   scale_x_continuous(breaks=c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12), labels =c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12))+  theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," gene")))+
@@ -102,10 +102,10 @@ p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=specie
     caption = substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~(xlabel),shorebird))))
   )  + scale_y_continuous(breaks=seq(0,50,5), labels=paste(seq(0,50,5),"%"),limits=c(1,25)) 
 
-p1
+p8C
 
-jpeg(paste(path_figure,"busco_gene_svr_dNdS.jpg",sep=""), width = 8200/resolution, height = 5500/resolution,res=700/resolution)
-print(p1)
+jpeg(paste(path_figure,"supp_p8C.jpg",sep=""), width = 8200/resolution, height = 5500/resolution,res=700/resolution)
+print(p8C)
 dev.off()
 
 
@@ -120,7 +120,7 @@ xlabel="longevity"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p8D = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual("Clades",values=vectorColor)+ ggtitle("all protein-coding genes")+ 
   scale_x_log10(breaks=c(0.05,0.1,0.5,1,5,10,50,100,1000,10000,50000), limits=c(7,51000))+  theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," gene")))+
@@ -138,9 +138,9 @@ p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=specie
   labs(
     caption = substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
   )  + scale_y_continuous(breaks=seq(0,50,5), labels=paste(seq(0,50,5),"%"))+ theme(legend.position = "none")+ annotation_logticks(sides="b")
-p1
-jpeg(paste(path_figure,"busco_gene_svrlow_longevity.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
-print(p1)
+p8D
+jpeg(paste(path_figure,"supp_p8D.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
+print(p8D)
 dev.off()
 
 
@@ -155,7 +155,7 @@ xlabel="body_size"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p8E = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual("Clades",values=vectorColor)+ ggtitle("all protein-coding genes")+ 
   scale_x_log10(breaks=c(0.01,0.1,0.5,1,5,10,100,1000),labels=c(0.01,0.1,0.5,1,5,10,100,1000),limits = c(0.01,1000))+ theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," gene")))+
@@ -173,9 +173,9 @@ p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=specie
   labs(
     caption = substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
   )  + scale_y_continuous(breaks=seq(0,50,5), labels=paste(seq(0,50,5),"%"))+ theme(legend.position = "none")+ annotation_logticks(sides="b")
-p1
-jpeg(paste(path_figure,"busco_gene_svrlow_body_size.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
-print(p1)
+p8E
+jpeg(paste(path_figure,"supp_p8E.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
+print(p8E)
 dev.off()
 
 
@@ -188,7 +188,7 @@ xlabel="dNdS_200k"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p8F = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual("Clades",values=vectorColor)+ ggtitle("all protein-coding genes")+ 
   scale_x_continuous(breaks=c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12), labels =c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12))+theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," gene")))+
@@ -206,9 +206,9 @@ p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=specie
   labs(
     caption = substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~(xlabel),shorebird))))
   )  + scale_y_continuous(breaks=seq(0,50,5), labels=paste(seq(0,50,5),"%"))
-p1
-jpeg(paste(path_figure,"busco_gene_svrlow_dNdS.jpg",sep=""), width = 8200/resolution, height = 5500/resolution,res=700/resolution)
-print(p1)
+p8F
+jpeg(paste(path_figure,"supp_p8F.jpg",sep=""), width = 8200/resolution, height = 5500/resolution,res=700/resolution)
+print(p8F)
 dev.off()
 
 
@@ -223,12 +223,12 @@ dev.off()
 
 ############## Supplementary Figure 8 
 
-imgA = load.image(paste(path_figure,"busco_gene_svr_longevity.jpg",sep=""))
-imgB = load.image(paste(path_figure,"busco_gene_svr_body_size.jpg",sep=""))
-imgC = load.image(paste(path_figure,"busco_gene_svr_dNdS.jpg",sep=""))
-imgD = load.image(paste(path_figure,"busco_gene_svrlow_longevity.jpg",sep=""))
-imgE = load.image(paste(path_figure,"busco_gene_svrlow_body_size.jpg",sep=""))
-imgF = load.image(paste(path_figure,"busco_gene_svrlow_dNdS.jpg",sep=""))
+imgA = load.image(paste(path_figure,"supp_p8A.jpg",sep=""))
+imgB = load.image(paste(path_figure,"supp_p8B.jpg",sep=""))
+imgC = load.image(paste(path_figure,"supp_p8C.jpg",sep=""))
+imgD = load.image(paste(path_figure,"supp_p8D.jpg",sep=""))
+imgE = load.image(paste(path_figure,"supp_p8E.jpg",sep=""))
+imgF = load.image(paste(path_figure,"supp_p8F.jpg",sep=""))
 
 
 {

@@ -1,9 +1,7 @@
 # Generate Data 6
-
 options(stringsAsFactors = F, scipen = 999)
 std <- function(x) sd(x)/sqrt(length(x))
 
-pathData = "/home/fbenitiere/data/Projet-SplicedVariants/"
 
 n1_n2_treshold = 100
 

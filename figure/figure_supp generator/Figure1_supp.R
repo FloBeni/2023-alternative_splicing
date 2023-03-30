@@ -7,7 +7,7 @@ data_7 = read.delim(paste("data/Data7_supp.tab",sep=""),comment.char = "#")
 
 df = data_7[data_7$species==species,]
 
-p3 = ggplot(df[df$echantillon == "all introns",],aes(x=sequencing_depth,y=annot_N1N2_sup10/annotated_intron*100)) + 
+p1A = ggplot(df[df$echantillon == "all introns",],aes(x=sequencing_depth,y=annot_N1N2_sup10/annotated_intron*100)) + 
   geom_point(size=5,shape=21,alpha=0.8,aes(fill=no_compiled_rna_seq)) +
   xlab("Median read coverage on BUSCO genes (reads/bp)") +
   geom_vline(xintercept=200, linetype="dashed", color = color, size=1,alpha=0.5) + theme_bw()+ theme(
@@ -23,16 +23,16 @@ p3 = ggplot(df[df$echantillon == "all introns",],aes(x=sequencing_depth,y=annot_
   scale_x_continuous(limits = c(0,800))+ggtitle("Annotated introns (BUSCO genes)")+
   ylab(expression(paste("Proportion with ", N[s], " + ", N[a], "\u226510"  )))+ 
   scale_fill_gradient("Number of\nRNA-seq\nsamples", low = "grey", high = color)
-p3
+p1A
 
 
-p = ggdraw() + draw_plot(p3, 0, 0, 1, 1)+
+p1A = ggdraw() + draw_plot(p1A, 0, 0, 1, 1)+
   draw_image(paste(path_require,"human.png",sep=""),.61,.2,0.15,.2)
 
-p
+p1A
 
-jpeg(paste(path_figure,"p1_prop_seqdepth_hsap.jpg",sep=""), width = 3600/resolution, height = 2500/resolution,res=270/resolution)
-print(p)
+jpeg(paste(path_figure,"supp_p1A.jpg",sep=""), width = 3600/resolution, height = 2500/resolution,res=270/resolution)
+print(p1A)
 dev.off()
 
 
@@ -41,7 +41,7 @@ species="Drosophila_melanogaster"
 df = data_7[data_7$species==species,]
 
 
-p4 =ggplot(df[df$echantillon == "all introns",],aes(x=sequencing_depth,y=annot_N1N2_sup10/annotated_intron*100)) + 
+p1B =ggplot(df[df$echantillon == "all introns",],aes(x=sequencing_depth,y=annot_N1N2_sup10/annotated_intron*100)) + 
   geom_point(size=5,shape=21,alpha=0.8,aes(fill=no_compiled_rna_seq)) +
   xlab("Median read coverage on BUSCO genes (reads/bp)") +ggtitle("Annotated introns (BUSCO genes)")+
   geom_vline(xintercept=200, linetype="dashed", color = color, size=1,alpha=0.5) + theme_bw()+ theme(
@@ -57,15 +57,15 @@ p4 =ggplot(df[df$echantillon == "all introns",],aes(x=sequencing_depth,y=annot_N
   ylab(expression(paste("Proportion with ", N[s], " + ", N[a], "\u226510"  )))+ 
   scale_fill_gradient("Number of\nRNA-seq\nsamples",
                       low = "grey", high = color)
-p4
+p1B
 
 
-p = ggdraw() + draw_plot(p4, 0, 0, 1, 1) +
+p1B = ggdraw() + draw_plot(p1B, 0, 0, 1, 1) +
   draw_image(paste(path_require,"Drosophila_melanogaster.png",sep=""),.61,.2,0.15,.11)
-p
+p1B
 
-jpeg(paste(path_figure,"p2_prop_seqdepth_dmel.jpg",sep=""), width = 3600/resolution, height = 2500/resolution,res=270/resolution)
-print(p)
+jpeg(paste(path_figure,"supp_p1B.jpg",sep=""), width = 3600/resolution, height = 2500/resolution,res=270/resolution)
+print(p1B)
 dev.off()
 
 
@@ -75,7 +75,7 @@ dev.off()
 species="Homo_sapiens"
 df = data_7[data_7$species==species,]
 
-p3 = ggplot(df[df$echantillon == "all introns",],aes(x=sequencing_depth,y=average_svr_busco*100)) + 
+p1C = ggplot(df[df$echantillon == "all introns",],aes(x=sequencing_depth,y=average_svr_busco*100)) + 
   geom_point(size=5,shape=21,alpha=0.8,aes(fill=no_compiled_rna_seq)) +
   xlab("Median read coverage on BUSCO genes (reads/bp)") +
   geom_vline(xintercept=200, linetype="dashed", color = color, size=1,alpha=0.5) + theme_bw()+ theme(
@@ -91,15 +91,15 @@ p3 = ggplot(df[df$echantillon == "all introns",],aes(x=sequencing_depth,y=averag
   scale_x_continuous(limits = c(0,800))+
    ggtitle("Major introns (BUSCO genes)")+labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
   scale_fill_gradient("Number of\nRNA-seq\nsamples", low = "grey", high = color)
-p3
+p1C
 
-p = ggdraw() + draw_plot(p3, 0, 0, 1, 1)+
+p1C = ggdraw() + draw_plot(p1C, 0, 0, 1, 1)+
   draw_image(paste(path_require,"human.png",sep=""),.61,.2,0.15,.2)
 
-p
+p1C
 
-jpeg(paste(path_figure,"p3_as_seqdepth_dmel.jpg",sep=""), width = 3600/resolution, height = 2500/resolution,res=270/resolution)
-print(p)
+jpeg(paste(path_figure,"supp_p1C.jpg",sep=""), width = 3600/resolution, height = 2500/resolution,res=270/resolution)
+print(p1C)
 dev.off()
 
 
@@ -109,7 +109,7 @@ dev.off()
 species="Drosophila_melanogaster"
 df = data_7[data_7$species==species,]
 
-p4 =ggplot(df[df$echantillon == "all introns",],aes(x=sequencing_depth,y=average_svr_busco*100)) + 
+p1D =ggplot(df[df$echantillon == "all introns",],aes(x=sequencing_depth,y=average_svr_busco*100)) + 
   geom_point(size=5,shape=21,alpha=0.8,aes(fill=no_compiled_rna_seq)) +
   xlab("Median read coverage on BUSCO genes (reads/bp)") +
   geom_vline(xintercept=200, linetype="dashed", color = color, size=1,alpha=0.5) + theme_bw()+ theme(
@@ -126,25 +126,25 @@ p4 =ggplot(df[df$echantillon == "all introns",],aes(x=sequencing_depth,y=average
    labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
   scale_fill_gradient("Number of\nRNA-seq\nsamples",
                       low = "grey", high = color)
-p4
+p1D
 
 
-p = ggdraw() + draw_plot(p4, 0, 0, 1, 1) +
+p1D = ggdraw() + draw_plot(p1D, 0, 0, 1, 1) +
   draw_image(paste(path_require,"Drosophila_melanogaster.png",sep=""),.61,.2,0.15,.11)
-p
+p1D
 
-jpeg(paste(path_figure,"p4_as_seqdepth_dmel.jpg",sep=""), width = 3600/resolution, height = 2500/resolution,res=270/resolution)
-print(p)
+jpeg(paste(path_figure,"supp_p1D.jpg",sep=""), width = 3600/resolution, height = 2500/resolution,res=270/resolution)
+print(p1D)
 dev.off()
 
 
 
 ############## Supplementary Figure 1
 
-imgA = load.image(paste(path_figure,"p1_prop_seqdepth_hsap.jpg",sep=""))
-imgB = load.image(paste(path_figure,"p2_prop_seqdepth_dmel.jpg",sep=""))
-imgC = load.image(paste(path_figure,"p3_as_seqdepth_dmel.jpg",sep=""))
-imgD = load.image(paste(path_figure,"p4_as_seqdepth_dmel.jpg",sep=""))
+imgA = load.image(paste(path_figure,"supp_p1A.jpg",sep=""))
+imgB = load.image(paste(path_figure,"supp_p1B.jpg",sep=""))
+imgC = load.image(paste(path_figure,"supp_p1C.jpg",sep=""))
+imgD = load.image(paste(path_figure,"supp_p1D.jpg",sep=""))
 
 {
   pdf(file=paste(path_pannel,"Figure1_supp.pdf",sep=""), width=5.4, height=4)

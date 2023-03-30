@@ -482,12 +482,12 @@ for(ii in 1:nrow(tab_res)) {
 
 ############## Pannel 7 AB
 
-p = ggdraw()+ draw_image(paste(path_figure,Ne_vector[3],"Pnes.jpg",sep=""),0.3,0,1,1)  + 
+p7AB = ggdraw()+ draw_image(paste(path_figure,Ne_vector[3],"Pnes.jpg",sep=""),0.3,0,1,1)  + 
   draw_image(paste(path_figure,Ne_vector[2],"Pnes.jpg",sep=""),0,0,1,1) + 
   draw_image(paste(path_figure,Ne_vector[1],"Pnes.jpg",sep=""),-0.32,0,1,1)
-p
-jpeg(paste(path_figure,"F1.jpg",sep=""), width = 5300/1, height = 2500/1,res=350)
-print(p)
+p7AB
+jpeg(paste(path_figure,"p7AB.jpg",sep=""), width = 5300/1, height = 2500/1,res=350)
+print(p7AB)
 dev.off()
 
 
@@ -496,7 +496,7 @@ dev.off()
 ############## Pannel 7 E
 data = data.frame(selection = tab_res$factor, svr = tab_res$svr_mean_low*100)
 
-p3  = ggplot(data,aes(x=selection,y=svr)) +geom_point(shape=21,fill="grey",size=9,alpha=1, stroke = 1.5)+
+p7E  = ggplot(data,aes(x=selection,y=svr)) +geom_point(shape=21,fill="grey",size=9,alpha=1, stroke = 1.5)+
   theme_bw() +  scale_y_continuous(breaks=seq(0,1.5,0.25), labels=paste(seq(0,1.5,0.25),"%"))+ 
   scale_x_continuous(breaks=Ne_vector, labels=NeS)+ coord_cartesian(ylim=c(0,1.5),xlim=c(1,7))+ 
   ylab("Average AS rate per intron")+ labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+ggtitle("Low-AS introns") +
@@ -512,10 +512,10 @@ p3  = ggplot(data,aes(x=selection,y=svr)) +geom_point(shape=21,fill="grey",size=
   ) 
 
 
-p3
+p7E
 
-jpeg(paste(path_figure,"Rare splice variants.jpg",sep=""), width = 8000/resolution, height = 5500/resolution,res=700/resolution)
-print(p3)
+jpeg(paste(path_figure,"p7E.jpg",sep=""), width = 8000/resolution, height = 5500/resolution,res=700/resolution)
+print(p7E)
 dev.off()
 
 
@@ -523,7 +523,7 @@ dev.off()
 ############## Pannel 7 F
 data = data.frame(selection = tab_res$factor, svr = tab_res$svr_mean_high*100)
 
-p4  = ggplot(data,aes(x=selection,y=svr)) +geom_point(shape=21,fill="grey",size=9,alpha=1, stroke = 1.5)+
+p7F  = ggplot(data,aes(x=selection,y=svr)) +geom_point(shape=21,fill="grey",size=9,alpha=1, stroke = 1.5)+
   theme_bw() +  scale_y_continuous(breaks=seq(10,25,2.5), labels=paste(seq(10,25,2.5),"%"))+ 
   scale_x_continuous(breaks=Ne_vector, labels=NeS)+ coord_cartesian(ylim=c(15,25),xlim=c(1,7))+ 
   ylab("Average AS rate per intron")+ labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+ggtitle("High-AS introns") +
@@ -539,10 +539,10 @@ p4  = ggplot(data,aes(x=selection,y=svr)) +geom_point(shape=21,fill="grey",size=
   ) 
 
 
-p4
+p7F
 
-jpeg(paste(path_figure,"Common splice variants.jpg",sep=""), width = 8000/resolution, height = 5500/resolution,res=700/resolution)
-print(p4)
+jpeg(paste(path_figure,"p7F.jpg",sep=""), width = 8000/resolution, height = 5500/resolution,res=700/resolution)
+print(p7F)
 dev.off()
 
 
@@ -550,7 +550,7 @@ dev.off()
 ############## Pannel 7 C
 data = data.frame(selection = tab_res$factor, svr = tab_res$svr_mean*100)
 
-p6  = ggplot(data,aes(x=selection,y=svr)) +geom_point(shape=21,fill="grey",size=9,alpha=1, stroke = 1.5)+
+p7C  = ggplot(data,aes(x=selection,y=svr)) +geom_point(shape=21,fill="grey",size=9,alpha=1, stroke = 1.5)+
   theme_bw() +  scale_y_continuous(breaks=seq(1,100,1), labels=paste(seq(1,100,1),"%"))+ 
   scale_x_continuous(breaks=Ne_vector, labels=NeS)+ coord_cartesian(ylim=c(1,3),xlim=c(1,7))+ 
   ylab("Average AS rate per intron")+ labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
@@ -566,10 +566,10 @@ p6  = ggplot(data,aes(x=selection,y=svr)) +geom_point(shape=21,fill="grey",size=
   ) 
 
 
-p6
+p7C
 
-jpeg(paste(path_figure,"mean_SVR.jpg",sep=""), width = 8000/resolution, height = 5500/resolution,res=700/resolution)
-print(p6)
+jpeg(paste(path_figure,"p7C.jpg",sep=""), width = 8000/resolution, height = 5500/resolution,res=700/resolution)
+print(p7C)
 dev.off()
 
 
@@ -577,7 +577,7 @@ dev.off()
 ############## Pannel 7 D
 data = data.frame(selection = tab_res$factor, svr = tab_res$prop_SVRfn_highSVR*100)
 
-p5  = ggplot(data,aes(x=selection,y=svr)) +geom_point(shape=21,fill="grey",size=9,alpha=1, stroke = 1.5)+
+p7D  = ggplot(data,aes(x=selection,y=svr)) +geom_point(shape=21,fill="grey",size=9,alpha=1, stroke = 1.5)+
   theme_bw() +  scale_y_continuous(breaks=seq(10,100,10), labels=paste(seq(10,100,10),"%"))+ 
   scale_x_continuous(breaks=Ne_vector, labels=NeS)+ coord_cartesian(ylim=c(55,100),xlim=c(1,7))+ 
   ylab("Proportion of\nfunctional variants")+ ggtitle("High-AS introns") +
@@ -593,10 +593,10 @@ p5  = ggplot(data,aes(x=selection,y=svr)) +geom_point(shape=21,fill="grey",size=
   ) 
 
 
-p5
+p7D
 
-jpeg(paste(path_figure,"mod3_High_SVR.jpg",sep=""), width = 8500/resolution, height = 5500/resolution,res=700/resolution)
-print(p5)
+jpeg(paste(path_figure,"p7D.jpg",sep=""), width = 8500/resolution, height = 5500/resolution,res=700/resolution)
+print(p7D)
 dev.off()
 
 
@@ -605,11 +605,11 @@ dev.off()
 
 #### Figure 7
 
-imgAB = load.image(paste(path_figure,"F1.jpg",sep=""))
-imgC = load.image(paste(path_figure,"mean_SVR.jpg",sep=""))
-imgD = load.image(paste(path_figure,"mod3_High_SVR.jpg",sep=""))
-imgE = load.image(paste(path_figure,"Rare splice variants.jpg",sep=""))
-imgF = load.image(paste(path_figure,"Common splice variants.jpg",sep=""))
+imgAB = load.image(paste(path_figure,"p7AB.jpg",sep=""))
+imgC = load.image(paste(path_figure,"p7C.jpg",sep=""))
+imgD = load.image(paste(path_figure,"p7D.jpg",sep=""))
+imgE = load.image(paste(path_figure,"p7E.jpg",sep=""))
+imgF = load.image(paste(path_figure,"p7F.jpg",sep=""))
 
 
 {

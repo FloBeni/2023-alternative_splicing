@@ -12,7 +12,7 @@ xmin = min(data_1$cor_as_fpkm_all_as[which(data_1$pval_cor_as_fpkm_all_as>=0.05)
 xmax = max(data_1$cor_as_fpkm_all_as[which(data_1$pval_cor_as_fpkm_all_as>=0.05)])
 
 
-p1 = ggplot(  data_1,aes(x=cor_as_fpkm_all_as) ) + geom_histogram(col="black",fill="#A6CEE3",bins = 25,  boundary = 0) +
+p6A = ggplot(  data_1,aes(x=cor_as_fpkm_all_as) ) + geom_histogram(col="black",fill="#A6CEE3",bins = 25,  boundary = 0) +
   geom_text(label="p < 0.05",x=xmin-.17,y=10,cex=10,family="serif")+
   geom_text(label="p < 0.05",x=xmax+.17,y=10,cex=10,family="serif")+
   geom_text(label="p \u2265 0.05",x=-0.04,y=10,cex=10,family="serif")+
@@ -29,18 +29,18 @@ p1 = ggplot(  data_1,aes(x=cor_as_fpkm_all_as) ) + geom_histogram(col="black",fi
     plot.caption.position =  "plot"
   ) + ylab("Frequency") + xlab("Pearson coefficient correlation (R)")+ xlim(-1,1)+ ylim(0,25)+
   ggtitle("Major introns (all protein-coding genes)")
-p1
+p6A
 
 
-jpeg(paste(path_figure,"SVR-FPKM_all_hist.jpg",sep="") , width = 8500/resolution, height = 5000/resolution,res=700/resolution)
-print(p1)
+jpeg(paste(path_figure,"p6A.jpg",sep="") , width = 8500/resolution, height = 5000/resolution,res=700/resolution)
+print(p6A)
 dev.off()
 
 
 ############## Pannel 6 B
 xmin = min(data_1$cor_as_fpkm_low_as[which(data_1$pval_cor_as_fpkm_low_as >= 0.05)])
 
-p1 = ggplot(  data_1,aes(x=cor_as_fpkm_low_as) ) + geom_histogram(col="black",fill="#A6CEE3",bins = 25,  boundary = 0) +
+p6B = ggplot(  data_1,aes(x=cor_as_fpkm_low_as) ) + geom_histogram(col="black",fill="#A6CEE3",bins = 25,  boundary = 0) +
   geom_text(label="p < 0.05",x=xmin-.17,y=10,cex=10,family="serif")+
   geom_text(label="p \u2265 0.05",x=-0.15,y=10,cex=10,family="serif")+
   geom_vline(xintercept = xmin,linetype="dashed",size=1)+  theme_bw()+ theme(
@@ -54,11 +54,11 @@ p1 = ggplot(  data_1,aes(x=cor_as_fpkm_low_as) ) + geom_histogram(col="black",fi
     plot.caption = element_text(hjust = 0.2, face= "italic", size=23),
     plot.caption.position =  "plot"
   ) + ylab("Frequency") + xlab("Pearson coefficient correlation (R)")+ xlim(-1,1)+ ylim(0,25) + ggtitle("Low-AS major introns (all protein-coding genes)")
-p1
+p6B
 
 
-jpeg(paste(path_figure,"SVR-FPKM_hist.jpg",sep="") , width = 8500/resolution, height = 5000/resolution,res=700/resolution)
-print(p1)
+jpeg(paste(path_figure,"p6B.jpg",sep="") , width = 8500/resolution, height = 5000/resolution,res=700/resolution)
+print(p6B)
 dev.off()
 
 
@@ -72,7 +72,7 @@ data_6$group = str_replace(data_6$group,"enter","\n")
 ############## Pannel 6 C
 data_sp = data_6[data_6$species=="Homo_sapiens" & data_6$intron == "Rare_SV",]
 
-p1 = ggplot(data_sp,aes(x=median_gene_expression+10^-10,y=average_as,fill=group))  +theme_bw() +
+p6C = ggplot(data_sp,aes(x=median_gene_expression+10^-10,y=average_as,fill=group))  +theme_bw() +
   geom_errorbar(aes(ymin=average_as-average_as_errorBar, ymax=average_as+average_as_errorBar),size=0.5,width = 0) +
   geom_point(pch=21,size=5) +
   theme_bw()+ scale_fill_manual("Gene set",values=set_color[c(2,2,4,8)])+
@@ -95,12 +95,12 @@ p1 = ggplot(data_sp,aes(x=median_gene_expression+10^-10,y=average_as,fill=group)
     caption = substitute(paste("Pearson correlation:"," R",pgls_eq), list(pgls_eq=lm_eqn(
       m=cor.test(log10(data_sp$median_gene_expression), data_sp$average_as,method="pearson")))))+
   scale_y_continuous(breaks=seq(0,100,.25), labels=paste(seq(0,100,.25),"%")) + theme(legend.position = "none")
-print(p1)
-p = ggdraw() + draw_plot(p1, 0, 0, 1, 1)+
+print(p6C)
+p6C = ggdraw() + draw_plot(p6C, 0, 0, 1, 1)+
   draw_image(paste(path_require,"human.png",sep=""),.85,.7,.1,.2)
 
-jpeg(paste(path_figure,"SVR-FPKM_Hsap.jpg",sep="") , width = 8500/resolution, height = 5000/resolution,res=700/resolution)
-print(p)
+jpeg(paste(path_figure,"p6C.jpg",sep="") , width = 8500/resolution, height = 5000/resolution,res=700/resolution)
+print(p6C)
 dev.off()
 
 
@@ -108,7 +108,7 @@ dev.off()
 ############## Pannel 6 D
 data_sp = data_6[data_6$species=="Drosophila_melanogaster" & data_6$intron == "Rare_SV",]
 
-p2 = ggplot(data_sp,aes(x=median_gene_expression+10^-10,y=average_as,fill=group))  +theme_bw() +
+p6D = ggplot(data_sp,aes(x=median_gene_expression+10^-10,y=average_as,fill=group))  +theme_bw() +
   geom_errorbar(aes(ymin=average_as-average_as_errorBar, ymax=average_as+average_as_errorBar),size=0.5,width = 0) +
   geom_point(pch=21,size=5) +   theme_bw()+ scale_fill_manual("Gene set",values=set_color[c(2)])+
   theme( 
@@ -130,15 +130,15 @@ p2 = ggplot(data_sp,aes(x=median_gene_expression+10^-10,y=average_as,fill=group)
     caption = substitute(paste("Pearson correlation:"," R",pgls_eq), list(pgls_eq=lm_eqn(
       m=cor.test(log10(data_sp$median_gene_expression), data_sp$average_as,method="pearson")))))+
   scale_y_continuous(breaks=seq(0,100,.1), labels=paste(seq(0,100,0.1),"%")) + theme(legend.position = "none")
-print(p2)
+print(p6D)
 
-p = ggdraw() + draw_plot(p2, 0, 0, 1, 1)+
+p6D = ggdraw() + draw_plot(p6D, 0, 0, 1, 1)+
   draw_image(paste(path_require,"Drosophila_melanogaster.png",sep=""),.85,.7,.07,.2)
-p
+p6D
 
 
-jpeg(paste(path_figure,"SVR-FPKM_Dmel.jpg",sep="") , width = 8500/resolution, height = 5000/resolution,res=700/resolution)
-print(p)
+jpeg(paste(path_figure,"p6D.jpg",sep="") , width = 8500/resolution, height = 5000/resolution,res=700/resolution)
+print(p6D)
 dev.off()
 
 
@@ -146,10 +146,10 @@ dev.off()
 
 #### Figure 6
 
-imgA = load.image(paste(path_figure,"SVR-FPKM_all_hist.jpg",sep=""))
-imgB = load.image(paste(path_figure,"SVR-FPKM_hist.jpg",sep=""))
-imgC = load.image(paste(path_figure,"SVR-FPKM_Hsap.jpg",sep="") )
-imgD = load.image(paste(path_figure,"SVR-FPKM_Dmel.jpg",sep="") )
+imgA = load.image(paste(path_figure,"p6A.jpg",sep=""))
+imgB = load.image(paste(path_figure,"p6B.jpg",sep=""))
+imgC = load.image(paste(path_figure,"p6C.jpg",sep="") )
+imgD = load.image(paste(path_figure,"p6D.jpg",sep="") )
 
 
 {

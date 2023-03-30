@@ -1,9 +1,9 @@
 source("figure/figure_main generator/library_path.R")
 
-############## Pannel 2 A
+############## Pannel 2 B
 data_3 = read.delim(paste("data/Data3_supp.tab",sep=""),comment.char = "#")
 
-p1 =  ggplot(data_3,aes(x=rate*100,group=species,y=Freq))  + theme_bw() + ylab("Proportion of introns")+ 
+p2B =  ggplot(data_3,aes(x=rate*100,group=species,y=Freq))  + theme_bw() + ylab("Proportion of introns")+ 
   geom_line(size=0.2,col="grey")+
   geom_point(pch=21,col="grey",fill="grey") + ggtitle("All introns (all protein-coding genes)")+ 
   geom_line(data=data_3[data_3$species=="Drosophila_melanogaster",],size=2,col="red") +
@@ -20,27 +20,27 @@ p1 =  ggplot(data_3,aes(x=rate*100,group=species,y=Freq))  + theme_bw() + ylab("
     legend.text =  element_text(color="black", size=26, family="serif")
   ) + scale_x_continuous(breaks=seq(0,100,25), labels=paste(seq(0,100,25),"%"))+ scale_y_continuous(breaks=seq(0,100,25), labels=paste(seq(0,100,25),"%"),limits=c(0,80)) +
   labs(x=expression(paste("RAS ",italic("per")," intron")))
-p1
+p2B
 
 
-p = ggdraw() + draw_plot(p1, 0, 0, 1, 1)  
-p
+p2B = ggdraw() + draw_plot(p2B, 0, 0, 1, 1)  
+
 
 
 
 {
-  p = ggdraw()+ draw_plot(p,0,0,1,1)  + 
+  p2B = ggdraw()+ draw_plot(p2B,0,0,1,1)  + 
     draw_image(paste(path_require,"Drosophila_melanogaster_red.png",sep=""),.26,.775,.19,.065)+
     draw_image(paste(path_require,"human_brown.png",sep=""),.245,.73,.08,.17) 
-  p
-  jpeg(paste(path_figure,"p5_hist_ras.jpg",sep=""), width = 4000/resolution, height = 2500/resolution,res=250/resolution)
-  print(p)
+  
+  jpeg(paste(path_figure,"p2B.jpg",sep=""), width = 4000/resolution, height = 2500/resolution,res=250/resolution)
+  print(p2B)
   dev.off()
 }
 
-############## Pannel 2 B
+############## Pannel 2 C
 
-p1 =  ggplot(data_3,aes(x=rate*100,group=species,y=Freq.1))  + theme_bw() + ylab("Proportion of introns")+ 
+p2C =  ggplot(data_3,aes(x=rate*100,group=species,y=Freq.1))  + theme_bw() + ylab("Proportion of introns")+ 
   geom_line(size=0.2,col="grey")+
   geom_point(pch=21,col="grey",fill="grey") +ggtitle("All introns (all protein-coding genes)")+
   geom_line(data=data_3[data_3$species=="Drosophila_melanogaster",],size=2,col="red") +
@@ -57,28 +57,28 @@ p1 =  ggplot(data_3,aes(x=rate*100,group=species,y=Freq.1))  + theme_bw() + ylab
     legend.text =  element_text(color="black", size=26, family="serif")
   ) + scale_x_continuous(breaks=seq(0,100,25), labels=paste(seq(0,100,25),"%"))+ scale_y_continuous(breaks=seq(0,100,25), labels=paste(seq(0,100,25),"%"),limits=c(0,80))+
   labs(x=expression(paste("RANS ",italic("per")," intron")))
-p1
+p2C
 
 
-p = ggdraw() + draw_plot(p1, 0, 0, 1, 1)  
-p
+p2C = ggdraw() + draw_plot(p2C, 0, 0, 1, 1)  
+
 
 
 {
-  p = ggdraw()+ draw_plot(p,0,0,1,1)  + 
+  p2C = ggdraw()+ draw_plot(p2C,0,0,1,1)  + 
     draw_image(paste(path_require,"Drosophila_melanogaster_red.png",sep=""),.26,.775,.19,.065)+
     draw_image(paste(path_require,"human_brown.png",sep=""),.245,.73,.08,.17) 
-  p
-  jpeg(paste(path_figure,"p6_hist_rans.jpg",sep=""), width = 4000/resolution, height = 2500/resolution,res=250/resolution)
-  print(p)
+  
+  jpeg(paste(path_figure,"p2C.jpg",sep=""), width = 4000/resolution, height = 2500/resolution,res=250/resolution)
+  print(p2C)
   dev.off()
 }
 
 #### Figure 2
 
 imgA = load.image(paste(path_require,"ns_na_nu.png",sep=""))
-imgB = load.image(paste(path_figure,"p5_hist_ras.jpg",sep=""))
-imgC = load.image(paste(path_figure,"p6_hist_rans.jpg",sep=""))
+imgB = load.image(paste(path_figure,"p2B.jpg",sep=""))
+imgC = load.image(paste(path_figure,"p2C.jpg",sep=""))
 imgD = load.image(paste(path_require,"mira.png",sep=""))
 
 {

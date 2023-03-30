@@ -1,9 +1,6 @@
-# Generate Data 10
-
+# Generate Data 11
 options(stringsAsFactors = F, scipen = 999)
 
-pathData="/home/fbenitiere/data/Projet-SplicedVariants/"
-# pathData="/beegfs/data/fbenitiere/Projet-SplicedVariants/"
 
 arbrePhylo = read.tree(paste("data/phylogenetic_tree.nwk",sep=""))
 sp_studied = arbrePhylo$tip.label
@@ -11,10 +8,10 @@ sp_studied = arbrePhylo$tip.label
 data_11 = data.frame()
 for (species in sp_studied){print(species)
 
-  by_intron = read.delim(file=paste(pathData,"per_species/",species,"_by_intron_analysis.tab.gz",sep=""), header=T , sep="\t",comment.char = "#")
+  by_intron = read.delim(file=paste("data/per_species/",species,"_by_intron_analysis.tab.gz",sep=""), header=T , sep="\t",comment.char = "#")
   by_intron = by_intron[!is.na(by_intron$phase),]
 
-  fpkm_cov = read.delim(paste(pathData,"per_species/",species,"_by_gene_analysis.tab.gz",sep=""),  sep="\t")
+  fpkm_cov = read.delim(paste("data/per_species/",species,"_by_gene_analysis.tab.gz",sep=""),  sep="\t")
   fpkm_cov = fpkm_cov[fpkm_cov$type == "gene" & grepl("gene_biotype=protein_coding" , fpkm_cov$attributes),]
 
   by_intron = by_intron[by_intron$gene_id %in% fpkm_cov$gene_id,]

@@ -1,4 +1,4 @@
-# Generate Data 1
+# Generate per_species tables
 
 options(stringsAsFactors = F, scipen = 999)
 library(readxl)
@@ -18,16 +18,15 @@ read_excel_allsheets <- function(filename, tibble = FALSE) {
 }
 
 
-pathData="/home/fbenitiere/data/Projet-SplicedVariants/"
-pathData="/beegfs/data/fbenitiere/Projet-SplicedVariants/"
+pathData="/home/XXXXX/data/Projet-SplicedVariants/"
+pathData="/beegfs/data/XXXXX/Projet-SplicedVariants/"
 
 mysheets <- read_excel_allsheets(paste(pathData,"Fichiers-data/metazoa_69species.xls",sep=""))
 sp_studied = names(mysheets)
 
 
 # species = "Drosophila_melanogaster"
-# for (species in sp_studied[1:10] ){
-for (species in c("Acromyrmex_echinatior","Acyrthosiphon_pisum")){
+for (species in sp_studied ){
   print(species)
   ## INTRON
   busco_tab = read.delim(paste(pathData,"Annotations/",species,"/busco_analysis/busco_to_gene_id_metazoa",sep="" ) )
@@ -93,7 +92,6 @@ for (species in c("Acromyrmex_echinatior","Acyrthosiphon_pisum")){
     filter(Genes != "")
   IntronCoord$id = paste(IntronCoord$Chr,IntronCoord$Genes,IntronCoord$Splice5,IntronCoord$Splice3,IntronCoord$Strand,sep=";")
   by_intron$Annotation = by_intron$id %in% IntronCoord$id 
-  # by_intron[ !by_intron$Annotationv2 &  by_intron$Annotation ,]
   
   minor_introns = read.delim(file=paste(pathData,"Analyses/",species,"/by_minor_intron.tab",sep=""), header=T , sep="\t",comment.char = "#")
   minor_introns$id = paste(minor_introns$seqname,minor_introns$gene_id,minor_introns$splice5,minor_introns$splice3,minor_introns$strand,sep=";")

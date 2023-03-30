@@ -8,7 +8,7 @@ shorebird <- comparative.data(arbrePhylo, data.frame(species=data_8[,"species"],
                                                      ylabel=data_8[,"ratio"]), species, vcv=TRUE)
 
 
-p4 = ggplot(data_8, aes(x=body_size,y=ratio,fill=clade))  + theme_bw() + 
+p7A = ggplot(data_8, aes(x=body_size,y=ratio,fill=clade))  + theme_bw() + 
   xlab("Body length (cm, log scale)") + ylab("Proportion of frame-preserving SVs")+
   geom_point(pch=21,alpha=0.7, size=7) + 
   scale_y_continuous(breaks=seq(0,100,10), labels=paste(seq(0,100,10),"%")) +
@@ -30,11 +30,11 @@ p4 = ggplot(data_8, aes(x=body_size,y=ratio,fill=clade))  + theme_bw() +
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
   )  + theme(legend.position = "none")+ annotation_logticks(sides="b")
 
-p4
+p7A
 
 
-jpeg(paste(path_figure,"p27_ratio_fp_busco_body.jpg",sep=""), width = 6000/resolution, height = 5500/resolution,res=700/resolution)
-print(p4)
+jpeg(paste(path_figure,"supp_p7A.jpg",sep=""), width = 6000/resolution, height = 5500/resolution,res=700/resolution)
+print(p7A)
 dev.off()
 
 
@@ -45,7 +45,7 @@ shorebird <- comparative.data(arbrePhylo, data.frame(species=data_8[,"species"],
                                                      ylabel=data_8[,"ratio"]), species, vcv=TRUE)
 
 
-p4 = ggplot(data_8, aes(x=dNdS,y=ratio,fill=clade))  + theme_bw() + 
+p7B = ggplot(data_8, aes(x=dNdS,y=ratio,fill=clade))  + theme_bw() + 
   xlab("dN/dS")  +  ylab("Proportion of frame-preserving SVs")+
   geom_point(pch=21,alpha=0.7, size=7) + 
   scale_y_continuous(breaks=seq(0,100,10), labels=paste(seq(0,100,10),"%")) +
@@ -67,18 +67,18 @@ p4 = ggplot(data_8, aes(x=dNdS,y=ratio,fill=clade))  + theme_bw() +
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~(xlabel),shorebird))))
   ) 
 
-p4
+p7B
 
-jpeg(paste(path_figure,"p28_ratio_fp_busco_dNdS.jpg",sep=""), width = 8000/resolution, height = 5500/resolution,res=700/resolution)
-print(p4)
+jpeg(paste(path_figure,"supp_p7B.jpg",sep=""), width = 8000/resolution, height = 5500/resolution,res=700/resolution)
+print(p7B)
 dev.off()
 
 
 
 ############## Supplementary Figure 7
 
-imgA = load.image(paste(path_figure,"p27_ratio_fp_busco_body.jpg",sep=""))
-imgB = load.image(paste(path_figure,"p28_ratio_fp_busco_dNdS.jpg",sep=""))
+imgA = load.image(paste(path_figure,"supp_p7A.jpg",sep=""))
+imgB = load.image(paste(path_figure,"supp_p7B.jpg",sep=""))
 
 {
   pdf(file= paste(path_pannel,"Figure7_supp.pdf",sep=""), width=6.75, height=2.75)

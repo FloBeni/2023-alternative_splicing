@@ -1,19 +1,15 @@
 # Generate Data 2
-
 options(stringsAsFactors = F, scipen = 999)
 library(ape)
 
-
 std <- function(x) sd(x)/sqrt(length(x))
-pathData="/home/fbenitiere/data/Projet-SplicedVariants/"
-# pathData="/beegfs/data/fbenitiere/Projet-SplicedVariants/"
 
 arbrePhylo = read.tree(paste("data/phylogenetic_tree.nwk",sep=""))
 sp_studied = arbrePhylo$tip.label
 
 std <- function(x) sd(x)/sqrt(length(x))
 data_2 = data.frame()
-for (species in sp_studied) {# recupere les especes a analyser
+for (species in sp_studied) {
   print(species)
   
   fpkm_cov = read.delim(paste("data/per_species/",species,"_by_gene_analysis.tab.gz",sep=""),  sep="\t",comment.char = "#")

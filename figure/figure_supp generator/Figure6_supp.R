@@ -9,7 +9,7 @@ xlabel="longevity"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p6A = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major introns (all protein-coding genes)")+ 
   scale_x_log10(breaks=c(0.05,0.1,0.5,1,5,10,50,100,1000,10000,50000), limits=c(7,51000)) + theme_bw() +
   scale_y_continuous(breaks=seq(0.5,4.5,0.5), labels=paste(seq(0.5,4.5,0.5),"%")) +
@@ -29,12 +29,12 @@ p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=specie
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
   )  + theme(legend.position = "none")+ annotation_logticks(sides="b")
 
-p1
+p6A
 
 
 
-jpeg(paste(path_figure,"p11_proteincoding_as_longevity.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
-print(p1)
+jpeg(paste(path_figure,"supp_p6A.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
+print(p6A)
 dev.off()
 
 
@@ -45,7 +45,7 @@ xlabel="body_size"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p6B = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major introns (all protein-coding genes)")+ 
   scale_x_log10(breaks=c(0.01,0.1,0.5,1,5,10,100,1000),labels=c(0.01,0.1,0.5,1,5,10,100,1000),limits = c(0.01,1000)) + theme_bw() +
   scale_y_continuous(breaks=seq(0.5,4.5,0.5), labels=paste(seq(0.5,4.5,0.5),"%")) +
@@ -65,12 +65,12 @@ p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=specie
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
   )  + theme(legend.position = "none")+ annotation_logticks(sides="b")
 
-p1
+p6B
 
 
 
-jpeg(paste(path_figure,"p10_proteincoding_as_body.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
-print(p1)
+jpeg(paste(path_figure,"supp_p6B.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
+print(p6B)
 dev.off()
 
 
@@ -81,7 +81,7 @@ xlabel="dNdS_200k"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p6C = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major introns (all protein-coding genes)")+ 
   scale_x_continuous(breaks=c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12), labels =c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12)) + theme_bw() +
   scale_y_continuous(breaks=seq(0.5,4.5,0.5), labels=paste(seq(0.5,4.5,0.5),"%")) +
@@ -101,12 +101,12 @@ p1 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=specie
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~(xlabel),shorebird))))
   ) 
 
-p1
+p6C
 
 
 
-jpeg(paste(path_figure,"p9_proteincoding_as_dNdS.jpg",sep=""), width = 8200/resolution, height = 5500/resolution,res=700/resolution)
-print(p1)
+jpeg(paste(path_figure,"supp_p6C.jpg",sep=""), width = 8200/resolution, height = 5500/resolution,res=700/resolution)
+print(p6C)
 dev.off()
 
 
@@ -117,7 +117,7 @@ xlabel="longevity"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p6=ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p6D = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual(values=vectorColor)+ ggtitle("Low-AS major introns (all protein-coding genes)")+
   theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
@@ -138,11 +138,11 @@ p6=ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species)
   labs(
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
   ) + theme(legend.position = "none") + annotation_logticks(sides="b")
-p6
+p6D
 
 
-jpeg(paste(path_figure,"p19_proteincoding_lowas_as_longevity.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
-print(p6)
+jpeg(paste(path_figure,"supp_p6D.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
+print(p6D)
 dev.off()
 
 
@@ -152,7 +152,7 @@ xlabel = "body_size"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p6=ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p6E = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual(values=vectorColor)+ ggtitle("Low-AS major introns (all protein-coding genes)")+
   theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
@@ -173,11 +173,11 @@ p6=ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species)
   labs(
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
   ) + theme(legend.position = "none")+ annotation_logticks(sides="b")
-p6
+p6E
 
 
-jpeg(paste(path_figure,"p21_proteincoding_lowas_as_body.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
-print(p6)
+jpeg(paste(path_figure,"supp_p6E.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
+print(p6E)
 dev.off()
 
 
@@ -188,7 +188,7 @@ xlabel = "dNdS_200k"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p6=ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p6F = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual(values=vectorColor)+ ggtitle("Low-AS major introns (all protein-coding genes)")+
   theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
@@ -209,11 +209,11 @@ p6=ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species)
   labs(
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~(xlabel),shorebird))))
   ) 
-p6
+p6F
 
 
-jpeg(paste(path_figure,"p20_proteincoding_lowas_as_dNdS.jpg",sep=""), width = 8200/resolution, height = 5500/resolution,res=700/resolution)
-print(p6)
+jpeg(paste(path_figure,"supp_p6F.jpg",sep=""), width = 8200/resolution, height = 5500/resolution,res=700/resolution)
+print(p6F)
 dev.off()
 
 
@@ -223,7 +223,7 @@ xlabel = "longevity"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p6G = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual(values=vectorColor)+ ggtitle("High-AS major introns (all protein-coding genes)") +
   theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
@@ -245,12 +245,12 @@ p = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
   ) + theme(legend.position = "none")+ annotation_logticks(sides="b")
 
-p
+p6G
 
 
 
-jpeg(paste(path_figure,"p22_proteincoding_highas_as_longevity.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
-print(p)
+jpeg(paste(path_figure,"supp_p6G.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
+print(p6G)
 dev.off()
 
 
@@ -261,7 +261,7 @@ xlabel = "body_size"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p6H = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual(values=vectorColor)+ ggtitle("High-AS major introns (all protein-coding genes)") +
   theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
@@ -284,12 +284,12 @@ p = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
   ) + theme(legend.position = "none")+ annotation_logticks(sides="b")
 
-p
+p6H
 
 
 
-jpeg(paste(path_figure,"p24_proteincoding_highas_as_body.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
-print(p)
+jpeg(paste(path_figure,"supp_p6H.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
+print(p6H)
 dev.off()
 
 
@@ -300,7 +300,7 @@ xlabel = "dNdS_200k"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p6I = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual(values=vectorColor)+ ggtitle("High-AS major introns (all protein-coding genes)") +
   theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
@@ -323,26 +323,26 @@ p = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~(xlabel),shorebird))))
   )
 
-p
+p6I
 
 
-jpeg(paste(path_figure,"p23_proteincoding_highas_as_dNdS.jpg",sep=""), width = 8200/resolution, height = 5500/resolution,res=700/resolution)
-print(p)
+jpeg(paste(path_figure,"supp_p6I.jpg",sep=""), width = 8200/resolution, height = 5500/resolution,res=700/resolution)
+print(p6I)
 dev.off()
 
 
 
 ############## Supplementary Figure 6
 
-imgA = load.image(paste(path_figure,"p11_proteincoding_as_longevity.jpg",sep=""))
-imgB = load.image(paste(path_figure,"p10_proteincoding_as_body.jpg",sep=""))
-imgC = load.image(paste(path_figure,"p9_proteincoding_as_dNdS.jpg",sep=""))
-imgD = load.image(paste(path_figure,"p19_proteincoding_lowas_as_longevity.jpg",sep=""))
-imgE = load.image(paste(path_figure,"p21_proteincoding_lowas_as_body.jpg",sep=""))
-imgF = load.image(paste(path_figure,"p20_proteincoding_lowas_as_dNdS.jpg",sep=""))
-imgG = load.image(paste(path_figure,"p22_proteincoding_highas_as_longevity.jpg",sep=""))
-imgH = load.image(paste(path_figure,"p24_proteincoding_highas_as_body.jpg",sep=""))
-imgI = load.image(paste(path_figure,"p23_proteincoding_highas_as_dNdS.jpg",sep=""))
+imgA = load.image(paste(path_figure,"supp_p6A.jpg",sep=""))
+imgB = load.image(paste(path_figure,"supp_p6B.jpg",sep=""))
+imgC = load.image(paste(path_figure,"supp_p6C.jpg",sep=""))
+imgD = load.image(paste(path_figure,"supp_p6D.jpg",sep=""))
+imgE = load.image(paste(path_figure,"supp_p6E.jpg",sep=""))
+imgF = load.image(paste(path_figure,"supp_p6F.jpg",sep=""))
+imgG = load.image(paste(path_figure,"supp_p6G.jpg",sep=""))
+imgH = load.image(paste(path_figure,"supp_p6H.jpg",sep=""))
+imgI = load.image(paste(path_figure,"supp_p6I.jpg",sep=""))
 
 {
   pdf(file= paste(path_pannel,"Figure6_supp.pdf",sep=""), width=6.75*3/2, height=2.75*3)

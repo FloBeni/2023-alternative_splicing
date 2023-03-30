@@ -1,7 +1,7 @@
 source("figure/figure_supp generator/library_path.R")
 
 
-############## Pannel 9
+############## Supplementary Pannel 9
 
 point_color = c("Brain"="#5c89b2","Cerebellum"="#7bc7eb","Heart"="#8c1b1f","Liver"="#54833b","Kidney"="#c19e40",
                 "Testis"="#e16527","Ovary"="#ac3495","Head"="#A6CEE3")
@@ -30,7 +30,7 @@ data_4$species_name = factor( data_4$species_name, levels = names(life_span_orde
 
 
 
-p2 = ggplot(font.label = c(50, "plain"),font.legend= c(20, "plain"),font.x= c(20, "plain"),font.y= c(20, "plain"),
+p9A = ggplot(font.label = c(50, "plain"),font.legend= c(20, "plain"),font.x= c(20, "plain"),font.y= c(20, "plain"),
             data_4, aes(x=longevity, y=SVR,group=species_name,shape=species_name)) + ggtitle("Major introns (BUSCO genes)")+ 
   geom_point(size=5,alpha=1,aes(color=organs),stroke=1.5)+ scale_color_manual("Organs",values=point_color) +
   scale_y_continuous(breaks=seq(0.5,4.5,0.5),labels=paste(seq(0.5,4.5,0.5),"%"),limits=c(0.5,4)) +
@@ -55,15 +55,15 @@ p2 = ggplot(font.label = c(50, "plain"),font.legend= c(20, "plain"),font.x= c(20
   labs(
     caption = substitute(paste("LM model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(lm((data_4$SVR)~log10(data_4$longevity)))))
   ) + annotation_logticks(sides="b")
-p2
+p9A
 
-jpeg(paste(path_figure , "p1_C_Moreira_svr.jpg",sep=""), width = 8000/resolution, height = 5100/resolution,res=600/resolution)
-print(p2)
+jpeg(paste(path_figure , "supp_p9A.jpg",sep=""), width = 8000/resolution, height = 5100/resolution,res=600/resolution)
+print(p9A)
 dev.off()
 
 
 ############## Supplementary Figure 9
-imgA = load.image(paste(path_figure,"p1_C_Moreira_svr.jpg",sep=""))
+imgA = load.image(paste(path_figure,"supp_p9A.jpg",sep=""))
 {
   pdf(file= paste(path_pannel,"Figure9_supp.pdf",sep=""), width=7.75*1/2, height=2.75)
   
@@ -75,7 +75,6 @@ imgA = load.image(paste(path_figure,"p1_C_Moreira_svr.jpg",sep=""))
   
   par(mar=c(0, 0.5, 0.5, 0.5))
   plot(imgA, axes=F)
-  # mtext("A",at=-0,adj=-1, side=2, line=1, font=2, cex=1.2,las=2)
   
   dev.off()
 }

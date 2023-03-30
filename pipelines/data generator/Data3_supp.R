@@ -1,5 +1,4 @@
 # Generate Data 3
-
 options(stringsAsFactors = F, scipen = 999)
 library(ape)
 

@@ -1,10 +1,9 @@
 # Generate Data 10
-
 options(stringsAsFactors = F, scipen = 999)
 library(readxl)
 
-pathData="/home/fbenitiere/data/Projet-SplicedVariants/"
-# pathData="/beegfs/data/fbenitiere/Projet-SplicedVariants/"
+pathData="/home/XXXXX/data/Projet-SplicedVariants/"
+# pathData="/beegfs/data/XXXXX/Projet-SplicedVariants/"
 
 read_excel_allsheets <- function(filename, tibble = FALSE) {
   sheets <- readxl::excel_sheets(filename)
@@ -22,7 +21,7 @@ sp_studied = names(mysheets)
 
 data_10 = data.frame()
 for (species in sp_studied ){
-  table_sra = read.delim(paste(pathData,"Annotations/",species,"/SRAruninfo.tab",sep=""))
+  table_sra = read.delim(paste(pathData , "Annotations/",species,"/SRAruninfo.tab",sep=""))
   table_sra$species = species
   data_10 = rbind(data_10 , table_sra)
 }

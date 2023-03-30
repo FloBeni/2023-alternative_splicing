@@ -1,9 +1,8 @@
 # Generate Data 7
-
 options(stringsAsFactors = F, scipen = 999)
 library(ape)
 
-pathData = "/home/fbenitiere/data/Projet-SplicedVariants/"
+pathData = "/home/XXXXX/data/Projet-SplicedVariants/"
 
 species = "Homo_sapiens"
 df = read.table(file = paste(pathData,"Analyses/",species,"/sequencing_depth.tab",sep="") ,header = T, sep="\t")

@@ -1,4 +1,3 @@
-
 # Generate Data 1
 options(stringsAsFactors = F, scipen = 999)
 library(readxl)
@@ -24,6 +23,7 @@ get_rsquared_slope = function(prop.quantile = 0.1,Xaxis,Yaxis){
   }
 }
 
+
 read_excel_allsheets <- function(filename, tibble = FALSE) {
   sheets <- readxl::excel_sheets(filename)
   x <-
@@ -36,8 +36,8 @@ read_excel_allsheets <- function(filename, tibble = FALSE) {
 }
 
 
-pathData="/home/fbenitiere/data/Projet-SplicedVariants/"
-# pathData="/beegfs/data/fbenitiere/Projet-SplicedVariants/"
+# pathData="/home/XXXXX/data/Projet-SplicedVariants/"
+# pathData="/beegfs/data/XXXXX/Projet-SplicedVariants/"
 
 mysheets <- read_excel_allsheets(paste(pathData,"Fichiers-data/metazoa_69species.xls",sep=""))
 sp_studied = names(mysheets)
@@ -61,6 +61,8 @@ get_CM_dNdS<-function(D) {
 }
 
 
+data_10 = read.delim(paste("data/Data10_supp.tab",sep=""))
+
 data_1 = data.frame()
 for (species in sp_studied){
   print(species)
@@ -75,10 +77,9 @@ for (species in sp_studied){
   clade = mysheets[[species]]$Clade[1]
   body_size = mysheets[[species]]$`Length (cm)`[1]
   longevity = mysheets[[species]]$`Longevity (days)`[1]
-  bioproj = read.delim(paste(pathData,"RNAseq_table/",species,"/list_Acc.tab",sep="" ) )
-  nb_rnaseq = nrow(bioproj)
-  list_rnaseq = paste(bioproj$SRA_accession_ID ,collapse = ";")
-  
+  bioproj = data_10[data_10$species == species,]
+  nb_rnaseq = sum(nrow(bioproj))
+  list_rnaseq = paste(data_10$Run ,collapse = ";")
   
   by_intron = read.delim(paste("data/per_species/",species,"_by_intron_analysis.tab.gz",sep=""),  sep="\t",comment.char = "#")
   fpkm_cov = read.delim(paste("data/per_species/",species,"_by_gene_analysis.tab.gz",sep=""),  sep="\t",comment.char = "#")
@@ -89,7 +90,7 @@ for (species in sp_studied){
   minor_introns = by_intron[by_intron$intron_class == "minor" & !is.na(by_intron$mira) & by_intron$into_cds == "True" & by_intron$gene_id %in% fpkm_cov$gene_id,]
   
   fpkm_cov = fpkm_cov[fpkm_cov$busco_metazoa ,]
-  CoverageBuscoExon = round(median(tapply(fpkm_cov$exon_coverage,fpkm_cov$gene_id,mean),na.rm=T)) # detection de la couverture médiane des gènes Busco
+  CoverageBuscoExon = round(median(tapply(fpkm_cov$exon_coverage,fpkm_cov$gene_id,mean),na.rm=T)) 
   
   major_introns_busco = major_introns[major_introns$gene_id %in% fpkm_cov$gene_id,]
   minor_introns_busco = minor_introns[minor_introns$gene_id %in% fpkm_cov$gene_id,]

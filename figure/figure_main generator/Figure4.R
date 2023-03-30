@@ -7,7 +7,7 @@ data_2 = data_2[data_2$species %in% arbrePhylo$tip.label,]
 data_2$average_mira=data_2$average_mira * 100
 data_2$framepreserving_proportion=data_2$framepreserving_proportion * 100
 
-p1 = ggplot(data_2,aes(x=average_mira,y=framepreserving_proportion,fill=species,label=species))  + theme_bw()+
+p4A = ggplot(data_2,aes(x=average_mira,y=framepreserving_proportion,fill=species,label=species))  + theme_bw()+
   scale_x_log10(breaks=c(0.001,0.01,0.1,1,10, 100), labels=c("0.001 %","0.01 %","0.1 %","1 %","10 %", "100 %"))+
   coord_cartesian(xlim=c(0.001,100)) +  ylab("Proportion of\nframe-preserving variants")+ 
   scale_y_continuous(breaks=seq(0,100,10), labels=paste(seq(0,100,10),"%")) +
@@ -36,20 +36,20 @@ p1 = ggplot(data_2,aes(x=average_mira,y=framepreserving_proportion,fill=species,
     legend.text =  element_text(color="black", size=26, family="serif")
   )
 
-p1
+p4A
 
-jpeg(paste(path_figure,"prop_md3_53sp.jpg",sep=""), width = 9900/resolution, height = 6000/resolution,res=700/resolution)
-print(p1)
+jpeg(paste(path_figure,"p4A.jpg",sep=""), width = 9900/resolution, height = 6000/resolution,res=700/resolution)
+print(p4A)
 dev.off()
 
 {
-  p = ggdraw()+ draw_plot(p1,0,0,1,1)  + 
+  p4A = ggdraw()+ draw_plot(p4A,0,0,1,1)  + 
     draw_image(paste(path_require,"Drosophila_melanogaster_red.png",sep=""),.29,.845,.19,.065)+
     draw_image(paste(path_require,"bee_yellow.png",sep=""),.275,.78,.085,.2) +
     draw_image(paste(path_require,"human_brown.png",sep=""),.2,.80,.08,.17) 
-  p
-  jpeg(paste(path_figure,"prop_md3_53sp.jpg",sep="") , width = 9900/resolution, height = 6000/resolution,res=700/resolution)
-  print(p)
+  
+  jpeg(paste(path_figure,"p4A.jpg",sep="") , width = 9900/resolution, height = 6000/resolution,res=700/resolution)
+  print(p4A)
   dev.off()
 }
 
@@ -69,7 +69,7 @@ shorebird <- comparative.data(arbrePhylo, data.frame(species=data_8[,"species"],
 
 
 
-p4 = ggplot(data_8, aes(x=longevity,y=ratio,fill=clade))  + theme_bw() + 
+p4B = ggplot(data_8, aes(x=longevity,y=ratio,fill=clade))  + theme_bw() + 
   xlab("Longevity (days, log scale)") + ylab("Proportion of frame-preserving SVs")+
   geom_point(pch=21,alpha=0.7, size=7) + 
   scale_y_continuous(breaks=seq(0,100,10), labels=paste(seq(0,100,10),"%")) +
@@ -91,10 +91,10 @@ p4 = ggplot(data_8, aes(x=longevity,y=ratio,fill=clade))  + theme_bw() +
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
   )  + annotation_logticks(sides="b")
 
-p4
+p4B
 
-jpeg(paste(path_figure,"md3_10_percent.jpg",sep=""), width = 7900/resolution, height = 5300/resolution,res=700/resolution)
-print(p4)
+jpeg(paste(path_figure,"p4B.jpg",sep=""), width = 7900/resolution, height = 5300/resolution,res=700/resolution)
+print(p4B)
 dev.off()
 
 
@@ -107,7 +107,7 @@ xlabel = "longevity"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p6=ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p4C = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual(values=vectorColor)+ ggtitle("Low-AS major introns (BUSCO genes)")+
   theme_bw() +labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
   xlab("Longevity (days, log scale)") +
@@ -127,11 +127,11 @@ p6=ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species)
   labs(
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
   ) + theme(legend.position = "none") + annotation_logticks(sides="b")
-p6
+p4C
 
 
-jpeg(paste(path_figure,"busco_notfunctional_svr.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
-print(p6)
+jpeg(paste(path_figure,"p4C.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
+print(p4C)
 dev.off()
 
 
@@ -146,7 +146,7 @@ xlabel="longevity"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p5 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p4D = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual(values=vectorColor)+ ggtitle("High-AS major introns (BUSCO genes)") +
   theme_bw() +
   ylab("Average AS rate per intron")+labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
@@ -168,10 +168,10 @@ p5 = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=specie
     caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
   ) + theme(legend.position = "none") + annotation_logticks(sides="b")
 
-p5
+p4D
 
-jpeg(paste(path_figure,"busco_functional_svr.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
-print(p5)
+jpeg(paste(path_figure,"p4D.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
+print(p4D)
 dev.off()
 
 
@@ -180,10 +180,10 @@ dev.off()
 
 ######### Figure 4
 
-imgA = load.image(paste(path_figure,"prop_md3_53sp.jpg",sep=""))
-imgB = load.image(paste(path_figure,"md3_10_percent.jpg",sep=""))
-imgC = load.image(paste(path_figure,"busco_notfunctional_svr.jpg",sep=""))
-imgD = load.image(paste(path_figure,"busco_functional_svr.jpg",sep=""))
+imgA = load.image(paste(path_figure,"p4A.jpg",sep=""))
+imgB = load.image(paste(path_figure,"p4B.jpg",sep=""))
+imgC = load.image(paste(path_figure,"p4C.jpg",sep=""))
+imgD = load.image(paste(path_figure,"p4D.jpg",sep=""))
 
 
 

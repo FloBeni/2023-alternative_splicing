@@ -1,11 +1,6 @@
 # Generate Data 8
-
 options(stringsAsFactors = F, scipen = 999)
 library(ape)
-
-pathData = "/home/fbenitiere/data/Projet-SplicedVariants/"
-# pathData = "/beegfs/data/XXXXX/Projet-SplicedVariants/"
-
 
 arbrePhylo = read.tree(paste("data/phylogenetic_tree.nwk",sep=""))
 sp_studied = arbrePhylo$tip.label
