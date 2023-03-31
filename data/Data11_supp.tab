@@ -1,3 +1,11 @@
+#species: Scientific name.
+#ratio: Fraction of introns with a unique reading frame among introns with a defined reading frame.
+#major_introns.Var1: Reading frame.
+#major_introns.Freq: Fraction of major intron per reading frame among protein-coding genes.
+#major_introns_svr: Average major introns AS rate per reading frame among protein-coding genes (%).
+#major_introns_busco.Var1: Reading frame.
+#major_introns_busco.Freq: Fraction of major intron per reading frame among BUSCO genes.
+#major_introns_busco_svr: Average major introns AS rate per reading frame among BUSCO genes (%).
 species	ratio	major_introns.Var1	major_introns.Freq	major_introns_svr	major_introns_busco.Var1	major_introns_busco.Freq	major_introns_busco_svr
 Callorhinchus_milii	0.995902838747439	0	0.508912292578603	2.24195855324214	0	0.528641801548206	1.38601487133644
 Callorhinchus_milii	0.995902838747439	1	0.206102054789251	1.96823464657602	1	0.227304714989444	1.1350837026227

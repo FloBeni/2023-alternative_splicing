@@ -1,3 +1,11 @@
+#median_gene_expression: Median gene expression level per bin.
+#average_as: Average per-intron alternative splicing rate (%).
+#median_gene_expression_errorBar: Standard deviation of the gene expression level per bin.
+#average_as_errorBar: Standard deviation of average per-intron alternative splicing rate (%).
+#effectif.intervalle: Interval of gene expression level.
+#effectif.Freq: The number of introns found in each interval.
+#group: Indication on the selection of the introns.
+#species: Scientific name.
 median_gene_expression	average_as	median_gene_expression_errorBar	average_as_errorBar	effectif.intervalle	effectif.Freq	intron	group	species
 0.300013294118988	6.35252276606817	0.00163177250174676	0.123217927891268	[3.89e-09,0.544]	7645	All	All protein-codingenterN= 152405	Homo_sapiens
 0.781972501986011	5.97436788072646	0.0016967209078938	0.115005908675619	(0.544,1.07]	7594	All	All protein-codingenterN= 152405	Homo_sapiens

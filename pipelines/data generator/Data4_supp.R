@@ -4,7 +4,7 @@ library(stringr)
 options(stringsAsFactors = F, scipen = 999)
 
 
-data_10 = read.delim(paste("data/Data10_supp.tab",sep=""))
+data_10 = read.delim(paste("data/Data10_supp.tab",sep=""),comment.char = "#")
 data_10$tissue = sapply(data_10$LibraryName,function(x) str_split(x,"\\.")[[1]][3])
 data_10$BioProjet = paste(data_10$tissue,data_10$BioProject)
 
@@ -50,12 +50,10 @@ for(species in c("Gallus_gallus","Homo_sapiens","Macaca_mulatta","Monodelphis_do
 
 data_4$organs = sapply(data_4$Bioproject,function(x) str_split(x," ")[[1]][1])
 
-# Selection des bioprojets interessants, garde pour les mammifères que le forebrain
 
 
 tissue_list = c( "_ovar","_head","_test")
 for(species in c( "Dendroctonus_ponderosae" )){print(species)
-  # sra_table = read.delim(paste( "data/Data10_supp.tab" , sep = "" ),comment.char = "#")
   sra_table = data_10[data_10$species == species ,]
   
   intron_all = read.delim(paste("data/per_species/",species,"_by_intron_analysis.tab.gz",sep=""),  sep="\t")
@@ -80,7 +78,7 @@ for(species in c( "Dendroctonus_ponderosae" )){print(species)
     fpkm_cov = fpkm_cov[colnames(fpkm_cov)[grepl(paste(c("gene_id",samples),collapse = "|"),colnames(fpkm_cov))]]
     fpkm_cov$sum_exon_coverage = rowSums(fpkm_cov[grepl("exon_coverage_",colnames(fpkm_cov))])
     
-    CoverageBuscoExon = round(median(tapply(fpkm_cov$sum_exon_coverage,fpkm_cov$gene_id,mean),na.rm=T)) # detection de la couverture médiane des gènes Busco
+    CoverageBuscoExon = round(median(tapply(fpkm_cov$sum_exon_coverage,fpkm_cov$gene_id,mean),na.rm=T)) 
     
     by_intron = by_intron[by_intron$gene_id %in% fpkm_cov$gene_id ,]
     

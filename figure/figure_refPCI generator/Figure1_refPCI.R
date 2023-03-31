@@ -2,10 +2,10 @@ source("figure/figure_refPCI generator/library_path.R")
 
 
 ############## PCI referee Pannel 1 A
-subdt = read.delim(paste("data/Data11_supp.tab",sep=""),comment.char = "#")
-subdt$major_introns.Var1 = as.character(subdt$major_introns.Var1 )
-subdt$major_introns_busco.Var1 = as.character(subdt$major_introns_busco.Var1 )
-p1A = ggplot(subdt,aes(y=major_introns.Freq * 100,x=major_introns.Var1 ))  + geom_boxplot(fill=set_color[2]) + 
+data_11 = read.delim(paste("data/Data11_supp.tab",sep=""),comment.char = "#")
+data_11$major_introns.Var1 = as.character(data_11$major_introns.Var1 )
+data_11$major_introns_busco.Var1 = as.character(data_11$major_introns_busco.Var1 )
+p1A = ggplot(data_11,aes(y=major_introns.Freq * 100,x=major_introns.Var1 ))  + geom_boxplot(fill=set_color[2]) + 
   theme_bw()+ theme(
     axis.title.x = element_text(color="black",margin = margin(t = 20, r = 0, b = 0, l = 0), size=31,family="serif"),
     axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=31, family="serif"),
@@ -25,7 +25,7 @@ dev.off()
 
 
 ############## PCI referee Pannel 1 B
-p1B = ggplot(subdt,aes(y=major_introns_busco.Freq*100,x=major_introns_busco.Var1 ))  + geom_boxplot(fill=set_color[1]) + 
+p1B = ggplot(data_11,aes(y=major_introns_busco.Freq*100,x=major_introns_busco.Var1 ))  + geom_boxplot(fill=set_color[1]) + 
   theme_bw()+ theme(
     axis.title.x = element_text(color="black",margin = margin(t = 20, r = 0, b = 0, l = 0), size=31,family="serif"),
     axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=31, family="serif"),
@@ -45,15 +45,15 @@ dev.off()
 
 ############## PCI referee Pannel 1 C
 dt = data.frame(
-  values = subdt[grepl("0",subdt$major_introns.Var1),]$major_introns_svr - subdt[grepl("1",subdt$major_introns.Var1),]$major_introns_svr,
+  values = data_11[grepl("0",data_11$major_introns.Var1),]$major_introns_svr - data_11[grepl("1",data_11$major_introns.Var1),]$major_introns_svr,
   group = "P0 - P1"
 )
 dt = rbind(dt,data.frame(
-  values = subdt[grepl("0",subdt$major_introns.Var1),]$major_introns_svr - subdt[grepl("2",subdt$major_introns.Var1),]$major_introns_svr,
+  values = data_11[grepl("0",data_11$major_introns.Var1),]$major_introns_svr - data_11[grepl("2",data_11$major_introns.Var1),]$major_introns_svr,
   group = "P0 - P2"
 ))
 dt = rbind(dt,data.frame(
-  values = subdt[grepl("2",subdt$major_introns.Var1),]$major_introns_svr - subdt[grepl("1",subdt$major_introns.Var1),]$major_introns_svr,
+  values = data_11[grepl("2",data_11$major_introns.Var1),]$major_introns_svr - data_11[grepl("1",data_11$major_introns.Var1),]$major_introns_svr,
   group = "P2 - P1"
 ))
 
@@ -78,15 +78,15 @@ dev.off()
 
 ############## PCI referee Pannel 1 D
 dt = data.frame(
-  values = subdt[grepl("0",subdt$major_introns_busco.Var1),]$major_introns_busco_svr - subdt[grepl("1",subdt$major_introns_busco.Var1),]$major_introns_busco_svr,
+  values = data_11[grepl("0",data_11$major_introns_busco.Var1),]$major_introns_busco_svr - data_11[grepl("1",data_11$major_introns_busco.Var1),]$major_introns_busco_svr,
   group = "P0 - P1"
 )
 dt = rbind(dt,data.frame(
-  values = subdt[grepl("0",subdt$major_introns_busco.Var1),]$major_introns_busco_svr - subdt[grepl("2",subdt$major_introns_busco.Var1),]$major_introns_busco_svr,
+  values = data_11[grepl("0",data_11$major_introns_busco.Var1),]$major_introns_busco_svr - data_11[grepl("2",data_11$major_introns_busco.Var1),]$major_introns_busco_svr,
   group = "P0 - P2"
 ))
 dt = rbind(dt,data.frame(
-  values = subdt[grepl("2",subdt$major_introns_busco.Var1),]$major_introns_busco_svr - subdt[grepl("1",subdt$major_introns_busco.Var1),]$major_introns_busco_svr,
+  values = data_11[grepl("2",data_11$major_introns_busco.Var1),]$major_introns_busco_svr - data_11[grepl("1",data_11$major_introns_busco.Var1),]$major_introns_busco_svr,
   group = "P2 - P1"
 ))
 

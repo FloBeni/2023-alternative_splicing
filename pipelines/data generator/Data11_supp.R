@@ -1,6 +1,6 @@
 # Generate Data 11
 options(stringsAsFactors = F, scipen = 999)
-
+library(ape)
 
 arbrePhylo = read.tree(paste("data/phylogenetic_tree.nwk",sep=""))
 sp_studied = arbrePhylo$tip.label

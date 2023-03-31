@@ -1,3 +1,9 @@
+#species: Scientific name.
+#rate: Sequence from 0 to 1 with 0.05 step.
+#intervalle: Interval of relative abundance of the focal intron compared to other transcripts with alternative splice boundaries (i.e. RAS = Ns/(Ns+Na)).
+#Freq: Fraction of introns that are in the RAS interval (%).
+#intervalle.1: Interval of relative abundance of the focal intron compared to unspliced transcripts (i.e. RANS = Ns/(Ns+Nu/2)).
+#Freq.1: Fraction of introns that are in the RANS interval (%).
 species	rate	intervalle	Freq	intervalle.1	Freq.1
 Callorhinchus_milii	0.025	[0,0.05]	30.7125690278313	[0,0.05]	8.69254148847468
 Callorhinchus_milii	0.075	(0.05,0.1]	3.12024143687967	(0.05,0.1]	5.146991581269

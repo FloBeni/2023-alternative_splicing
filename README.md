@@ -6,10 +6,10 @@ editor_options:
 
 [![DOI](https://zenodo.org/badge/575819362.svg)](https://zenodo.org/badge/latestdoi/575819362)
 
-This git includes all processed data that have been generated and used
-in the study "Random genetic drift sets an upper limit on mRNA splicing
-accuracy in metazoans", as well as the scripts used to analyze the data
-and to generate the figures.
+This archive includes all processed data that have been generated and
+used in the study "Random genetic drift sets an upper limit on mRNA
+splicing accuracy in metazoans", as well as the scripts used to analyze
+the data and to generate the figures.
 
 Developed by Florian Bénitière, Anamaria Necsulea and Laurent Duret.
 Université de Lyon, Université Lyon 1, CNRS, Laboratoire de Biométrie et
@@ -79,54 +79,58 @@ Biologie Évolutive UMR 5558, F-69622 Villeurbanne, France.
         -   **std_fpkm**: Standard deviation FPKM across all RNA-seq
             samples.
 
-        -   **exon_coverage**: Exonic read per bp (all RNA-seq pooled)
+        -   **exon_coverage**: Exonic read *per* bp (measured on all
+            RNA-seq pooled).
 
-        -   **busco_metazoa**: If this gene can be associated to a BUSCO
-            genes without ambiguity: BUSCO genes were removed from the
-            analysis if they were associated to more than one annotated
-            gene or to an annotated gene that was associated to more
-            than one BUSCO gene.
+        -   **busco_metazoa**: If the gene can be associated to a BUSCO
+            genes without ambiguity (*i.e.* BUSCO genes were removed
+            from the analysis if they were associated to more than one
+            annotated gene or to an annotated gene that was associated
+            to more than one BUSCO gene).
 
         </div>
 
-        "*by\_*gene_analysis.tab" which contain per-gene data
+        "*by\_*intron_analysis.tab" which contain per-gene data.
 
         <div>
 
-        -   **gene_id**: ID of the gene found in the GFF
+        -   **gene_id**: ID of the gene found in the GFF.
 
         -   **seqname**: seqname in the GFF, corresponding to the name
             of the chromosome or scaffold
 
-        -   **strand**: Defined as 1 (forward) or -1 (reverse)
+        -   **strand**: Defined as 1 (forward) or -1 (reverse).
 
-        -   **splice5**: Corresponds to the 5' splice donor site
+        -   **splice5**: Corresponds to the 5' splice donor site.
 
-        -   **splice3**: Corresponds to the 3' splice acceptor site
+        -   **splice3**: Corresponds to the 3' splice acceptor site.
 
-        -   **n1**: number of spliced reads corresponding to the precise
-            excision of the focal intron. ($N_s$ in the paper)
+        -   **n1**: Number of spliced reads corresponding to the precise
+            excision of the focal intron ($N_s$ in the paper).
 
         -   **n2_spl5**: Number of reads corresponding to alternative
             splice variants relative to this intron (*i.e.* sharing 5'
-            splice donor site) ($N_a$ in the paper)
+            splice donor site) ($\mathrm{n2spl5+n2spl3=N_a}$ in the
+            paper).
 
         -   **n2_spl3**: Number of reads corresponding to alternative
             splice variants relative to this intron (*i.e.* sharing 3'
-            splice acceptor site) ($N_a$ in the paper)
+            splice acceptor site) ($\mathrm{n2spl5+n2spl3=N_a}$ in the
+            paper).
 
         -   **n3_spl3**: Number of unspliced reads, co-linear with the
-            genomic sequence (at the 3' splice acceptor site) ($N_u$ in
-            the paper)
+            genomic sequence (at the 3' splice acceptor site)
+            ($\mathrm{n3spl5+n3spl3=N_u}$ in the paper).
 
         -   **n3_spl5**: Number of unspliced reads, co-linear with the
-            genomic sequence (at the 5' splice donor site). ($N_u$ in
-            the paper)
+            genomic sequence (at the 5' splice donor site).
+            ($\mathrm{n3spl5+n3spl3=N_u}$ in the paper).
 
-        -   **splice_variant_rate**: $\mathrm{AS=\frac{N_a}{N_s~+~N_a}}$
+        -   **splice_variant_rate**: Proportion of reads alternatively
+            spliced, $\mathrm{1-RAS=AS=\frac{N_a}{N_s~+~N_a}}$.
 
-        -   **nonsplice_variant_rate**:
-            $\mathrm{RANS=\frac{N_s}{N_s~+~\frac{N_u}{2}}}$
+        -   **nonsplice_variant_rate**:Proportion of unspliced reads,
+            $\mathrm{1-RANS=\frac{N_u}{2\times N_s~+~N_u}}$.
 
         -   **intron_class**: Three categories of introns: major
             introns, defined as those introns that have RANS $>$ 0.5 and
@@ -142,67 +146,84 @@ Biologie Évolutive UMR 5558, F-69622 Villeurbanne, France.
             introns that were upstream or downstream of these extreme
             coordinates.
 
-        -   **id**: seqname;gene_id;splice3;end:strand
+        -   **id**: Semicolon-separated list of tag-value
+            seqname;gene_id;splice3;end:strand
 
-        -   **fpkm**: weighted_fpkm of the corresponding gene.
+        -   **fpkm**: Weighted_fpkm of the corresponding gene. Computed
+            as the average FPKM across samples, weighted by the
+            sequencing depth of each sample. The sequencing depth of a
+            sample is the median *per*-base read coverage across BUSCO
+            genes.
 
         -   **splicesite**: Identify the dinucletotides donor and
-            acceptor.
+            acceptor. (ex: GT AG)
 
-        -   **phase**: Extract the phase of the intron from the GTF.
+        -   **phase**: Extract the phase of the intron from the GTF
+            file.
 
-        -   **Annotation**:Check if the intron is annotated or not.
+        -   **Annotation**: Check if the intron is annotated (*i.e.*
+            present in the GFF)or not.
 
-        -   **mira criptic_intron**:
+        -   **mira criptic_intron**: For minor introns sharing a
+            boundary with a major intron:
             $\mathrm{Minor~intron~relative~abundance~MIRA_i=\frac{N_i^m}{N^M~+~N^m}}$
 
         -   **distance_from_major**: In bp the distance from the sharing
             major intron boundaries.
 
-        -   **frame_shift**:
+        -   **frame_shift**: The residual value resulting from the
+            division of distance_from_major by 3.
 
-        -   **have_abundant_sv**: For major intron check if they have an
-            habundant minor variants.
+        -   **have_abundant_sv**: For major intron, check if they have
+            an habundant minor variants (*i.e.* MIRA \> 0.05*)*.
 
         </div>
 
-    -   "Data1_supp.tab" contain summarize data and information per
+    -   "Data1_supp.tab" contains summarize data and information per
         species such as the genome assembly, the clade, the list of the
-        RNA-seq studied...
+        RNA-seq studied... Used in Fig. 1,3,4,6 and Supplementary Fig.
+        2,3,6,8,9.
 
     -   "Data2_supp.tab" contains the analyzes of the relation between
-        the average MIRA and the frame preserving proportion (Fig. 4A)
+        the average MIRA and the frame preserving proportion (Fig. 4A).
 
-    -   "Data3_supp.tab" ????
+    -   "Data3_supp.tab" contains the distribution of the relative
+        abundance of the spliced isoform compared to other transcripts
+        with alternative splice boundaries (RAS) or compared to
+        unspliced transcripts (RANS) (divided into 5% bins), for
+        protein-coding gene introns (Fig. 2).
 
-    -   "Data4_supp.tab" is the analyzes of the average AS rate between
-        organs in different tissues (Fig. 3).
+    -   "Data4_supp.tab" is the analysis of the average AS rate between
+        organs in different tissues (Fig. 3 and Supplementary Fig. 9).
 
-    -   "Data5_supp.tab" is the analyzes of the SNPs density in
-        *Drosophila melanogaster* and *Homo sapiens* (Fig. 5).
+    -   "Data5_supp.tab" is the analysis of the SNPs density in
+        *Drosophila melanogaster* and *Homo sapiens* (Fig. 5 and
+        Supplementary Fig. 4).
 
-    -   "Data6_supp.tab" is the analyzes of the relation between the
-        FPKM and the average AS rate.
+    -   "Data6_supp.tab" is the analysis of the relation between the
+        FPKM and the average AS rate (Fig. 6 and Supplementary Fig. 5).
 
-    -   "Data7_supp.tab" analyzese of the coverage impacting the AS rate
-        and the proportion of analyzable annotated introns.
-        (Supplemenary Fig. 1)
+    -   "Data7_supp.tab" analysis of the coverage impacting the AS rate
+        and the proportion of analyzable annotated introns (Supplemenary
+        Fig. 1).
 
-    -   "Data8_supp.tab" Proportion of frame preserving intron for every
-        species in ???
+    -   "Data8_supp.tab" Proportion of frame preserving introns for
+        every species in (Fig. 4 and Supplementary Fig. 7).
 
-    -   "Data9_supp.tab" lifespan and longevity of the studied species
+    -   "Data9_supp.tab" contains sources and information regarding the
+        lifespan and longevity of the species studied.
 
     -   "Data10_supp.tab" Table containing all the RNA-seq studied with
         information extracted from SRA runinfo table.
 
-    -   "Data11_supp.tab" ????
+    -   "Data11_supp.tab" contains the proportion of major introns per
+        reading frame class per species.
 
 -   The "pipelines" folder contains the bionformatics pipelines for
-    three different purposes: to calculate the dN/dS ("dNdS pipeline");
-    to analyse various alternative splicing characteristics as part of
-    our study ("AS pipeline"); to generate data table located in the
-    "data" directory ("data generator").
+    three different purposes: to calculate the dN/dS ratio ("dNdS
+    pipeline"); to analyse various alternative splicing characteristics
+    as part of our study ("AS pipeline"); to generate data table located
+    in the "data" directory ("data generator").
 
 ### 
 

@@ -61,7 +61,7 @@ get_CM_dNdS<-function(D) {
 }
 
 
-data_10 = read.delim(paste("data/Data10_supp.tab",sep=""))
+data_10 = read.delim(paste("data/Data10_supp.tab",sep=""),comment.char = "#")
 
 data_1 = data.frame()
 for (species in sp_studied){

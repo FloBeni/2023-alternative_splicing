@@ -1,3 +1,12 @@
+#annot_N1N2_sup10: Number of introns with Ns+Na >= 10.
+#annotated_intron: Number of annotated introns.
+#sequencing_depth: Median per-base read coverage across BUSCO genes.
+#average_svr_busco: Average per-intron alternative splicing rate among BUSCO major introns (%).
+#no_major_intron: Number of major introns.
+#no_compiled_rna_seq: Number of sub-sampled RNA-seq.
+#replicate: Replicates number.
+#samples: SRA Accession of the RNA-seq samples studied.
+#species: Scientific name.
 annot_N1N2_sup10	annotated_intron	sequencing_depth	average_svr_busco	no_major_intron	no_compiled_rna_seq	replicate	echantillon	selection	samples	species
 5824	11122	23.6065620493085	0.0268521170532571	4882	1	1	all introns	0	ERR2598320	Homo_sapiens
 7292	11122	28.3365145661651	0.0234517807634068	6128	1	2	all introns	0	ERR2598321	Homo_sapiens
