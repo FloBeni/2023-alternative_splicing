@@ -1,9 +1,3 @@
----
-editor_options: 
-  markdown: 
-    wrap: 72
----
-
 [![DOI](https://zenodo.org/badge/575819362.svg)](https://zenodo.org/badge/latestdoi/575819362)
 
 This archive includes all processed data that have been generated and
