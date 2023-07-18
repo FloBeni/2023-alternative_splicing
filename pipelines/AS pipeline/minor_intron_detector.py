@@ -11,7 +11,6 @@ print(sys.argv)
 
 intron_cds_path = sys.argv[1]
 minor_intron_path = sys.argv[2]
-intron_cds_path = "/home/fbenitiere/data/Projet-SplicedVariants/Analyses/Drosophila_melanogaster/by_intron_cds.tab"
 
 
 intron_table = pd.read_table(intron_cds_path, dtype={'into_cds': 'str'} , comment="#")

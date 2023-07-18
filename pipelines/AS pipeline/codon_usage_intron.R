@@ -12,11 +12,6 @@ by_gene_path = args[2]
 intron_content_path = args[3]
 intronic_UC_path = args[4]
 
-# codon_usage_path = "/home/fbenitiere/data/Projet-SplicedVariants/Annotations/Drosophila_pseudoobscura/formatted_data/protein_codon_content.tab"
-# by_gene_path =  "/home/fbenitiere/data/Projet-SplicedVariants/Analyses/Drosophila_pseudoobscura/by_gene_analysis.tab"
-# intron_content_path =  "/home/fbenitiere/data/Projet-SplicedVariants/Annotations/Drosophila_pseudoobscura/formatted_data/intron_triplet_content.tab"
-
-
 
 by_gene = read.delim(by_gene_path , header=T , sep="\t",comment.char = "#")
 rownames(by_gene) = by_gene$gene_id

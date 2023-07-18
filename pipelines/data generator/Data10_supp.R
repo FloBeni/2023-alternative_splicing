@@ -16,7 +16,7 @@ read_excel_allsheets <- function(filename, tibble = FALSE) {
   x
 }
 
-mysheets <- read_excel_allsheets(paste(pathData,"Fichiers-data/metazoa_69species.xls",sep=""))
+mysheets <- read_excel_allsheets(paste("data/metazoa_69species.xls",sep=""))
 sp_studied = names(mysheets)
 
 data_10 = data.frame()

@@ -8,13 +8,6 @@ IntronCoord_path = args[4]
 busco_path = args[5]
 path_output = args[6]
 path_RNAseq_table = args[7]
-# species="Homo_sapiens"
-# pathData="~/data/Projet-SplicedVariants/"
-# # pathData="/beegfs/data/fbenitiere/Projet-SplicedVariants/"
-# by_intron_cds_path = "/home/fbenitiere/data/Projet-SplicedVariants/Analyses/Homo_sapiens/by_intron_cds.tab"
-# IntronCoord_path = "/home/fbenitiere/data/Projet-SplicedVariants/Annotations/Homo_sapiens/formatted_data/IntronCoords.tab"
-# path_RNAseq_table = paste("/home/fbenitiere/data/Projet-SplicedVariants/","RNAseq_table/Homo_sapiens/list_Acc.tab",sep="")
-# busco_path = "/home/fbenitiere/data/Projet-SplicedVariants/Annotations/Homo_sapiens/busco_analysis/busco_to_gene_id_metazoa"
 
 
 RNAseq_table <- read.delim(path_RNAseq_table) # Lecture du fichier RNA-seq

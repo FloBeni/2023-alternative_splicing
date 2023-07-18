@@ -1,6 +1,6 @@
 # Generate Data 5
 options(stringsAsFactors = F, scipen = 999)
-pathData="/home/XXXXX/data/Projet-SplicedVariants/"
+# pathData="/home/XXXXX/data/Projet-SplicedVariants/"
 # pathData="/beegfs/data/XXXXX/Projet-SplicedVariants/"
 
 freq=0
@@ -10,7 +10,8 @@ data_5 = data.frame()
 
 ### DROSO FREQUENT
 species = "Drosophila_melanogaster"
-polymorphisme = read.delim(file=paste(pathData , "Annotations/" , species , "/polymorphism/by_minor_intron.tab",sep=""))
+# polymorphisme = read.delim(file=paste(pathData , "Annotations/" , species , "/polymorphism/by_minor_intron.tab",sep=""))
+polymorphisme = read.delim(file=paste( "data/polymorphism/" , species , "_by_minor_intron.tab.gz",sep=""))
 
 polymorphisme = polymorphisme[polymorphisme$which_shared_site != "both",]
 polymorphisme = polymorphisme[polymorphisme$criptic_intron == "False",]
@@ -254,10 +255,12 @@ data_5 = rbind(data_5,df)
 
 species = "Homo_sapiens"
 {
-  list_files = list.files(paste(pathData,"Annotations/Homo_sapiens/SNP_chr_v2/polymorphism_",freq,"_v2",sep=""))
+  # list_files = list.files(paste(pathData,"Annotations/Homo_sapiens/SNP_chr_v2/polymorphism_",freq,"_v2",sep=""))
+  list_files = list.files(paste("data/polymorphism/Homo_sapiens_polymorphism_",freq,"_v2/",sep=""))
   polymorphisme = data.frame()
   for (file in list_files){print(file)
-    polymorphisme = rbind(polymorphisme,read.delim(file=paste(pathData,"Annotations/Homo_sapiens/SNP_chr_v2/polymorphism_",freq,"_v2/",
+    # polymorphisme = rbind(polymorphisme,read.delim(file=paste(pathData,"Annotations/Homo_sapiens/SNP_chr_v2/polymorphism_",freq,"_v2/",
+    polymorphisme = rbind(polymorphisme,read.delim(file=paste("data/polymorphism/Homo_sapiens_polymorphism_",freq,"_v2/",
                                                               file,sep="")))
   }
   all_polymorphisme = polymorphisme
@@ -601,7 +604,8 @@ data_5 = rbind(data_5,df)
 
 
 species = "Drosophila_melanogaster"
-polymorphisme = read.delim(file=paste(pathData,"Annotations/",species,"/polymorphism/by_minor_intron.tab",sep=""))
+# polymorphisme = read.delim(file=paste(pathData,"Annotations/",species,"/polymorphism/by_minor_intron.tab",sep=""))
+polymorphisme = read.delim(file=paste( "data/polymorphism/" , species , "_by_minor_intron.tab.gz",sep=""))
 
 polymorphisme = polymorphisme[polymorphisme$which_shared_site != "both",]
 polymorphisme = polymorphisme[polymorphisme$criptic_intron == "False",]

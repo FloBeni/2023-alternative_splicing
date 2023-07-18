@@ -47,6 +47,7 @@ arbrePhylo = read.tree(paste("data/phylogenetic_tree.nwk",sep=""))
 data_1 = read.delim("data/Data1_supp.tab",comment.char = "#")
 data_1 = data_1[data_1$species %in% arbrePhylo$tip.label,]
 rownames(data_1) = data_1$species
+data_1$clade = factor(data_1$clade,levels=names(vectorColor))
 
 
 data_8 = read.delim(paste("data/Data8_supp.tab",sep=""),comment.char = "#")

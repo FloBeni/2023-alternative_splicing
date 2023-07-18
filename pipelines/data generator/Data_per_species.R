@@ -18,10 +18,10 @@ read_excel_allsheets <- function(filename, tibble = FALSE) {
 }
 
 
-pathData="/home/XXXXX/data/Projet-SplicedVariants/"
-pathData="/beegfs/data/XXXXX/Projet-SplicedVariants/"
+# pathData="/home/XXXXX/data/Projet-SplicedVariants/"
+# pathData="/beegfs/data/XXXXX/Projet-SplicedVariants/"
 
-mysheets <- read_excel_allsheets(paste(pathData,"Fichiers-data/metazoa_69species.xls",sep=""))
+mysheets <- read_excel_allsheets(paste("data/metazoa_69species.xls",sep=""))
 sp_studied = names(mysheets)
 
 
@@ -97,10 +97,10 @@ for (species in sp_studied ){
   minor_introns$id = paste(minor_introns$seqname,minor_introns$gene_id,minor_introns$splice5,minor_introns$splice3,minor_introns$strand,sep=";")
   rownames(minor_introns) = minor_introns$id
   by_intron$mira = minor_introns[by_intron$id,]$mira
+  minor_introns$
   by_intron$criptic_intron = minor_introns[by_intron$id,]$criptic_intron
   by_intron$distance_from_major = minor_introns[by_intron$id,]$distance_from_major
   by_intron$frame_shift = minor_introns[by_intron$id,]$frame_shift
-  
   major_introns = read.delim(paste(pathData,"/Analyses/",species,"/by_intron_major_overlap.tab",sep=""))
   major_introns$id = paste(major_introns$seqname,major_introns$gene_id,major_introns$splice5,major_introns$splice3,major_introns$strand,sep=";")
   rownames(major_introns) = major_introns$id

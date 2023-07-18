@@ -7,12 +7,38 @@ lm_eqn <- function(m=cor.test(X, Y,method="pearson")){
 }
 
 
+
 ############## Pannel 6 A
+xmin = min(data_1$cor_as_fpkm_low_as[which(data_1$pval_cor_as_fpkm_low_as >= 0.05)])
+
+p6A = ggplot(  data_1,aes(x=cor_as_fpkm_low_as) ) + geom_histogram(col="black",fill="#A6CEE3",bins = 25,  boundary = 0) +
+  geom_text(label="p < 0.05",x=xmin-.17,y=10,cex=10,family="serif")+
+  geom_text(label="p \u2265 0.05",x=-0.15,y=10,cex=10,family="serif")+
+  geom_vline(xintercept = xmin,linetype="dashed",size=1)+  theme_bw()+ theme(
+    axis.title.x = element_text(color="black",margin = margin(t = 15, r = 0, b = 0, l = 0), size=31,family="serif"),
+    axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=31, family="serif"),
+    axis.text.y =  element_text(color="black", size=26, family="serif"),
+    axis.text.x =  element_text(color="black", size=26, family="serif"),
+    title =  element_text(color="black", size=26 ,family="serif"),
+    text =  element_text(color="black", size=31, family="serif"),
+    legend.text =  element_text(color="black", size=26, family="serif",vjust = 1.5,margin = margin(t = 10)),
+    plot.caption = element_text(hjust = 0.2, face= "italic", size=23),
+    plot.caption.position =  "plot"
+  ) + ylab("Frequency") + xlab("Pearson coefficient correlation (R)")+ xlim(-1,1)+ ylim(0,25) + ggtitle("Low-AS major introns (all protein-coding genes)")
+p6A
+
+
+jpeg(paste(path_figure,"p6A.jpg",sep="") , width = 8500/resolution, height = 5000/resolution,res=700/resolution)
+print(p6A)
+dev.off()
+
+
+############## Pannel 6 B
 xmin = min(data_1$cor_as_fpkm_all_as[which(data_1$pval_cor_as_fpkm_all_as>=0.05)])
 xmax = max(data_1$cor_as_fpkm_all_as[which(data_1$pval_cor_as_fpkm_all_as>=0.05)])
 
 
-p6A = ggplot(  data_1,aes(x=cor_as_fpkm_all_as) ) + geom_histogram(col="black",fill="#A6CEE3",bins = 25,  boundary = 0) +
+p6B = ggplot(  data_1,aes(x=cor_as_fpkm_all_as) ) + geom_histogram(col="black",fill="#A6CEE3",bins = 25,  boundary = 0) +
   geom_text(label="p < 0.05",x=xmin-.17,y=10,cex=10,family="serif")+
   geom_text(label="p < 0.05",x=xmax+.17,y=10,cex=10,family="serif")+
   geom_text(label="p \u2265 0.05",x=-0.04,y=10,cex=10,family="serif")+
@@ -29,39 +55,12 @@ p6A = ggplot(  data_1,aes(x=cor_as_fpkm_all_as) ) + geom_histogram(col="black",f
     plot.caption.position =  "plot"
   ) + ylab("Frequency") + xlab("Pearson coefficient correlation (R)")+ xlim(-1,1)+ ylim(0,25)+
   ggtitle("Major introns (all protein-coding genes)")
-p6A
-
-
-jpeg(paste(path_figure,"p6A.jpg",sep="") , width = 8500/resolution, height = 5000/resolution,res=700/resolution)
-print(p6A)
-dev.off()
-
-
-############## Pannel 6 B
-xmin = min(data_1$cor_as_fpkm_low_as[which(data_1$pval_cor_as_fpkm_low_as >= 0.05)])
-
-p6B = ggplot(  data_1,aes(x=cor_as_fpkm_low_as) ) + geom_histogram(col="black",fill="#A6CEE3",bins = 25,  boundary = 0) +
-  geom_text(label="p < 0.05",x=xmin-.17,y=10,cex=10,family="serif")+
-  geom_text(label="p \u2265 0.05",x=-0.15,y=10,cex=10,family="serif")+
-  geom_vline(xintercept = xmin,linetype="dashed",size=1)+  theme_bw()+ theme(
-    axis.title.x = element_text(color="black",margin = margin(t = 15, r = 0, b = 0, l = 0), size=31,family="serif"),
-    axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=31, family="serif"),
-    axis.text.y =  element_text(color="black", size=26, family="serif"),
-    axis.text.x =  element_text(color="black", size=26, family="serif"),
-    title =  element_text(color="black", size=26 ,family="serif"),
-    text =  element_text(color="black", size=31, family="serif"),
-    legend.text =  element_text(color="black", size=26, family="serif",vjust = 1.5,margin = margin(t = 10)),
-    plot.caption = element_text(hjust = 0.2, face= "italic", size=23),
-    plot.caption.position =  "plot"
-  ) + ylab("Frequency") + xlab("Pearson coefficient correlation (R)")+ xlim(-1,1)+ ylim(0,25) + ggtitle("Low-AS major introns (all protein-coding genes)")
 p6B
 
 
 jpeg(paste(path_figure,"p6B.jpg",sep="") , width = 8500/resolution, height = 5000/resolution,res=700/resolution)
 print(p6B)
 dev.off()
-
-
 
 
 

@@ -39,7 +39,7 @@ read_excel_allsheets <- function(filename, tibble = FALSE) {
 # pathData="/home/XXXXX/data/Projet-SplicedVariants/"
 # pathData="/beegfs/data/XXXXX/Projet-SplicedVariants/"
 
-mysheets <- read_excel_allsheets(paste(pathData,"Fichiers-data/metazoa_69species.xls",sep=""))
+mysheets <- read_excel_allsheets(paste("data/metazoa_69species.xls",sep=""))
 sp_studied = names(mysheets)
 
 
@@ -79,7 +79,7 @@ for (species in sp_studied){
   longevity = mysheets[[species]]$`Longevity (days)`[1]
   bioproj = data_10[data_10$species == species,]
   nb_rnaseq = sum(nrow(bioproj))
-  list_rnaseq = paste(data_10$Run ,collapse = ";")
+  list_rnaseq = paste(bioproj$Run ,collapse = ";")
   
   by_intron = read.delim(paste("data/per_species/",species,"_by_intron_analysis.tab.gz",sep=""),  sep="\t",comment.char = "#")
   fpkm_cov = read.delim(paste("data/per_species/",species,"_by_gene_analysis.tab.gz",sep=""),  sep="\t",comment.char = "#")
@@ -113,6 +113,8 @@ for (species in sp_studied){
   gene_n1 =  tapply(major_introns$n1,major_introns$gene_id,sum)
   gene_n2 =   tapply(major_introns$n2_spl3,major_introns$gene_id,sum) +  tapply(major_introns$n2_spl5,major_introns$gene_id,sum)
   gene_as_proteincoding_all = 1 - (1 - (gene_n2 / (gene_n1 + gene_n2)))^(tapply(major_introns$n1,major_introns$gene_id,length))
+  gene_as_proteincoding_all_v2 = 1 - tapply( 1 - (major_introns$n2_spl3 + major_introns$n2_spl5) / (major_introns$n1 + major_introns$n2_spl3 + major_introns$n2_spl5),major_introns$gene_id,prod)
+  
   
   gene_n1 =  tapply(major_introns[major_introns$have_abundant_sv == "False",]$n1,major_introns[major_introns$have_abundant_sv == "False",]$gene_id,sum)
   gene_n2 =   tapply(major_introns[major_introns$have_abundant_sv == "False",]$n2_spl3,major_introns[major_introns$have_abundant_sv == "False",]$gene_id,sum) + tapply(major_introns[major_introns$have_abundant_sv == "False",]$n2_spl5,major_introns[major_introns$have_abundant_sv == "False",]$gene_id,sum)
@@ -122,6 +124,7 @@ for (species in sp_studied){
   gene_n1 =  tapply(major_introns_busco$n1,major_introns_busco$gene_id,sum)
   gene_n2 =   tapply(major_introns_busco$n2_spl3,major_introns_busco$gene_id,sum) +  tapply(major_introns_busco$n2_spl5,major_introns_busco$gene_id,sum)
   gene_as_busco_all = 1 - (1 - (gene_n2 / (gene_n1 + gene_n2)))^(tapply(major_introns_busco$n1,major_introns_busco$gene_id,length))
+  gene_as_busco_all_v2 = 1 - tapply( 1 - (major_introns_busco$n2_spl3 + major_introns_busco$n2_spl5) / (major_introns_busco$n1 + major_introns_busco$n2_spl3 + major_introns_busco$n2_spl5),major_introns_busco$gene_id,prod)
   
   gene_n1 =  tapply(major_introns_busco[major_introns_busco$have_abundant_sv == "False",]$n1,major_introns_busco[major_introns_busco$have_abundant_sv == "False",]$gene_id,sum)
   gene_n2 =   tapply(major_introns_busco[major_introns_busco$have_abundant_sv == "False",]$n2_spl3,major_introns_busco[major_introns_busco$have_abundant_sv == "False",]$gene_id,sum) + tapply(major_introns_busco[major_introns_busco$have_abundant_sv == "False",]$n2_spl5,major_introns_busco[major_introns_busco$have_abundant_sv == "False",]$gene_id,sum)
@@ -159,8 +162,10 @@ for (species in sp_studied){
     
     mean_gene_busco_as_lowas = mean(gene_as_busco_lowas),
     mean_gene_busco_as = mean(gene_as_busco_all),
+    mean_gene_busco_as_v2 = mean(gene_as_busco_all_v2),
     mean_gene_proteincoding_as_lowas = mean(gene_as_proteincoding_lowas),
     mean_gene_proteincoding_as = mean(gene_as_proteincoding_all),
+    mean_gene_proteincoding_as_v2 = mean(gene_as_proteincoding_all_v2),
     
     
     mean_as_proteincoding = mean( major_introns$splice_variant_rate ) * 100 ,

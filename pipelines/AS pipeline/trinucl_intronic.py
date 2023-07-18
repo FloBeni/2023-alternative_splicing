@@ -11,10 +11,6 @@ genome_path = sys.argv[1]
 library_path = sys.argv[2]
 trinucl_intronic_path = sys.argv[3]
 
-# genome_path = "/beegfs/data/fbenitiere/Projet-SplicedVariants/Genomes/Drosophila_melanogaster/genome.fna"
-# library_path = "/beegfs/data/fbenitiere/Projet-SplicedVariants/Analyses/Drosophila_melanogaster/by_intron_major_overlap.tab"
-# trinucl_intronic_path = "/beegfs/data/fbenitiere/Projet-SplicedVariants/Analyses/Drosophila_melanogaster/intronic_triplet_v2.tab"
-
 li = ['A', 'T', 'G' , 'C']
 combi = ["combi"]
 for comb in product(li, repeat=3):

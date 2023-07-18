@@ -12,9 +12,6 @@ overlap_path = sys.argv[2]
 fpkm_cov_path = sys.argv[3]
 minor_introns_path = sys.argv[4]
 
-# by_intron_cds_path = "/home/fbenitiere/data/Projet-SplicedVariants/Analyses/Drosophila_melanogaster/by_intron_cds.tab"
-# fpkm_cov_path = "/home/fbenitiere/data//Projet-SplicedVariants//Analyses/Macaca_mulatta/by_gene_analysis.tab"
-# minor_introns_path = "/home/fbenitiere/data//Projet-SplicedVariants/Analyses/Macaca_mulatta/by_minor_intron.tab"
 
 
 intron_cds_table = pd.read_table(by_intron_cds_path , dtype={'into_cds': 'str'} , comment="#")
