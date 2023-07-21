@@ -256,11 +256,11 @@ data_5 = rbind(data_5,df)
 species = "Homo_sapiens"
 {
   # list_files = list.files(paste(pathData,"Annotations/Homo_sapiens/SNP_chr_v2/polymorphism_",freq,"_v2",sep=""))
-  list_files = list.files(paste("data/polymorphism/Homo_sapiens_polymorphism_",freq,"_v2/",sep=""))
+  list_files = list.files(paste("data/polymorphism/Homo_sapiens_polymorphism_",freq,"/",sep=""))
   polymorphisme = data.frame()
   for (file in list_files){print(file)
     # polymorphisme = rbind(polymorphisme,read.delim(file=paste(pathData,"Annotations/Homo_sapiens/SNP_chr_v2/polymorphism_",freq,"_v2/",
-    polymorphisme = rbind(polymorphisme,read.delim(file=paste("data/polymorphism/Homo_sapiens_polymorphism_",freq,"_v2/",
+    polymorphisme = rbind(polymorphisme,read.delim(file=paste("data/polymorphism/Homo_sapiens_polymorphism_",freq,"/",
                                                               file,sep="")))
   }
   all_polymorphisme = polymorphisme

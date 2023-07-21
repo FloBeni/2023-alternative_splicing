@@ -61,13 +61,8 @@ else:
             expand( pathData + "Analyses/{species}/by_intron_major_overlap.tab" , species=all_species_to_study),
             expand( pathData + "Analyses/{species}/sequencing_depth.tab" , species=all_species_to_study),
             expand( pathData + "Analyses/{species}/by_gene_analysis.tab" , species=all_species_to_study),
-            expand( pathData + "Analyses/{species}/codon_usage_gene_fpkm.tab" , species=all_species_to_study),
-            expand( pathData + "Annotations/{species}/formatted_data/intron_triplet_content.tab" , species=all_species_to_study),
             expand( pathData + "Analyses/{species}/by_minor_intron.tab" , species=all_species_to_study),
-            expand( pathData + "Annotations/{species}/formatted_data/tRNAscan_SE.tab" , species=all_species_to_study),
-            expand( pathData + "Annotations/{species}/formatted_data/tRNAscan.tab" , species=all_species_to_study),
             expand( pathData + "Analyses/{species}/summary_characteristics.tab" , species=all_species_to_study),
-            expand( pathData + "Annotations/{species}/busco_analysis/busco_to_gene_id_eukaryota" , species=all_species_to_study),
             expand( pathData + "Annotations/{species}/busco_analysis/busco_to_gene_id_" + BUSCO_dataset_species , species=all_species_to_study),
             expand( pathData + "Analyses/{species}/by_gene_db.tab.gz" , species=all_species_to_study)
 
@@ -182,21 +177,6 @@ rule busco_to_gene_id:
         python -u {pathScriptsPl}busco_to_gene_id.py {input.gff_path} {input.busco_csv_path} {input.cds_from_genomic_path} {output.busco_to_gene_path}
         """
 
-rule build_kallisto_index:
-    params:
-        time="10:00:00", mem=20000, partition="normal", ntasks=1, name="kallisto_index_{species}",
-        out = pathData + "Output/Kallisto/{species}_out", err=pathData + "Output/Kallisto/{species}_err"
-    input:
-        cds = pathData + "Annotations/{species}/data_source/cds_from_genomic.fna"
-    output:
-        index = pathData + "Annotations/{species}/formatted_data/kallisto_index"
-    shell:
-        """
-        source {pathHome}.bashrc
-        conda activate hisatfastq
-        which kallisto
-        kallisto index -i {output.index} {input.cds} 
-        """
 
 rule build_genome_index:
     # Construit l Index HISAT pour l alignement sur le genome
@@ -231,15 +211,12 @@ rule alignment_hisat:
         directory=pathData + "Alignements/{species}/{rna}/",
         index=pathData + "Genomes/{species}/Index",
         out=pathData + "Output/Hisat/Alignement/alignment_{species}_{rna}_out",
-        err=pathData + "Output/Hisat/Alignement/alignment_{species}_{rna}_err",
-        kallisto_dir = pathData + "Alignements/{species}/{rna}/kallisto/"
+        err=pathData + "Output/Hisat/Alignement/alignment_{species}_{rna}_err"
     input:
         pathData + "Genomes/{species}/Index.1.ht2",
-        SpliceSites = pathData + "Annotations/{species}/formatted_data/SpliceSites.tab",
-        kallisto_index = pathData + "Annotations/{species}/formatted_data/kallisto_index"
+        SpliceSites = pathData + "Annotations/{species}/formatted_data/SpliceSites.tab"
     output:
-        alignement_bam = pathData + "Alignements/{species}/{rna}/accepted_hits.bam",
-        kallisto_abundance = pathData + "Alignements/{species}/{rna}/kallisto/abundance.tsv"
+        alignement_bam = pathData + "Alignements/{species}/{rna}/accepted_hits.bam"
     shell:
         """
         cd {pathSRA}
@@ -255,13 +232,9 @@ rule alignment_hisat:
         if [ -f {pathSRA}{wildcards.rna}_1.fastq ] && [ -f {pathSRA}{wildcards.rna}_2.fastq ];then
             echo "Paired !"
             {pathLogiciels}hisat2-2.1.0/hisat2 --seed 19 -p {params.ntasks} -x {params.index} -S {params.directory}accepted_hits.sam --known-splicesite-infile={input.SpliceSites} --max-intronlen 2000000 --dta-cufflinks --no-unal --met-file {params.directory}metrics.txt --novel-splicesite-outfile {params.directory}novel_splicesites.txt -q -1 {pathSRA}{wildcards.rna}_1.fastq  -2 {pathSRA}{wildcards.rna}_2.fastq
-            which kallisto
-            kallisto quant --bias -t {params.ntasks} -o {params.kallisto_dir} --index {input.kallisto_index} {pathSRA}{wildcards.rna}_1.fastq {pathSRA}{wildcards.rna}_2.fastq
         elif [ -f {pathSRA}{wildcards.rna}.fastq ] && [ ! -f {pathSRA}{wildcards.rna}_2.fastq ] && [ ! -f {pathSRA}{wildcards.rna}_1.fastq ];then
             echo "Single !"
             {pathLogiciels}hisat2-2.1.0/hisat2 --seed 19 -p {params.ntasks} -x {params.index} -S {params.directory}accepted_hits.sam --known-splicesite-infile={input.SpliceSites} --max-intronlen 2000000 --dta-cufflinks --no-unal --met-file {params.directory}metrics.txt --novel-splicesite-outfile {params.directory}novel_splicesites.txt -q -U {pathSRA}{wildcards.rna}.fastq
-            which kallisto
-            kallisto quant --single -l 180 -s 20 --bias -t {params.ntasks} -o {params.kallisto_dir} --index {input.kallisto_index} {pathSRA}{wildcards.rna}.fastq
         elif [ -f {pathSRA}{wildcards.rna}_3.fastq ];then
             echo "Test Failed !"
         fi
@@ -587,20 +560,6 @@ rule overlap_detection:
         python3.9 -u {pathScriptsPl}overlap_detection.py {input.by_intron_cds_path} {output.overlap_path} {input.fpkm_cov_path} {input.minor_introns_path}
         """
 
-rule codon_usage:
-    # Faire une table qui reprend tout par projet
-    params: time="24:00:00", mem=10000, partition="normal",ntasks=1, name="codon_usage_{species}",
-        out=pathData + "Output/Compilation/codon_usage_{species}_out",
-        err=pathData + "Output/Compilation/codon_usage_{species}_err"
-    input:
-        cds_from_genomic_path = pathData + "Annotations/{species}/data_source/cds_from_genomic.fna",
-        gff_path = pathData + "Annotations/{species}/data_source/annotation.gff"
-    output:
-        codon_usage_path = pathData + "Annotations/{species}/formatted_data/protein_codon_content.tab"
-    shell:
-        """
-        python3.9 -u {pathScriptsPl}codon_usage.py {input.cds_from_genomic_path} {input.gff_path} {output.codon_usage_path}
-        """
 
 rule major_triplet:
     # Faire une table qui reprend tout par projet  
@@ -615,22 +574,6 @@ rule major_triplet:
     shell:
         """
         python3.9 -u {pathScriptsPl}trinucl_intronic.py {input.genome_path} {input.library_path} {output.trinucl_intronic_path}
-        """
-
-rule intronic_triplet_content:
-    # Faire une table qui reprend tout par projet
-    params: time="7-00:30:00", mem=10000, partition="long",ntasks=1, name="intronic_triplet_{species}",
-        out=pathData + "Output/Compilation/intronic_triplet_content_{species}_out",
-        err=pathData + "Output/Compilation/intronic_triplet_content_{species}_err"
-    input:
-        genome_path = pathData + "Genomes/{species}/genome.fna",
-        IntronCoord_path=pathData +  "Annotations/{species}/formatted_data/IntronCoords.tab",
-        gff_path = pathData + "Annotations/{species}/data_source/annotation.gff"
-    output:
-        trinucl_intronic_path = pathData + "Annotations/{species}/formatted_data/intron_triplet_content.tab"
-    shell:
-        """
-        python3.9 -u {pathScriptsPl}trinucleotid_intronic.py {input.genome_path} {input.IntronCoord_path} {input.gff_path} {output.trinucl_intronic_path}
         """
 
 
@@ -652,64 +595,6 @@ rule summary_characteristics:
     shell:
         """
         Rscript --vanilla {pathScriptsPl}summary_script.R {pathData} {wildcards.species} {Excel_dataset} {input.gff_path} {input.gc_table_path} {input.library_path} {input.by_intron_cds_path} {input.by_gene_analysis_path} {input.by_intron_overlap_path} {input.prot_path} {output.sumv3_path}
-        """
-
-
-
-
-rule tRNAscan_table:
-    params: time="00-05:00:00", mem=10000, partition="normal",ntasks=1, name="tRNAscan_{species}",
-        out=pathData + "Output/Compilation/tRNAscan_{species}_out",
-        err=pathData + "Output/Compilation/tRNAscan_{species}_err"
-    input:
-        gff_path = pathData + "Annotations/{species}/data_source/annotation.gff"
-    output:
-        tRNAscan_path = pathData + "Annotations/{species}/formatted_data/tRNAscan.tab"
-    shell:
-        """
-        #{pathHome}.bashrc
-        python3.9 -u {pathScriptsPl}tRNA_copies_number.py {input.gff_path} {output.tRNAscan_path}
-        """
-
-
-rule tRNAscan_SE:
-    params: time="10-00:00:00", mem=20000, partition="long",ntasks=1, name="tRNAscanse_{species}",
-        out=pathData + "Output/Compilation/tRNAscanse_{species}_out",
-        err=pathData + "Output/Compilation/tRNAscanse_{species}_err"
-    input:
-        genome_path = pathData + "Genomes/{species}/genome.fna"
-    output:
-        tRNAscan_path = pathData + "Annotations/{species}/formatted_data/tRNAscan_SE.tab"
-    shell:
-        """
-        mkdir -p {TMPDIR}/{wildcards.species}
-        export TMPDIR={TMPDIR}/{wildcards.species}
-
-        rm -r -f {pathData}Genomes/{wildcards.species}/split/
-        mkdir -p {pathData}Genomes/{wildcards.species}/split/
-
-        chmod +x {pathData}Genomes/{wildcards.species}/split/
-        {pathScriptsPl}awk_genome.sh {pathData}Genomes/{wildcards.species}/split/ {input.genome_path} {output.tRNAscan_path}
-
-        rm -r {pathData}Genomes/{wildcards.species}/split/
-        rm -r {TMPDIR}/{wildcards.species}
-        """
-
-
-rule codon_usage_intron:
-    # Calcule du taux de SVR en fonciton de la profondeur de sequencage
-    params: time="00-05:00:00", mem=1000, partition="normal",ntasks=1, name="CU_intron_{species}",
-        out=pathData + "Output/Compilation/CU_intron_{species}_out",
-        err=pathData + "Output/Compilation/CU_intron_{species}_err"
-    input:
-        codon_usage_path= pathData + "Annotations/{species}/formatted_data/protein_codon_content.tab",
-        by_gene_path=  pathData+ "Analyses/{species}/by_gene_analysis.tab",
-        intron_content_path=  pathData + "Annotations/{species}/formatted_data/intron_triplet_content.tab",
-    output:
-        intronic_UC_path = pathData + "Analyses/{species}/codon_usage_gene_fpkm.tab"
-    shell:
-        """
-        Rscript --vanilla {pathScriptsPl}codon_usage_intron.R {input.codon_usage_path} {input.by_gene_path} {input.intron_content_path} {output.intronic_UC_path}
         """
 
 

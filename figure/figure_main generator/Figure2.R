@@ -80,18 +80,19 @@ imgA = load.image(paste(path_require,"ns_na_nu.png",sep=""))
 imgB = load.image(paste(path_figure,"p2B.jpg",sep=""))
 imgC = load.image(paste(path_figure,"p2C.jpg",sep=""))
 imgD = load.image(paste(path_require,"mira.png",sep=""))
+imgE = load.image(paste(path_require,"acronyms.png",sep=""))
 
 {
-  pdf(file=paste(path_pannel,"Figure2.pdf",sep=""), width=6.75, height=6/1.1)
+  pdf(file=paste(path_pannel,"Figure2.pdf",sep=""), width=6.75, height=9/1.1)
   
-  m=matrix(rep(1,10*17), nrow=17)
+  m=matrix(rep(1,10*21), nrow=21)
   
   for(i in 6:11){
     m[i,]=c(rep(2,5),rep(3,5))
   }
   
-  for(i in 12:17){
-    m[i,]=c(rep(4,10))
+  for(i in 1:10){
+    m[12:21,i]=c(rep(4,5),rep(5,5))
   }
   m
   layout(m)
@@ -108,5 +109,7 @@ imgD = load.image(paste(path_require,"mira.png",sep=""))
   par(mar=c(0, 0, 1, 0))
   plot(imgD, axes = F)
   mtext("D", side=2,at=10,adj=-5, line=1, font=2, cex=1.2,las=2)
+  plot(imgE, axes = F)
+  mtext("E", side=2,at=-30,adj=-2, line=1, font=2, cex=1.2,las=2)
   dev.off()
 }
