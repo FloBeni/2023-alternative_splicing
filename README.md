@@ -84,7 +84,7 @@ Biologie Évolutive UMR 5558, F-69622 Villeurbanne, France.
 
         </div>
 
-        "*by\_*intron_analysis.tab" which contain per-gene data.
+        "*by\_*intron_analysis.tab" which contain per-intron data.
 
         <div>
 
