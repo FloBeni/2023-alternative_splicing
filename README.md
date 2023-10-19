@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/575819362.svg)](https://zenodo.org/badge/latestdoi/575819362)
+[![DOI](https://zenodo.org/badge/575819362.svg)](https://zenodo.org/doi/10.5281/zenodo.7415114)
 
 This archive includes all processed data that have been generated and used in the study 'Random genetic drift sets an upper limit on mRNA splicing accuracy in metazoans', as well as the scripts used to analyze the data and to generate the figures.
 
