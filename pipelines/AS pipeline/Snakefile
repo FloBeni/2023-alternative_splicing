@@ -560,23 +560,6 @@ rule overlap_detection:
         python3.9 -u {pathScriptsPl}overlap_detection.py {input.by_intron_cds_path} {output.overlap_path} {input.fpkm_cov_path} {input.minor_introns_path}
         """
 
-
-rule major_triplet:
-    # Faire une table qui reprend tout par projet  
-    params: time="7-00:30:00", mem=10000, partition="long",ntasks=1, name="major_triplet_{species}",
-        out=pathData + "Output/Compilation/major_triplet_{species}_out",
-        err=pathData + "Output/Compilation/major_triplet_{species}_err"
-    input:
-        genome_path = pathData + "Genomes/{species}/genome.fna",
-        library_path = pathData + "Analyses/{species}/by_intron_major_overlap.tab"
-    output:
-        trinucl_intronic_path = pathData + "Analyses/{species}/by_intron_major_overlap_triplet.tab"
-    shell:
-        """
-        python3.9 -u {pathScriptsPl}trinucl_intronic.py {input.genome_path} {input.library_path} {output.trinucl_intronic_path}
-        """
-
-
 rule summary_characteristics:
     # Calcule du taux de SVR en fonciton de la profondeur de sequencage
     params: time="00-15:00:00", mem=5000, partition="normal",ntasks=1, name="summary_v3_{species}",
