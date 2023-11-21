@@ -46,7 +46,7 @@ p5A = ggplot(data_sp,aes(x=median_gene_expression+10^-10,y=average_as,fill=group
 p5A
 
 p5A = ggdraw() + draw_plot(p5A, 0, 0, 1, 1)+
-  draw_image(paste(path_require,"human.png",sep=""),.65,.7,.1,.2)
+  draw_image(paste(path_require,"human.png",sep=""),.63,.7,.1,.2)
 
 jpeg(paste(path_figure,"supp_p5A.jpg",sep="") , width = 10000/resolution, height = 5000/resolution,res=700/resolution)
 print(p5A)
@@ -85,7 +85,7 @@ p5B
 
 
 p5B = ggdraw() + draw_plot(p5B, 0, 0, 1, 1)+
-  draw_image(paste(path_require,"Drosophila_melanogaster.png",sep=""),.7,.7,.05,.2)
+  draw_image(paste(path_require,"Drosophila_melanogaster.png",sep=""),.66,.7,.05,.2)
 p5B
 
 
