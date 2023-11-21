@@ -1,4 +1,4 @@
-source("figure/figure_main generator/library_path.R")
+source("figure/figure_main_generator/library_path.R")
 
 
 ############## Pannel 5 A
@@ -107,10 +107,6 @@ df = data_5[data_5$filtering == "Drosophila_melanogaster_rare_sv",]
     )  + ylim(c(0,0.055))
   
   
-  p5B
-  
-  p5B = ggdraw() + draw_plot(p5B, 0, 0.1, 1, 0.8) + 
-    draw_image(paste(path_require,"polymorphism_position.png",sep=""),0.055,-0.43,0.95,1)
   p5B
   
   resolution=1

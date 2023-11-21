@@ -1,4 +1,5 @@
-source("figure/figure_main generator/library_path.R")
+source("figure/figure_main_generator/library_path.R")
+
 
 get_rescaled_density<-function(dist_err_raw, fact, plot=TRUE) {
   tmp=dist_err_raw

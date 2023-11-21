@@ -1,4 +1,4 @@
-source("figure/figure_supp generator/library_path.R")
+source("figure/figure_supp_generator/library_path.R")
 
 lm_eqn <- function(m=cor.test(X, Y,method="pearson")){
   cor = m$estimate

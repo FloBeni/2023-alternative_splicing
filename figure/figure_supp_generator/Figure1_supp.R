@@ -1,4 +1,4 @@
-source("figure/figure_supp generator/library_path.R")
+source("figure/figure_supp_generator/library_path.R")
 color="red"
 
 ############## Supplementary Pannel 1 A
