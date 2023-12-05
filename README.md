@@ -2,7 +2,8 @@
 
 This archive includes all processed data that have been generated and used in the study 'Random genetic drift sets an upper limit on mRNA splicing accuracy in metazoans', as well as the scripts used to analyze the data and to generate the figures.
 
-Developed by Florian Bénitière, Anamaria Necsulea and Laurent Duret. Université de Lyon, Université Lyon 1, CNRS, Laboratoire de Biométrie et Biologie Évolutive UMR 5558, F-69622 Villeurbanne, France.
+Developed by Florian Bénitière, Anamaria Necsulea and Laurent Duret.
+Laboratoire de Biométrie et Biologie Évolutive, Université Lyon 1, UMR CNRS 5558, Villeurbanne, France.
 
 ### Directories content
 
