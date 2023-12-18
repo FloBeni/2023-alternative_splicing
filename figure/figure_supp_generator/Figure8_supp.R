@@ -12,7 +12,7 @@ shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],
 
 p8A = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual("Clades",values=vectorColor)+ ggtitle("BUSCO genes")+ 
-  scale_x_log10(breaks=c(0.05,0.1,0.5,1,5,10,50,100,1000,10000,50000), limits=c(7,51000)) + theme_bw() +
+  scale_x_log10(breaks=c(0.05,0.1,0.5,1,5,10,100,1000,10000,50000), limits=c(7,51000)) + theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," gene")))+
   xlab("Longevity (days, log scale)") + theme(
     axis.title.x = element_text(color="black",margin = margin(t = 15, r = 0, b = 0, l = 0), size=31,family="serif"),
@@ -49,7 +49,7 @@ shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],
 
 p8B = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual("Clades",values=vectorColor)+ ggtitle("BUSCO genes")+ 
-  scale_x_log10(breaks=c(0.01,0.1,0.5,1,5,10,100,1000),labels=c(0.01,0.1,0.5,1,5,10,100,1000),limits = c(0.01,1000))+  theme_bw() +
+  scale_x_log10(breaks=c(0.01,0.1,1,10,100,1000),labels=c(0.01,0.1,1,10,100,1000),limits = c(0.01,1000))+  theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," gene")))+
   xlab("Body length (cm, log scale)") + theme(
     axis.title.x = element_text(color="black",margin = margin(t = 15, r = 0, b = 0, l = 0), size=31,family="serif"),
@@ -156,7 +156,7 @@ shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],
 
 p8E = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual("Clades",values=vectorColor)+ ggtitle("all protein-coding genes")+ 
-  scale_x_log10(breaks=c(0.01,0.1,0.5,1,5,10,100,1000),labels=c(0.01,0.1,0.5,1,5,10,100,1000),limits = c(0.01,1000))+ theme_bw() +
+  scale_x_log10(breaks=c(0.01,0.1,1,10,100,1000),labels=c(0.01,0.1,1,10,100,1000),limits = c(0.01,1000))+ theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," gene")))+
   xlab("Body length (cm, log scale)") + theme(
     axis.title.x = element_text(color="black",margin = margin(t = 15, r = 0, b = 0, l = 0), size=31,family="serif"),

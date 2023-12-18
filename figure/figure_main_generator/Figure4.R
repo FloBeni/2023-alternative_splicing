@@ -73,7 +73,7 @@ p4B = ggplot(data_8, aes(x=longevity,y=ratio,fill=clade))  + theme_bw() +
   xlab("Longevity (days, log scale)") + ylab("Proportion of frame-preserving SVs")+
   geom_point(pch=21,alpha=0.7, size=7) + 
   scale_y_continuous(breaks=seq(0,100,10), labels=paste(seq(0,100,10),"%")) +
-  scale_x_log10(breaks=c(0.05,0.1,0.5,1,5,10,50,100,1000,10000,50000), limits=c(7,50000))+ 
+  scale_x_log10(breaks=c(0.05,0.1,0.5,1,5,10,100,1000,10000,50000), limits=c(7,50000))+ 
   scale_fill_manual("Clades",values=vectorColor) + labs(fill="Clades") +
   scale_color_manual("Clades",values=vectorColor) + ggtitle("Abundant SVs (all protein-coding genes)")+
   theme(
@@ -111,7 +111,7 @@ p4C = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=speci
   scale_fill_manual(values=vectorColor)+ ggtitle("Low-AS major introns (BUSCO genes)")+
   theme_bw() +labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
   xlab("Longevity (days, log scale)") +
-  scale_x_log10(breaks=c(0.05,0.1,0.5,1,5,10,50,100,1000,10000,50000), limits=c(7,53000)) +
+  scale_x_log10(breaks=c(0.05,0.1,0.5,1,5,10,100,1000,10000,50000), limits=c(7,53000)) +
   scale_y_continuous(breaks=seq(0,10,0.2), labels=paste("",seq(0,10,0.2),"%")) +
   theme(
     axis.title.x = element_text(color="black", size=31,margin = margin(t = 15, r = 0, b = 0, l = 0),family="serif"),
@@ -151,7 +151,7 @@ p4D = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=speci
   theme_bw() +
   ylab("Average AS rate per intron")+labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
   xlab("Longevity (days, log scale)")  +
-  scale_x_log10(breaks=c(0.05,0.1,0.5,1,5,10,50,100,1000,10000,50000), limits=c(7,53000)) +
+  scale_x_log10(breaks=c(0.05,0.1,0.5,1,5,10,100,1000,10000,50000), limits=c(7,53000)) +
   scale_y_continuous(breaks=seq(10,25,2), labels=paste(seq(10,25,2),"%")) +
   theme(
     axis.title.x = element_text(color="black", size=31,margin = margin(t = 15, r = 0, b = 0, l = 0),family="serif"),

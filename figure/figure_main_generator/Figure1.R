@@ -9,7 +9,7 @@ shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],
 
 p1B = ggplot( data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual("Clades",values=vectorColor)+
-  scale_x_log10(breaks=c(0.05,0.1,0.5,1,5,10,50,100,1000,10000,50000))+ 
+  scale_x_log10(breaks=c(0.05,0.1,0.5,1,5,10,100,1000,10000,50000))+ 
   scale_y_log10(breaks=c(0.01,0.05,0.1,0.5,1,5,10,50,100,500,1000),limits = c(0.01,1000))+ theme_bw() +
   ylab("Body length (cm, log scale)")+
   xlab("Longevity (days, log scale)")+ theme(
@@ -45,7 +45,7 @@ shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],
 
 p1C = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual("Clades",values=vectorColor)+ 
-  scale_x_log10(breaks=c(0.01,0.05,0.1,0.5,1,5,10,50,100,1000,10000,50000)) + theme_bw() +
+  scale_x_log10(breaks=c(0.01,0.05,0.1,0.5,1,5,10,100,1000,10000,50000)) + theme_bw() +
   ylab("dN/dS")+
   xlab("Longevity (days, log scale)")+ theme(
     axis.title.x = element_text(color="black", size=31,family="serif"),
@@ -151,7 +151,7 @@ Drosophila_melanogaster<-readPNG(paste(path_require,"Drosophila_melanogaster.png
   
   xhemiptera=2
   yhemiptera=23
-  rasterImage(hemiptera,xleft=0+xhemiptera, ybottom=0+yhemiptera, xright=.2/1.5+xhemiptera, ytop=2.5/1.5+yhemiptera)
+  rasterImage(hemiptera,xleft=0+xhemiptera, ybottom=0+yhemiptera, xright=.2/1.5+xhemiptera, ytop=2.9/1.5+yhemiptera)
   
   xtermite=1.9
   ytermite=18.5

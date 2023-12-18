@@ -12,7 +12,7 @@ p7A = ggplot(data_8, aes(x=body_size,y=ratio,fill=clade))  + theme_bw() +
   xlab("Body length (cm, log scale)") + ylab("Proportion of frame-preserving SVs")+
   geom_point(pch=21,alpha=0.7, size=7) + 
   scale_y_continuous(breaks=seq(0,100,10), labels=paste(seq(0,100,10),"%")) +
-  scale_x_log10(breaks=c(0.01,0.1,0.5,1,5,10,100,1000),labels=c(0.01,0.1,0.5,1,5,10,100,1000),limits = c(0.01,1000))+
+  scale_x_log10(breaks=c(0.01,0.1,1,10,100,1000),labels=c(0.01,0.1,1,10,100,1000),limits = c(0.01,1000))+
   scale_fill_manual("Clades",values=vectorColor) +labs(fill="Clades") +
   scale_color_manual("Clades",values=vectorColor) + ggtitle("Abundant SVs (all protein-coding genes)")+
   theme(

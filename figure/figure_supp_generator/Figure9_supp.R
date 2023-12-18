@@ -46,7 +46,7 @@ p9A = ggplot(font.label = c(50, "plain"),font.legend= c(20, "plain"),font.x= c(2
     plot.caption = element_text(hjust = 0.337, face= "italic", size=23),
     plot.caption.position =  "plot"
   ) + labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
-  scale_x_log10( breaks = c(0.05,0.1,0.5,1,5,10,50,100,1000,10000,50000), limits=c(7,50000)) +
+  scale_x_log10( breaks = c(0.05,0.1,0.5,1,5,10,100,1000,10000,50000), limits=c(7,50000)) +
   guides(color = guide_legend(override.aes = list(shape = 16, size = 6),order=2, 
                               label.theme = element_text(color="black", size=26, family="serif",vjust = 1.1,margin = margin(t = 5))),
          shape = guide_legend(override.aes = list(stroke=1.1), 

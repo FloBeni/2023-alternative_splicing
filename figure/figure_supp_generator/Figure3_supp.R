@@ -9,7 +9,7 @@ shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],
 
 p3A = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major introns (BUSCO genes)")+ 
-  scale_x_log10(breaks=c(0.01,0.1,0.5,1,5,10,100,1000),labels=c(0.01,0.1,0.5,1,5,10,100,1000),limits = c(0.01,1000)) + theme_bw() +
+  scale_x_log10(breaks=c(0.01,0.1,1,10,100,1000),labels=c(0.01,0.1,1,10,100,1000),limits = c(0.01,1000)) + theme_bw() +
   scale_y_continuous(breaks=seq(0.5,4.5,0.5), labels=paste(seq(0.5,4.5,0.5),"%"),limits=c(.5,4)) +
   labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
   xlab("Body length (cm, log scale)") +  theme(
@@ -83,7 +83,7 @@ p3C = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=speci
   theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
   xlab("Body length (cm, log scale)") +
-  scale_x_log10(breaks=c(0.01,0.1,0.5,1,5,10,100,1000),labels=c(0.01,0.1,0.5,1,5,10,100,1000),limits = c(0.01,1000))+
+  scale_x_log10(breaks=c(0.01,0.1,1,10,100,1000),labels=c(0.01,0.1,1,10,100,1000),limits = c(0.01,1000))+
   scale_y_continuous(breaks=seq(0,10,0.2), labels=paste("",seq(0,10,0.2),"%")) +
   theme(
     axis.title.x = element_text(color="black",margin = margin(t = 15, r = 0, b = 0, l = 0), size=31,family="serif"),
@@ -157,7 +157,7 @@ p3E = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=speci
   theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
   xlab("Body length (cm, log scale)")  +
-  scale_x_log10(breaks=c(0.01,0.1,0.5,1,5,10,100,1000),labels=c(0.01,0.1,0.5,1,5,10,100,1000),limits = c(0.01,1000))+
+  scale_x_log10(breaks=c(0.01,0.1,1,10,100,1000),labels=c(0.01,0.1,1,10,100,1000),limits = c(0.01,1000))+
   scale_y_continuous(breaks=seq(10,25,2), labels=paste(seq(10,25,2),"%")) +
   theme(
     axis.title.x = element_text(color="black",margin = margin(t = 15, r = 0, b = 0, l = 0), size=31,family="serif"),
