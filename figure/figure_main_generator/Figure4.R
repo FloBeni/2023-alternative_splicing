@@ -71,6 +71,7 @@ shorebird <- comparative.data(arbrePhylo, data.frame(species=data_8[,"species"],
 
 p4B = ggplot(data_8, aes(x=longevity,y=ratio,fill=clade))  + theme_bw() + 
   xlab("Longevity (days, log scale)") + ylab("Proportion of frame-preserving SVs")+
+  geom_abline(lwd=1,slope = coef(pgls((ylabel)~log10(xlabel) , shorebird))[2], intercept = coef(pgls((ylabel)~log10(xlabel) , shorebird))[1])+
   geom_point(pch=21,alpha=0.7, size=7) + 
   scale_y_continuous(breaks=seq(0,100,10), labels=paste(seq(0,100,10),"%")) +
   scale_x_log10(breaks=c(0.05,0.1,0.5,1,5,10,100,1000,10000,50000), limits=c(7,50000))+ 
@@ -107,7 +108,9 @@ xlabel = "longevity"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p4C = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p4C = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ 
+  geom_abline(lwd=1,slope = coef(pgls((ylabel)~log10(xlabel) , shorebird))[2], intercept = coef(pgls((ylabel)~log10(xlabel) , shorebird))[1])+
+  geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual(values=vectorColor)+ ggtitle("Low-AS major introns (BUSCO genes)")+
   theme_bw() +labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
   xlab("Longevity (days, log scale)") +
@@ -146,7 +149,8 @@ xlabel="longevity"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p4D = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p4D = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ 
+  geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual(values=vectorColor)+ ggtitle("High-AS major introns (BUSCO genes)") +
   theme_bw() +
   ylab("Average AS rate per intron")+labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+

@@ -7,7 +7,9 @@ xlabel="longevity"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p3A = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p3A = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ 
+  geom_abline(lwd=1,slope = coef(pgls((ylabel)~log10(xlabel) , shorebird))[2], intercept = coef(pgls((ylabel)~log10(xlabel) , shorebird))[1])+
+  geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major introns (BUSCO genes)")+ 
   scale_x_log10(breaks=c(0.05,0.1,0.5,1,5,10,100,1000,10000,50000), limits=c(7,50000)) + theme_bw() +
   scale_y_continuous(breaks=seq(0.5,4.5,0.5), labels=paste(seq(0.5,4.5,0.5),"%"),limits=c(.5,4)) +
@@ -50,7 +52,7 @@ point_shape=c("Gallus gallus"=5,
               "Oryctolagus cuniculus"=4,
               "Rattus norvegicus"=6
               # "Dendroctonus ponderosae"=9
-              )
+)
 
 data_4 = read.delim("data/Data4_supp.tab",comment.char = "#")
 data_4$species_name = str_replace_all(data_4$species,"_"," ")
@@ -67,7 +69,8 @@ data_4$species_name = factor( data_4$species_name, levels = names(life_span_orde
 
 
 p3B = ggplot(font.label = c(50, "plain"),font.legend= c(20, "plain"),font.x= c(20, "plain"),font.y= c(20, "plain"),
-            data_4, aes(x=longevity, y=SVR,group=species_name,shape=species_name)) + ggtitle("Major introns (BUSCO genes)")+ 
+             data_4, aes(x=longevity, y=SVR,group=species_name,shape=species_name)) + ggtitle("Major introns (BUSCO genes)")+ 
+  geom_abline(lwd=1,slope = coef(lm((data_4$SVR)~log10(data_4$longevity)))[2], intercept = coef(lm((data_4$SVR)~log10(data_4$longevity)))[1])+
   geom_point(size=5,alpha=1,aes(color=organs),stroke=1.5)+ scale_color_manual("Organs",values=point_color) +
   scale_y_continuous(breaks=seq(0.5,4.5,0.5),labels=paste(seq(0.5,4.5,0.5),"%"),limits=c(0.5,4)) +
   scale_shape_manual("Species",values=point_shape) + labs(fill="Species") +
@@ -84,10 +87,10 @@ p3B = ggplot(font.label = c(50, "plain"),font.legend= c(20, "plain"),font.x= c(2
   ) + labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
   scale_x_log10( breaks = c(0.05,0.1,0.5,1,5,10,100,1000,10000,50000), limits=c(7,50000)) +
   guides(color = guide_legend(override.aes = list(shape = 16, size = 6),order=2, 
-                               label.theme = element_text(color="black", size=26, family="serif",vjust = 1.1,margin = margin(t = 5))),
+                              label.theme = element_text(color="black", size=26, family="serif",vjust = 1.1,margin = margin(t = 5))),
          shape = guide_legend(override.aes = list(stroke=1.1), 
                               label.theme = element_text(color="black", size=26,face="italic", family="serif",vjust = 1.5,margin = margin(t = 5)))
-         ) +
+  ) +
   labs(
     caption = substitute(paste("LM model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(lm((data_4$SVR)~log10(data_4$longevity)))))
   ) + annotation_logticks(sides="b")

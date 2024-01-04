@@ -274,7 +274,7 @@ plot_dist(dist_err_raw, main="Erroneous variants (very high Ne)", col="red")
 
 
 
-NeS=c("High Ne","Medium Ne","Low Ne")
+NeS=c("High","Medium","Low")
 
 
 
@@ -346,7 +346,8 @@ for(ii in 1:nrow(tab_res)) {
   dc$density=dc$density*100
   
   {
-    p1 = ggplot(dc,aes(x=svr*100,y=density,col=group)) + geom_line(data = dc[ dc$group=="All variants",],aes(x=svr*100,y=density,col=group),lwd=1,linetype = "dashed")  + theme_bw() +
+    p1 = ggplot(dc,aes(x=svr*100,y=density,col=group)) + 
+      geom_line(data = dc[ dc$group=="All variants",],aes(x=svr*100,y=density,col=group),lwd=2.5,linetype = "dashed")  + theme_bw() +
       ylab("Percentage of introns") + 
       coord_cartesian(ylim=c(0,80),xlim=c(0,50))+
       scale_x_continuous(breaks=seq(0,50,10), labels=paste(seq(0,50,10),"%")) +
@@ -361,13 +362,10 @@ for(ii in 1:nrow(tab_res)) {
         text =  element_text(color="black", size=31, family="serif"),
         legend.title  =  element_text(color=NA, size=26, family="serif"),
         legend.text =  element_text(color="black", size=26, family="serif"),
-        # legend.box.background = element_rect(colour = "black")
       ) + xlab("")  +
       scale_y_continuous(breaks=c(0,10,seq(25,80,25)), labels=paste(c(0,10,seq(25,80,25)),"%")) +
-      
       scale_fill_manual(values=vectorColor)+geom_area(aes(fill = group,col=NA, group = group),alpha=0.3, position = 'identity')+ guides(group = guide_legend(order = 1)) +
       geom_vline(xintercept=5, linetype="dashed", color = "black", size=1,alpha=0.7)+theme(legend.position = "None") 
-    # geom_hline(yintercept=1, linetype="dashed", color = "black", size=1,alpha=0.7)+theme(legend.position = "None")
     
     
     p1
@@ -375,31 +373,32 @@ for(ii in 1:nrow(tab_res)) {
     if (ii == 3){
       p1 = p1 +  
         annotate(family="serif",x=28, y=30+14,cex=8.5, label=titre,geom="text")+
-        # annotate(family="serif",x=30, y=17+14,cex=7, label=text,geom="text") +
         annotate(family="serif",col="black",x=32-3, y=24+14,cex=7, label=text_all,geom="text") +
-        geom_segment(data=dc[1,],x=32-15,xend=32-20,y=24+14,yend=24+14,col="orange",lwd=1.5,linetype = "dashed",alpha=.7) +
+        geom_segment(data=dc[1,],x=32-15,xend=32-20,y=24+14,yend=24+14,col="orange",lwd=1.5,linetype = "dashed",alpha=.9) +
         annotate(family="serif",col="black",x=36-3, y=20+14,cex=7, label=text_fn,geom="text") +
         geom_point(data=dc[1,],size=7,pch=21,fill="#0a4413",col="black",x=36-20,y=20+14,alpha=0.7) +
         annotate(family="serif",col="black",x=32.5-1.5, y=16+14,cex=7, label=text_err,geom="text") +
         geom_point(data=dc[1,],size=7,pch=21,fill="red",col="black",x=36-20,y=16+14,alpha=0.7) +
-        annotate(family="serif",x=40, y=75,cex=10, label=NeS[ii],geom="text") + labs(x=expression(paste("AS rate ",italic("per")," intron")))
-    }else {
+        annotate(family="serif",x=40, y=75,cex=10, label=c(as.expression(bquote(.(NeS[ii])~italic(N)[e]))),geom="text") + 
+        labs(x=expression(paste("AS rate ",italic("per")," intron")))
+      p1
+    } else {
       p1 = p1 +  
         annotate(family="serif",x=28, y=30+14,cex=8.5, label=titre,geom="text")+
-        # annotate(family="serif",x=30, y=17+14,cex=7, label=text,geom="text") +
         annotate(family="serif",col="black",x=32-3, y=24+14,cex=7, label=text_all,geom="text") +
-        geom_segment(data=dc[1,],x=32-15,xend=32-20,y=24+14,yend=24+14,col="orange",lwd=1.5,linetype = "dashed",alpha=.7) +
+        geom_segment(data=dc[1,],x=32-15,xend=32-20,y=24+14,yend=24+14,col="orange",lwd=1.5,linetype = "dashed",alpha=.9) +
         annotate(family="serif",col="black",x=36-3, y=20+14,cex=7, label=text_fn,geom="text") +
         geom_point(data=dc[1,],size=7,pch=21,fill="#0a4413",col="black",x=36-20,y=20+14,alpha=0.7) +
         annotate(family="serif",col="black",x=34-3, y=16+14,cex=7, label=text_err,geom="text") +
         geom_point(data=dc[1,],size=7,pch=21,fill="red",col="black",x=36-20,y=16+14,alpha=0.7) +
-        annotate(family="serif",x=40, y=75,cex=10, label=NeS[ii],geom="text") + labs(x=expression(paste("AS rate ",italic("per")," intron")))
+        annotate(family="serif",x=40, y=75,cex=10, label=c(as.expression(bquote(.(NeS[ii])~italic(N)[e]))),geom="text") + 
+        labs(x=expression(paste("AS rate ",italic("per")," intron")))
     }
     
     p1
     
     
-    p2  = ggplot(dc,aes(x=svr*100,y=density,col=group)) + geom_line(data = dc[dc$group=="All variants",],aes(x=svr*100,y=density,col=group),lwd=1.5,linetype = "dashed")  + theme_bw() +
+    p2  = ggplot(dc,aes(x=svr*100,y=density,col=group)) + geom_line(data = dc[dc$group=="All variants",],aes(x=svr*100,y=density,col=group),lwd=2.5,linetype = "dashed")  + theme_bw() +
       ylab("") + coord_cartesian(ylim=c(0,1),xlim=c(0,50))+  scale_x_continuous(breaks=seq(0,50,10), labels=paste(seq(0,50,10),"%")) +
       scale_color_manual(values=vectorColorFill) +scale_y_continuous(breaks=seq(0,100,0.5), labels=paste(seq(0,100,0.5),"%")) +
       theme(
@@ -463,7 +462,7 @@ for(ii in 1:nrow(tab_res)) {
         text =  element_text(color="black", size=31, family="serif"),
         legend.title  =  element_text(color=NA, size=26, family="serif"),
         legend.text =  element_text(color="black", size=26, family="serif")
-      )+ labs(x=expression(paste("AS rate ",italic("per")," intron")))
+      ) + labs(x=expression(paste("AS rate ",italic("per")," intron")))
       
       
       p = ggdraw() + draw_plot(p1, 0.0075, .3, 0.962, .7) + draw_plot(p2, 0, 0, 0.97, .24) 
@@ -493,13 +492,16 @@ dev.off()
 
 
 
+group_name = c(expression(High~italic(N)[e]),
+               expression(Medium~italic(N)[e]),
+               expression(Low~italic(N)[e]))
 
 ############## Pannel 7 E
 data = data.frame(selection = tab_res$factor, svr = tab_res$svr_mean_low*100)
 
 p7E  = ggplot(data,aes(x=selection,y=svr)) +geom_point(shape=21,fill="grey",size=9,alpha=1, stroke = 1.5)+
   theme_bw() +  scale_y_continuous(breaks=seq(0,1.5,0.25), labels=paste(seq(0,1.5,0.25),"%"))+ 
-  scale_x_continuous(breaks=Ne_vector, labels=NeS)+ coord_cartesian(ylim=c(0,1.5),xlim=c(1,7))+ 
+  scale_x_continuous(breaks=Ne_vector, labels=group_name)+ coord_cartesian(ylim=c(0,1.5),xlim=c(1,7))+ 
   ylab("Average AS rate per intron")+ labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+ggtitle("Low-AS introns") +
   xlab("")+  theme(
     axis.title.x = element_text(color="black", size=40,family="serif"),
@@ -511,8 +513,6 @@ p7E  = ggplot(data,aes(x=selection,y=svr)) +geom_point(shape=21,fill="grey",size
     legend.title  =  element_text(color=NA, size=26, family="serif"),
     legend.text =  element_text(color="black", size=26, family="serif")
   ) 
-
-
 p7E
 
 jpeg(paste(path_figure,"p7E.jpg",sep=""), width = 8000/resolution, height = 5500/resolution,res=700/resolution)
@@ -526,7 +526,7 @@ data = data.frame(selection = tab_res$factor, svr = tab_res$svr_mean_high*100)
 
 p7F  = ggplot(data,aes(x=selection,y=svr)) +geom_point(shape=21,fill="grey",size=9,alpha=1, stroke = 1.5)+
   theme_bw() +  scale_y_continuous(breaks=seq(10,25,2.5), labels=paste(seq(10,25,2.5),"%"))+ 
-  scale_x_continuous(breaks=Ne_vector, labels=NeS)+ coord_cartesian(ylim=c(15,25),xlim=c(1,7))+ 
+  scale_x_continuous(breaks=Ne_vector, labels=group_name)+ coord_cartesian(ylim=c(15,25),xlim=c(1,7))+ 
   ylab("Average AS rate per intron")+ labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+ggtitle("High-AS introns") +
   xlab("")+  theme(
     axis.title.x = element_text(color="black", size=40,family="serif"),
@@ -553,7 +553,7 @@ data = data.frame(selection = tab_res$factor, svr = tab_res$svr_mean*100)
 
 p7C  = ggplot(data,aes(x=selection,y=svr)) +geom_point(shape=21,fill="grey",size=9,alpha=1, stroke = 1.5)+
   theme_bw() +  scale_y_continuous(breaks=seq(1,100,1), labels=paste(seq(1,100,1),"%"))+ 
-  scale_x_continuous(breaks=Ne_vector, labels=NeS)+ coord_cartesian(ylim=c(1,3),xlim=c(1,7))+ 
+  scale_x_continuous(breaks=Ne_vector, labels=group_name)+ coord_cartesian(ylim=c(1,3),xlim=c(1,7))+ 
   ylab("Average AS rate per intron")+ labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
   xlab("")+  theme(
     axis.title.x = element_text(color="black", size=40,family="serif"),
@@ -580,7 +580,7 @@ data = data.frame(selection = tab_res$factor, svr = tab_res$prop_SVRfn_highSVR*1
 
 p7D  = ggplot(data,aes(x=selection,y=svr)) +geom_point(shape=21,fill="grey",size=9,alpha=1, stroke = 1.5)+
   theme_bw() +  scale_y_continuous(breaks=seq(10,100,10), labels=paste(seq(10,100,10),"%"))+ 
-  scale_x_continuous(breaks=Ne_vector, labels=NeS)+ coord_cartesian(ylim=c(55,100),xlim=c(1,7))+ 
+  scale_x_continuous(breaks=Ne_vector, labels=group_name)+ coord_cartesian(ylim=c(55,100),xlim=c(1,7))+ 
   ylab("Proportion of\nfunctional variants")+ ggtitle("High-AS introns") +
   xlab("")+  theme(
     axis.title.x = element_text(color="black", size=40,family="serif"),

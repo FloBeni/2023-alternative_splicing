@@ -7,9 +7,11 @@ xlabel="longevity"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p1B = ggplot( data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p1B = ggplot( data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) ) +
+  geom_abline(lwd=1,slope = coef(pgls(log10(ylabel)~log10(xlabel) , shorebird))[2], intercept = coef(pgls(log10(ylabel)~log10(xlabel) , shorebird))[1])+
+  geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual("Clades",values=vectorColor)+
-  scale_x_log10(breaks=c(0.05,0.1,0.5,1,5,10,100,1000,10000,50000))+ 
+  scale_x_log10(breaks=c(0.05,0.1,0.5,1,5,10,100,1000,10000,50000))+
   scale_y_log10(breaks=c(0.01,0.05,0.1,0.5,1,5,10,50,100,500,1000),limits = c(0.01,1000))+ theme_bw() +
   ylab("Body length (cm, log scale)")+
   xlab("Longevity (days, log scale)")+ theme(
@@ -20,11 +22,11 @@ p1B = ggplot( data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=specie
     title =  element_text(color="black", size=31, family="serif"),
     text =  element_text(color="black", size=31, family="serif"),
     legend.text =  element_text(color="black", size=26, family="serif",vjust = 1.5,margin = margin(t = 10)),
-    plot.caption = element_text(hjust = 0.4, face= "italic", size=23, family="serif"),
+    plot.caption = element_text(hjust = 0.41, face= "italic", size=23, family="serif"),
     plot.caption.position =  "plot"
   )+
   labs(
-    caption = substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls(log10(ylabel)~log10(xlabel),shorebird))))
+    caption = substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls(log10(ylabel)~log10(xlabel) , shorebird))))
   )+ annotation_logticks()
 p1B
 
@@ -43,7 +45,9 @@ xlabel="longevity"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p1C = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p1C = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ 
+  geom_abline(lwd=1,slope = coef(pgls(ylabel~log10(xlabel) , shorebird))[2], intercept = coef(pgls(ylabel~log10(xlabel) , shorebird))[1])+
+  geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual("Clades",values=vectorColor)+ 
   scale_x_log10(breaks=c(0.01,0.05,0.1,0.5,1,5,10,100,1000,10000,50000)) + theme_bw() +
   ylab("dN/dS")+
@@ -169,7 +173,7 @@ Drosophila_melanogaster<-readPNG(paste(path_require,"Drosophila_melanogaster.png
   yDrosophila_melanogaster=34.5
   rasterImage(Drosophila_melanogaster,xleft=0+xDrosophila_melanogaster, ybottom=0+yDrosophila_melanogaster, xright=.15/1.6+xDrosophila_melanogaster, ytop=1.5/1.5+yDrosophila_melanogaster)
   
-  mtext("A",at=49.4,adj=0.1, side=2, line=1, font=2, cex=1.4,las=2)
+  mtext("A",at=51,adj=0.1, side=2, line=1, font=2, cex=1.4,las=2)
   plot(imgB, axes=FALSE)
   mtext("B", side=2,at=1, line=1, font=2, cex=1.4,las=2)
   plot(imgC, axes=FALSE)
