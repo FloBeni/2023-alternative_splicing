@@ -1,8 +1,8 @@
 #annot_N1N2_sup10: Number of introns with Ns+Na >= 10.
 #annotated_intron: Number of annotated introns.
 #sequencing_depth: Median per-base read coverage across BUSCO genes.
-#average_svr_busco: Average per-intron alternative splicing rate among BUSCO major introns (%).
-#no_major_intron: Number of major introns.
+#average_svr_busco: Average per-intron alternative splicing rate among BUSCO major-isoform introns (%).
+#no_major_intron: Number of major-isoform introns.
 #no_compiled_rna_seq: Number of sub-sampled RNA-seq.
 #replicate: Replicates number.
 #samples: SRA Accession of the RNA-seq samples studied.

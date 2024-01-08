@@ -10,7 +10,8 @@ xlabel="longevity"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p8A = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p8A = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ 
+  geom_abline(lwd=1,slope = coef(pgls((ylabel)~log10(xlabel) , shorebird))[2], intercept = coef(pgls((ylabel)~log10(xlabel) , shorebird))[1])+geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual("Clades",values=vectorColor)+ ggtitle("BUSCO genes")+ 
   scale_x_log10(breaks=c(0.05,0.1,0.5,1,5,10,100,1000,10000,50000), limits=c(7,51000)) + theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," gene")))+
@@ -47,7 +48,8 @@ xlabel="body_size"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p8B = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p8B = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ 
+  geom_abline(lwd=1,slope = coef(pgls((ylabel)~log10(xlabel) , shorebird))[2], intercept = coef(pgls((ylabel)~log10(xlabel) , shorebird))[1])+geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual("Clades",values=vectorColor)+ ggtitle("BUSCO genes")+ 
   scale_x_log10(breaks=c(0.01,0.1,1,10,100,1000),labels=c(0.01,0.1,1,10,100,1000),limits = c(0.01,1000))+  theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," gene")))+
@@ -82,7 +84,8 @@ xlabel="dNdS_200k"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p8C = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p8C = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ 
+  geom_abline(lwd=1,slope = coef(pgls((ylabel)~(xlabel) , shorebird))[2], intercept = coef(pgls((ylabel)~(xlabel) , shorebird))[1])+geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual("Clades",values=vectorColor)+ ggtitle("BUSCO genes")+ 
   scale_x_continuous(breaks=c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12), labels =c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12))+  theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," gene")))+
@@ -119,7 +122,8 @@ xlabel="longevity"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p8D = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p8D = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ 
+  geom_abline(lwd=1,slope = coef(pgls((ylabel)~log10(xlabel) , shorebird))[2], intercept = coef(pgls((ylabel)~log10(xlabel) , shorebird))[1])+geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual("Clades",values=vectorColor)+ ggtitle("all protein-coding genes")+ 
   scale_x_log10(breaks=c(0.05,0.1,0.5,1,5,10,50,100,1000,10000,50000), limits=c(7,51000))+  theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," gene")))+
@@ -154,7 +158,8 @@ xlabel="body_size"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p8E = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p8E = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ 
+  geom_abline(lwd=1,slope = coef(pgls((ylabel)~log10(xlabel) , shorebird))[2], intercept = coef(pgls((ylabel)~log10(xlabel) , shorebird))[1])+geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual("Clades",values=vectorColor)+ ggtitle("all protein-coding genes")+ 
   scale_x_log10(breaks=c(0.01,0.1,1,10,100,1000),labels=c(0.01,0.1,1,10,100,1000),limits = c(0.01,1000))+ theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," gene")))+
@@ -187,7 +192,8 @@ xlabel="dNdS_200k"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p8F = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+p8F = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ 
+  geom_abline(lwd=1,slope = coef(pgls((ylabel)~(xlabel) , shorebird))[2], intercept = coef(pgls((ylabel)~(xlabel) , shorebird))[1])+geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual("Clades",values=vectorColor)+ ggtitle("all protein-coding genes")+ 
   scale_x_continuous(breaks=c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12), labels =c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12))+theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," gene")))+

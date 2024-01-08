@@ -3,10 +3,12 @@ source("figure/figure_supp_generator/library_path.R")
 
 ############## Supplementary Pannel 2 A
 ylabel="prop_major_sv_busco"
+data_1[,ylabel] = data_1[,ylabel]*100
 xlabel="CoverageBuscoExon"
 
-p2A = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel]*100, fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
-  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major introns (BUSCO genes)")+ 
+p2A = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ 
+  geom_abline(lwd=1,slope = coef(lm((data_1[,ylabel])~log10(data_1[,xlabel])))[2], intercept = coef(lm((data_1[,ylabel])~log10(data_1[,xlabel])))[1])+geom_point(shape=21,size=7,alpha=0.7)+
+  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major-isoform introns (BUSCO genes)")+ 
   theme_bw() + ylab(expression(paste("Proportion with ", N[a], " > 0")))+
   xlab("Median read coverage on BUSCO genes\n(reads/bp, log scale)" ) +
   scale_y_continuous(breaks=seq(0,100,20), labels=paste(seq(0,100,20),"%"),limits=c(0,100)) + theme(

@@ -10,7 +10,8 @@ data_vertebrate = data_1[data_1$clade %in% c("Mammalia","Crocodylia","Aves","Cho
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_vertebrate[,"species"],xlabel=data_vertebrate[,xlabel],ylabel=data_vertebrate[,ylabel]), species, vcv=TRUE)
 
 p2A = ggplot(  data_vertebrate,aes(data_vertebrate[,xlabel],data_vertebrate[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
-  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major introns (BUSCO genes)")+ 
+  geom_abline(lwd=1,slope = coef(lm((ylabel)~log10(xlabel),data=shorebird$data))[2], intercept = coef(lm((ylabel)~log10(xlabel),data=shorebird$data))[1])+
+  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major-isoform introns (BUSCO genes)")+ 
   scale_x_log10(breaks=c(0.05,0.1,0.5,1,5,10,50,100,1000,10000,50000), limits=c(1000,51000)) + theme_bw() +
   scale_y_continuous(breaks=seq(0.5,4.5,0.5), labels=paste(seq(0.5,4.5,0.5),"%")) +
   labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
@@ -48,7 +49,7 @@ xlabel="body_size"
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_vertebrate[,"species"],xlabel=data_vertebrate[,xlabel],ylabel=data_vertebrate[,ylabel]), species, vcv=TRUE)
 
 p2B = ggplot(  data_vertebrate,aes(data_vertebrate[,xlabel],data_vertebrate[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
-  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major introns (BUSCO genes)")+ 
+  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major-isoform introns (BUSCO genes)")+ 
   scale_x_log10(breaks=c(0.01,0.1,0.5,1,5,10,100,1000),labels=c(0.01,0.1,0.5,1,5,10,100,1000),limits = c(5,1000)) + theme_bw() +
   scale_y_continuous(breaks=seq(0.5,4.5,0.5), labels=paste(seq(0.5,4.5,0.5),"%")) +
   labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
@@ -85,7 +86,8 @@ xlabel="dNdS_200k"
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_vertebrate[,"species"],xlabel=data_vertebrate[,xlabel],ylabel=data_vertebrate[,ylabel]), species, vcv=TRUE)
 
 p2C = ggplot(  data_vertebrate,aes(data_vertebrate[,xlabel],data_vertebrate[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
-  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major introns (BUSCO genes)")+ 
+  geom_abline(lwd=1,slope = coef(lm((ylabel)~(xlabel),data=shorebird$data))[2], intercept = coef(lm((ylabel)~(xlabel),data=shorebird$data))[1])+
+  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major-isoform introns (BUSCO genes)")+ 
   scale_x_continuous(breaks=c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12), labels =c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12)) + theme_bw() +
   scale_y_continuous(breaks=seq(0.5,4.5,0.5), labels=paste(seq(0.5,4.5,0.5),"%")) +
   labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
@@ -125,7 +127,8 @@ data_invertebrate = data_1[!data_1$clade %in% c("Mammalia","Crocodylia","Aves","
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_invertebrate[,"species"],xlabel=data_invertebrate[,xlabel],ylabel=data_invertebrate[,ylabel]), species, vcv=TRUE)
 
 p2D = ggplot(  data_invertebrate,aes(data_invertebrate[,xlabel],data_invertebrate[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
-  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major introns (BUSCO genes)")+ 
+  geom_abline(lwd=1,slope = coef(lm((ylabel)~log10(xlabel),data=shorebird$data))[2], intercept = coef(lm((ylabel)~log10(xlabel),data=shorebird$data))[1])+
+  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major-isoform introns (BUSCO genes)")+ 
   scale_x_log10(breaks=c(0.05,0.1,0.5,1,5,10,50,100,1000,10000,50000), limits=c(7,50000)) + theme_bw() +
   scale_y_continuous(breaks=seq(0.5,4.5,0.5), labels=paste(seq(0.5,4.5,0.5),"%")) +
   labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
@@ -160,7 +163,8 @@ xlabel = "body_size"
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_invertebrate[,"species"],xlabel=data_invertebrate[,xlabel],ylabel=data_invertebrate[,ylabel]), species, vcv=TRUE)
 
 p2E = ggplot(  data_invertebrate,aes(data_invertebrate[,xlabel],data_invertebrate[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
-  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major introns (BUSCO genes)")+ 
+  geom_abline(lwd=1,slope = coef(lm((ylabel)~log10(xlabel),data=shorebird$data))[2], intercept = coef(lm((ylabel)~log10(xlabel),data=shorebird$data))[1])+
+  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major-isoform introns (BUSCO genes)")+ 
   scale_x_log10(breaks=c(0.01,0.1,0.5,1,5,10,100,1000),labels=c(0.01,0.1,0.5,1,5,10,100,1000),limits = c(0.01,10)) + theme_bw() +
   scale_y_continuous(breaks=seq(0.5,4.5,0.5), labels=paste(seq(0.5,4.5,0.5),"%")) +
   labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
@@ -197,7 +201,8 @@ xlabel = "dNdS_200k"
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_invertebrate[,"species"],xlabel=data_invertebrate[,xlabel],ylabel=data_invertebrate[,ylabel]), species, vcv=TRUE)
 
 p2F = ggplot(  data_invertebrate,aes(data_invertebrate[,xlabel],data_invertebrate[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
-  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major introns (BUSCO genes)")+ 
+  geom_abline(lwd=1,slope = coef(lm((ylabel)~(xlabel),data=shorebird$data))[2], intercept = coef(lm((ylabel)~(xlabel),data=shorebird$data))[1])+
+  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major-isoform introns (BUSCO genes)")+ 
   scale_x_continuous(breaks=c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12), labels =c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12)) + theme_bw() +
   scale_y_continuous(breaks=seq(0.5,4.5,0.5), labels=paste(seq(0.5,4.5,0.5),"%")) +
   labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+

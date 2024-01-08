@@ -38,7 +38,7 @@ p5A = ggplot(data_sp,aes(x=median_gene_expression+10^-10,y=average_as,fill=group
     breaks=c(0.005,0.01,0.05,0.1,0.5,1,5,10,50,100,500,1000,10000,50000),
     labels=c(0.005,0.01,0.05,0.1,0.5,1,5,10,50,100,500,1000,10000,50000),
     limits=c(0.1,100)
-  ) +ggtitle("Major introns") +  labs(
+  ) +ggtitle("Major-isoform introns") +  labs(
     caption = substitute(paste("Pearson correlation:"," R",pgls_eq), list(pgls_eq=lm_eqn(
       m=cor.test(log10(data_sp[grepl("All protein-coding",data_sp$group),]$median_gene_expression),
                  data_sp[grepl("All protein-coding",data_sp$group),]$average_as_errorBar,method="pearson")))))+
@@ -76,7 +76,7 @@ p5B = ggplot(data_sp,aes(x=median_gene_expression+10^-10,y=average_as,fill=group
     breaks=c(0.005,0.01,0.05,0.1,0.5,1,5,10,50,100,500,1000,10000,50000),
     labels=c(0.005,0.01,0.05,0.1,0.5,1,5,10,50,100,500,1000,10000,50000),
     limits=c(1,500)
-  ) +ggtitle("Major introns") +  labs(
+  ) +ggtitle("Major-isoform introns") +  labs(
     caption = substitute(paste("Pearson correlation:"," R",pgls_eq), list(pgls_eq=lm_eqn(
       m=cor.test(log10(data_sp[grepl("All protein-coding",data_sp$group),]$median_gene_expression),
                  data_sp[grepl("All protein-coding",data_sp$group),]$average_as,method="pearson")))))+

@@ -2,8 +2,7 @@
 
 This archive includes all processed data that have been generated and used in the study 'Random genetic drift sets an upper limit on mRNA splicing accuracy in metazoans', as well as the scripts used to analyze the data and to generate the figures.
 
-Developed by Florian Bénitière, Anamaria Necsulea and Laurent Duret.
-Laboratoire de Biométrie et Biologie Évolutive, Université Lyon 1, UMR CNRS 5558, Villeurbanne, France.
+Developed by Florian Bénitière, Anamaria Necsulea and Laurent Duret. Laboratoire de Biométrie et Biologie Évolutive, Université Lyon 1, UMR CNRS 5558, Villeurbanne, France.
 
 ### Directories content
 
@@ -85,7 +84,7 @@ Laboratoire de Biométrie et Biologie Évolutive, Université Lyon 1, UMR CNRS 5
 
         -   **nonsplice_variant_rate**:Proportion of unspliced reads, $\mathrm{1-RANS=\frac{N_u}{2\times N_s~+~N_u}}$.
 
-        -   **intron_class**: Three categories of introns: major introns, defined as those introns that have RANS $>$ 0.5 and RAS $>$ 0.5; minor introns, defined as those introns that have RANS $\leq$ 0.5 or RAS $\leq$ 0.5; unclassified introns, which do not satisfy the above conditions.
+        -   **intron_class**: Three categories of introns: major-isoform introns, defined as those introns that have RANS $>$ 0.5 and RAS $>$ 0.5; minor-isoform introns, defined as those introns that have RANS $\leq$ 0.5 or RAS $\leq$ 0.5; unclassified introns, which do not satisfy the above conditions.
 
         -   **into_cds**: Check if intron is located within protein-coding regions. To do this, for each protein-coding gene, we extracted the start codons and the stop codons for all annotated isoforms. We then identified the minimum start codon and the maximum end codon positions and we excluded introns that were upstream or downstream of these extreme coordinates.
 
@@ -99,13 +98,13 @@ Laboratoire de Biométrie et Biologie Évolutive, Université Lyon 1, UMR CNRS 5
 
         -   **Annotation**: Check if the intron is annotated (*i.e.* present in the GFF)or not.
 
-        -   **mira criptic_intron**: For minor introns sharing a boundary with a major intron: $\mathrm{Minor~intron~relative~abundance~MIRA_i=\frac{N_i^m}{N^M~+~N^m}}$
+        -   **mira criptic_intron**: For minor-isoform introns sharing a boundary with a major-isoform intron: $\mathrm{Minor–isoform~intron~relative~abundance~MIRA_i=\frac{N_i^m}{N^M~+~N^m}}$
 
-        -   **distance_from_major**: In bp the distance from the sharing major intron boundaries.
+        -   **distance_from_major**: In bp the distance from the sharing major-isoform intron boundaries.
 
         -   **frame_shift**: The residual value resulting from the division of distance_from_major by 3.
 
-        -   **have_abundant_sv**: For major intron, check if they have an habundant minor variants (*i.e.* MIRA \> 0.05*)*.
+        -   **have_abundant_sv**: For major-isoform intron, check if they have an habundant minor variants (*i.e.* MIRA \> 0.05*)*.
 
         </div>
 
@@ -129,7 +128,7 @@ Laboratoire de Biométrie et Biologie Évolutive, Université Lyon 1, UMR CNRS 5
 
     -   'Data10_supp.tab' Table containing all the RNA-seq studied with information extracted from SRA runinfo table.
 
-    -   'Data11_supp.tab' contains the proportion of major introns per reading frame class per species.
+    -   'Data11_supp.tab' contains the proportion of major-isoform introns per reading frame class per species.
 
 -   The 'pipelines' folder contains the bionformatics pipelines for three different purposes: to calculate the dN/dS ratio ('dNdS_pipeline'); to analyze various alternative splicing characteristics as part of our study ('AS_pipeline'); to generate data table located in the 'data' directory ('data_generator').
 

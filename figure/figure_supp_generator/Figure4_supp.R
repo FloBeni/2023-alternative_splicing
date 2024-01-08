@@ -38,7 +38,7 @@ p4A
 resolution=1
 
 
-p4A = ggdraw() + draw_plot(p4A, 0, 0.25, 1, .7) + draw_image(paste(path_require,"polymorphism_position_CpG.png",sep=""),0.09,-0.31,0.91,1)+ 
+p4A = ggdraw() + draw_plot(p4A, 0, 0.25, 1, .7) + draw_image(paste(path_require,"polymorphism_position_CpG.png",sep=""),0.075,-0.31,0.925,1)+ 
   draw_image(paste(path_require,"human.png",sep=""),.85,.65,0.15,.17)
 p4A
 
@@ -80,7 +80,7 @@ p4B
 resolution=1
 
 
-p4B = ggdraw() + draw_plot(p4B, 0, 0.25, 1, .7) + draw_image(paste(path_require,"polymorphism_position_CpG.png",sep=""),0.09,-0.31,0.91,1)+ 
+p4B = ggdraw() + draw_plot(p4B, 0, 0.25, 1, .7) + draw_image(paste(path_require,"polymorphism_position_CpG.png",sep=""),0.075,-0.31,0.925,1)+ 
   draw_image(paste(path_require,"human.png",sep=""),.85,.65,0.15,.17)
 p4B
 

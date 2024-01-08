@@ -1,5 +1,5 @@
 #species: Scientific name.
-#SVR: Average per-intron alternative splicing rate among BUSCO major introns (%).
+#SVR: Average per-intron alternative splicing rate among BUSCO major-isoform introns (%).
 #Bioproject: Bioproject.
 #couverture: Median per-base read coverage across BUSCO genes.
 #nbIntron: Number of introns studied.

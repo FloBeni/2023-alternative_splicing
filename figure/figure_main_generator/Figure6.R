@@ -25,7 +25,7 @@ p6A = ggplot(  data_1,aes(x=cor_as_fpkm_low_as) ) + geom_histogram(col="black",f
     legend.text =  element_text(color="black", size=26, family="serif",vjust = 1.5,margin = margin(t = 10)),
     plot.caption = element_text(hjust = 0.2, face= "italic", size=23),
     plot.caption.position =  "plot"
-  ) + ylab("Frequency") + xlab("Pearson coefficient correlation (R)")+ xlim(-1,1)+ ylim(0,25) + ggtitle("Low-AS major introns (all protein-coding genes)")
+  ) + ylab("Frequency") + xlab("Pearson coefficient correlation (R)")+ xlim(-1,1)+ ylim(0,25) + ggtitle("Low-AS major-isoform introns (all protein-coding genes)")
 p6A
 
 
@@ -55,7 +55,7 @@ p6B = ggplot(  data_1,aes(x=cor_as_fpkm_all_as) ) + geom_histogram(col="black",f
     plot.caption = element_text(hjust = 0.2, face= "italic", size=23),
     plot.caption.position =  "plot"
   ) + ylab("Frequency") + xlab("Pearson coefficient correlation (R)")+ xlim(-1,1)+ ylim(0,25)+
-  ggtitle("Major introns (all protein-coding genes)")
+  ggtitle("Major-isoform introns (all protein-coding genes)")
 p6B
 
 
@@ -91,7 +91,7 @@ p6C = ggplot(data_sp,aes(x=median_gene_expression+10^-10,y=average_as,fill=group
     breaks=c(0.005,0.01,0.05,0.1,0.5,1,5,10,50,100,500,1000,10000,50000),
     labels=c(0.005,0.01,0.05,0.1,0.5,1,5,10,50,100,500,1000,10000,50000),
     limits=c(0.1,100)
-  ) + ggtitle("Low-AS major introns (all protein-coding genes)") +  labs(
+  ) + ggtitle("Low-AS major-isoform introns (all protein-coding genes)") +  labs(
     caption = substitute(paste("Pearson correlation:"," R",pgls_eq), list(pgls_eq=lm_eqn(
       m=cor.test(log10(data_sp$median_gene_expression), data_sp$average_as,method="pearson")))))+
   scale_y_continuous(breaks=seq(0,100,.25), labels=paste(seq(0,100,.25),"%")) + theme(legend.position = "none")
@@ -126,7 +126,7 @@ p6D = ggplot(data_sp,aes(x=median_gene_expression+10^-10,y=average_as,fill=group
   scale_x_log10(breaks=c(0.05,0.1,0.5,1,5,10,50,100,500,1000,10000,50000),
                 labels=c(0.05,0.1,0.5,1,5,10,50,100,500,1000,10000,50000)
                 ,limits=c(1,500)
-  ) + ggtitle("Low-AS major introns (all protein-coding genes)")+ ylab("Average AS rate per intron") +labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+  labs(
+  ) + ggtitle("Low-AS major-isoform introns (all protein-coding genes)")+ ylab("Average AS rate per intron") +labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+  labs(
     caption = substitute(paste("Pearson correlation:"," R",pgls_eq), list(pgls_eq=lm_eqn(
       m=cor.test(log10(data_sp$median_gene_expression), data_sp$average_as,method="pearson")))))+
   scale_y_continuous(breaks=seq(0,100,.1), labels=paste(seq(0,100,0.1),"%")) + theme(legend.position = "none")

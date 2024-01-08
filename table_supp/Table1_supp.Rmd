@@ -33,7 +33,7 @@ data_1 = data_1[order(data_1$Clade=="Chondrichthyes",decreasing = T),]
 kbl(data_1, format="latex" , booktabs = T, escape = F, align = "c", 
     col.names = linebreak(c("Clade", "Number of\nRNA-seq samples",paste0("Sequencing depth","\n(\\textit{per}","-base read)",footnote_marker_alphabet(1)),
                             paste0("Number of\nannotated introns"),paste0("Number of\nanalyzable introns",footnote_marker_alphabet(2)),"Average number of introns\n\\textit{per} BUSCO gene",
-                            paste0("Fraction of major introns\nalternatively spliced",footnote_marker_alphabet(3)),
+                            paste0("Fraction of major-isoform introns\nalternatively spliced",footnote_marker_alphabet(3)),
                             "Average AS rate\namong BUSCO introns",
                             paste0("Fraction of\nrare SVs",footnote_marker_alphabet(4)) 
                             
@@ -44,7 +44,7 @@ kbl(data_1, format="latex" , booktabs = T, escape = F, align = "c",
   footnote(
            alphabet = c("Median \\\\textit{per}-base read coverage computed on BUSCO gene exons",
                         "Number of analyzable introns (\\\\textit{i.e.} with $\\\\mathrm{N_s+N_a\\\\geq}$ 10) among BUSCO genes",
-                        "Proportion of major introns for which alternative splicing has been detected (\\\\textit{i.e.} with $\\\\mathrm{N_a\\>}$ 0) among BUSCO genes",
+                        "Proportion of major-isoform introns for which alternative splicing has been detected (\\\\textit{i.e.} with $\\\\mathrm{N_a\\>}$ 0) among BUSCO genes",
                         "Fraction of rare spliced variants introns (\\\\textit{i.e.} with MIRA $\\\\leq$ 5\\\\%) among all protein-coding genes")
 ,  escape=F )
 # "The fraction of analyzable introns (i.e. with N $\\geq$ 10) among BUSCO genes"

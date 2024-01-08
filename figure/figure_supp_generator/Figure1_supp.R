@@ -89,7 +89,7 @@ p1C = ggplot(df[df$echantillon == "all introns",],aes(x=sequencing_depth,y=avera
   ) + 
   scale_y_continuous(breaks=seq(0.5,5,0.5), labels=paste(seq(0.5,5,0.5),"%")) +
   scale_x_continuous(limits = c(0,800))+
-   ggtitle("Major introns (BUSCO genes)")+labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
+   ggtitle("Major-isoform introns (BUSCO genes)")+labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
   scale_fill_gradient("Number of\nRNA-seq\nsamples", low = "grey", high = color)
 p1C
 
@@ -120,7 +120,7 @@ p1D =ggplot(df[df$echantillon == "all introns",],aes(x=sequencing_depth,y=averag
     title =  element_text(color="black", size=26, family="serif"),
     text =  element_text(color="black", size=31, family="serif"),
     legend.text =  element_text(color="black", size=26, family="serif")
-  )+ ggtitle("Major introns (BUSCO genes)")+
+  )+ ggtitle("Major-isoform introns (BUSCO genes)")+
   scale_x_continuous(breaks=c(0,200,400,600,800,1000,1200))+ 
   scale_y_continuous(breaks=seq(0,5,0.5), labels=paste(seq(0,5,0.5),"%")) +
    labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+

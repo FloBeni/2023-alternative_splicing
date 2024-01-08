@@ -65,7 +65,7 @@ df = data_5[data_5$filtering == "Homo_sapiens_abundant_sv",]
 }
 {
   p5AC = ggdraw() + draw_plot(p5A, 0, 0.55, 1, 0.42) + draw_plot(p5C, 0, 0.13, 1, 0.42) + 
-    draw_image(paste(path_require,"polymorphism_position.png",sep=""),0.08,-0.41,0.922,1) + 
+    draw_image(paste(path_require,"polymorphism_position.png",sep=""),0.077,-0.41,0.922,1) + 
     draw_image(paste(path_require,"Drosophila_melanogaster.png",sep=""),.86,.85,0.12,.06) + 
     draw_image(paste(path_require,"human.png",sep=""),.85,.39,0.15,.11)
   p5AC
@@ -144,7 +144,7 @@ df = data_5[data_5$filtering == "Homo_sapiens_rare_sv",]
 
 {
   p5BD = ggdraw() + draw_plot(p5B, 0, 0.55, 1, 0.42) + draw_plot(p5D, 0, 0.13, 1, 0.42) + 
-    draw_image(paste(path_require,"polymorphism_position.png",sep=""),0.08,-0.41,0.923,1) + 
+    draw_image(paste(path_require,"polymorphism_position.png",sep=""),0.077,-0.41,0.922,1) + 
     draw_image(paste(path_require,"Drosophila_melanogaster.png",sep=""),.86,.85,0.12,.06) + 
     draw_image(paste(path_require,"human.png",sep=""),.85,.39,0.15,.11)
   p5BD

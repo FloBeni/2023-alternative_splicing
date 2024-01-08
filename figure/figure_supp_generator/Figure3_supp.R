@@ -7,8 +7,9 @@ xlabel="body_size"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p3A = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
-  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major introns (BUSCO genes)")+ 
+p3A = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+
+  geom_abline(lwd=1,slope = coef(pgls((ylabel)~log10(xlabel) , shorebird))[2], intercept = coef(pgls((ylabel)~log10(xlabel) , shorebird))[1])+ geom_point(shape=21,size=7,alpha=0.7)+
+  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major-isoform introns (BUSCO genes)")+ 
   scale_x_log10(breaks=c(0.01,0.1,1,10,100,1000),labels=c(0.01,0.1,1,10,100,1000),limits = c(0.01,1000)) + theme_bw() +
   scale_y_continuous(breaks=seq(0.5,4.5,0.5), labels=paste(seq(0.5,4.5,0.5),"%"),limits=c(.5,4)) +
   labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
@@ -42,8 +43,9 @@ xlabel="dNdS_200k"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p3B = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
-  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major introns (BUSCO genes)")+ 
+p3B = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ 
+  geom_abline(lwd=1,slope = coef(pgls((ylabel)~(xlabel) , shorebird))[2], intercept = coef(pgls((ylabel)~(xlabel) , shorebird))[1])+geom_point(shape=21,size=7,alpha=0.7)+
+  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major-isoform introns (BUSCO genes)")+ 
   scale_x_continuous(breaks=c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12), labels =c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12)) + theme_bw() +
   scale_y_continuous(breaks=seq(0.5,4.5,0.5), labels=paste(seq(0.5,4.5,0.5),"%"),limits=c(.5,4)) +
    labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
@@ -78,8 +80,9 @@ xlabel = "body_size"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p3C = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
-  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Low-AS major introns (BUSCO genes)")+
+p3C = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ 
+  geom_abline(lwd=1,slope = coef(pgls((ylabel)~log10(xlabel) , shorebird))[2], intercept = coef(pgls((ylabel)~log10(xlabel) , shorebird))[1])+geom_point(shape=21,size=7,alpha=0.7)+
+  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Low-AS major-isoform introns (BUSCO genes)")+
   theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
   xlab("Body length (cm, log scale)") +
@@ -90,7 +93,7 @@ p3C = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=speci
     axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=31, family="serif"),
     axis.text.y =  element_text(color="black", size=26, family="serif"),
     axis.text.x =  element_text(color="black", size=26, family="serif"),
-    title =  element_text(color="black", size=24 ,family="serif"),
+    title =  element_text(color="black", size=21 ,family="serif"),
     text =  element_text(color="black", size=31, family="serif"),
     legend.text =  element_text(color="black", size=26, family="serif",vjust = 1.5,margin = margin(t = 10)),
     plot.caption = element_text(hjust = .72, face= "italic", size=23),
@@ -113,8 +116,9 @@ xlabel = "dNdS_200k"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p3D = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
-  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Low-AS major introns (BUSCO genes)")+
+p3D = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ 
+  geom_abline(lwd=1,slope = coef(pgls((ylabel)~(xlabel) , shorebird))[2], intercept = coef(pgls((ylabel)~(xlabel) , shorebird))[1])+geom_point(shape=21,size=7,alpha=0.7)+
+  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Low-AS major-isoform introns (BUSCO genes)")+
   theme_bw() +
    labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
   xlab("dN/dS") +
@@ -125,7 +129,7 @@ p3D = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=speci
     axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=31, family="serif"),
     axis.text.y =  element_text(color="black", size=26, family="serif"),
     axis.text.x =  element_text(color="black", size=26, family="serif"),
-    title =  element_text(color="black", size=24 ,family="serif"),
+    title =  element_text(color="black", size=21 ,family="serif"),
     text =  element_text(color="black", size=31, family="serif"),
     legend.text =  element_text(color="black", size=26, family="serif",vjust = 1.5,margin = margin(t = 10)),
     plot.caption = element_text(hjust = 0.4, face= "italic", size=23),
@@ -153,7 +157,7 @@ xlabel = "body_size"
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
 p3E = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
-  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("High-AS major introns (BUSCO genes)") +
+  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("High-AS major-isoform introns (BUSCO genes)") +
   theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
   xlab("Body length (cm, log scale)")  +
@@ -164,7 +168,7 @@ p3E = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=speci
     axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=31, family="serif"),
     axis.text.y =  element_text(color="black", size=26, family="serif"),
     axis.text.x =  element_text(color="black", size=26, family="serif"),
-    title =  element_text(color="black", size=24 ,family="serif"),
+    title =  element_text(color="black", size=21 ,family="serif"),
     text =  element_text(color="black", size=31, family="serif"),
     legend.text =  element_text(color="black", size=26, family="serif",vjust = 1.5,margin = margin(t = 10)),
     plot.caption = element_text(hjust = .7, face= "italic", size=23),
@@ -190,7 +194,7 @@ xlabel = "dNdS_200k"
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
 p3F = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
-  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("High-AS major introns (BUSCO genes)") +
+  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("High-AS major-isoform introns (BUSCO genes)") +
   theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
   xlab("dN/dS")  +
@@ -201,7 +205,7 @@ p3F = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=speci
     axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=31, family="serif"),
     axis.text.y =  element_text(color="black", size=26, family="serif"),
     axis.text.x =  element_text(color="black", size=26, family="serif"),
-    title =  element_text(color="black", size=24 ,family="serif"),
+    title =  element_text(color="black", size=21 ,family="serif"),
     text =  element_text(color="black", size=31, family="serif"),
     legend.text =  element_text(color="black", size=26, family="serif",vjust = 1.5,margin = margin(t = 10)),
     plot.caption = element_text(hjust = .4, face= "italic", size=23),

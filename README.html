@@ -455,11 +455,10 @@ alternatively spliced, <span class="math inline">\(\mathrm{1-RAS=AS=\frac{N_a}{N
 <li><p><strong>nonsplice_variant_rate</strong>:Proportion of unspliced
 reads, <span class="math inline">\(\mathrm{1-RANS=\frac{N_u}{2\times
 N_s~+~N_u}}\)</span>.</p></li>
-<li><p><strong>intron_class</strong>: Three categories of introns: major
-introns, defined as those introns that have RANS <span class="math inline">\(&gt;\)</span> 0.5 and RAS <span class="math inline">\(&gt;\)</span> 0.5; minor introns, defined as those
-introns that have RANS <span class="math inline">\(\leq\)</span> 0.5 or
-RAS <span class="math inline">\(\leq\)</span> 0.5; unclassified introns,
-which do not satisfy the above conditions.</p></li>
+<li><p><strong>intron_class</strong>: Three categories of introns:
+major-isoform introns, defined as those introns that have RANS <span class="math inline">\(&gt;\)</span> 0.5 and RAS <span class="math inline">\(&gt;\)</span> 0.5; minor-isoform introns, defined
+as those introns that have RANS <span class="math inline">\(\leq\)</span> 0.5 or RAS <span class="math inline">\(\leq\)</span> 0.5; unclassified introns, which do
+not satisfy the above conditions.</p></li>
 <li><p><strong>into_cds</strong>: Check if intron is located within
 protein-coding regions. To do this, for each protein-coding gene, we
 extracted the start codons and the stop codons for all annotated
@@ -478,14 +477,14 @@ and acceptor. (ex: GT AG)</p></li>
 GTF file.</p></li>
 <li><p><strong>Annotation</strong>: Check if the intron is annotated
 (<em>i.e.</em> present in the GFF)or not.</p></li>
-<li><p><strong>mira criptic_intron</strong>: For minor introns sharing a
-boundary with a major intron: <span class="math inline">\(\mathrm{Minor~intron~relative~abundance~MIRA_i=\frac{N_i^m}{N^M~+~N^m}}\)</span></p></li>
+<li><p><strong>mira criptic_intron</strong>: For minor-isoform introns
+sharing a boundary with a major-isoform intron: <span class="math inline">\(\mathrm{Minor–isoform~intron~relative~abundance~MIRA_i=\frac{N_i^m}{N^M~+~N^m}}\)</span></p></li>
 <li><p><strong>distance_from_major</strong>: In bp the distance from the
-sharing major intron boundaries.</p></li>
+sharing major-isoform intron boundaries.</p></li>
 <li><p><strong>frame_shift</strong>: The residual value resulting from
 the division of distance_from_major by 3.</p></li>
-<li><p><strong>have_abundant_sv</strong>: For major intron, check if
-they have an habundant minor variants (<em>i.e.</em> MIRA &gt;
+<li><p><strong>have_abundant_sv</strong>: For major-isoform intron,
+check if they have an habundant minor variants (<em>i.e.</em> MIRA &gt;
 0.05<em>)</em>.</p></li>
 </ul>
 </div></li>
@@ -515,8 +514,8 @@ species in (Fig. 4 and Supplementary Fig. 7).</p></li>
 lifespan and longevity of the species studied.</p></li>
 <li><p>‘Data10_supp.tab’ Table containing all the RNA-seq studied with
 information extracted from SRA runinfo table.</p></li>
-<li><p>‘Data11_supp.tab’ contains the proportion of major introns per
-reading frame class per species.</p></li>
+<li><p>‘Data11_supp.tab’ contains the proportion of major-isoform
+introns per reading frame class per species.</p></li>
 </ul></li>
 <li><p>The ‘pipelines’ folder contains the bionformatics pipelines for
 three different purposes: to calculate the dN/dS ratio

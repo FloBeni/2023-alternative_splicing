@@ -1,9 +1,9 @@
 #species: Scientific name.
-#average_mira: Average abundance relative to the major isoform by 5% bins of minor introns.
-#framepreserving_proportion: Proportion of frame-preserving minor introns.
+#average_mira: Average abundance relative to the major isoform by 5% bins of minor-isoform introns.
+#framepreserving_proportion: Proportion of frame-preserving minor-isoform introns.
 #XerrorBar: Standard deviation on x axis.
 #intervalle: Intervalle of the abundance relative to the major isoform.
-#Freq: Number of minor introns by bins.
+#Freq: Number of minor-isoform introns by bins.
 species	average_mira	framepreserving_proportion	XerrorBar	intervalle	Freq
 Callorhinchus_milii	0.0000867711122000051	0.417491749174917	0.00000207760079247851	[2.57e-06,0.000174]	606
 Callorhinchus_milii	0.000279119491068045	0.364686468646865	0.00000260146018992342	(0.000174,0.000393]	606

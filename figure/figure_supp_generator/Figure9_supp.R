@@ -31,7 +31,8 @@ data_4$species_name = factor( data_4$species_name, levels = names(life_span_orde
 
 
 p9A = ggplot(font.label = c(50, "plain"),font.legend= c(20, "plain"),font.x= c(20, "plain"),font.y= c(20, "plain"),
-            data_4, aes(x=longevity, y=SVR,group=species_name,shape=species_name)) + ggtitle("Major introns (BUSCO genes)")+ 
+            data_4, aes(x=longevity, y=SVR,group=species_name,shape=species_name)) + ggtitle("Major-isoform introns (BUSCO genes)")+ 
+  geom_abline(lwd=1,slope = coef(lm((data_4$SVR)~log10(data_4$longevity)))[2], intercept = coef(lm((data_4$SVR)~log10(data_4$longevity)))[1])+
   geom_point(size=5,alpha=1,aes(color=organs),stroke=1.5)+ scale_color_manual("Organs",values=point_color) +
   scale_y_continuous(breaks=seq(0.5,4.5,0.5),labels=paste(seq(0.5,4.5,0.5),"%"),limits=c(0.5,4)) +
   scale_shape_manual("Species",values=point_shape) + labs(fill="Species") +

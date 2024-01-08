@@ -8,8 +8,9 @@ xlabel="longevity"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p6A = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
-  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major introns (all protein-coding genes)")+ 
+p6A = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ 
+  geom_abline(lwd=1,slope = coef(pgls((ylabel)~log10(xlabel) , shorebird))[2], intercept = coef(pgls((ylabel)~log10(xlabel) , shorebird))[1])+geom_point(shape=21,size=7,alpha=0.7)+
+  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major-isoform introns (all protein-coding genes)")+ 
   scale_x_log10(breaks=c(0.05,0.1,0.5,1,5,10,100,1000,10000,50000), limits=c(7,51000)) + theme_bw() +
   scale_y_continuous(breaks=seq(0.5,4.5,0.5), labels=paste(seq(0.5,4.5,0.5),"%")) +
   labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
@@ -44,8 +45,9 @@ xlabel="body_size"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p6B = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
-  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major introns (all protein-coding genes)")+ 
+p6B = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ 
+  geom_abline(lwd=1,slope = coef(pgls((ylabel)~log10(xlabel) , shorebird))[2], intercept = coef(pgls((ylabel)~log10(xlabel) , shorebird))[1])+geom_point(shape=21,size=7,alpha=0.7)+
+  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major-isoform introns (all protein-coding genes)")+ 
   scale_x_log10(   breaks=c(0.01,0.1,1,10,100,1000),labels=c(0.01,0.1,1,10,100,1000),limits = c(0.01,1000)) + theme_bw() +
   scale_y_continuous(breaks=seq(0.5,4.5,0.5), labels=paste(seq(0.5,4.5,0.5),"%")) +
   labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
@@ -80,8 +82,9 @@ xlabel="dNdS_200k"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p6C = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
-  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major introns (all protein-coding genes)")+ 
+p6C = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ 
+  geom_abline(lwd=1,slope = coef(pgls((ylabel)~(xlabel) , shorebird))[2], intercept = coef(pgls((ylabel)~(xlabel) , shorebird))[1])+geom_point(shape=21,size=7,alpha=0.7)+
+  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major-isoform introns (all protein-coding genes)")+ 
   scale_x_continuous(breaks=c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12), labels =c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12)) + theme_bw() +
   scale_y_continuous(breaks=seq(0.5,4.5,0.5), labels=paste(seq(0.5,4.5,0.5),"%")) +
   labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
@@ -116,8 +119,9 @@ xlabel="longevity"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p6D = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
-  scale_fill_manual(values=vectorColor)+ ggtitle("Low-AS major introns (all protein-coding genes)")+
+p6D = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ 
+  geom_abline(lwd=1,slope = coef(pgls((ylabel)~log10(xlabel) , shorebird))[2], intercept = coef(pgls((ylabel)~log10(xlabel) , shorebird))[1])+geom_point(shape=21,size=7,alpha=0.7)+
+  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Low-AS major-isoform introns\n(all protein-coding genes)")+
   theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
   xlab("Longevity (days, log scale)")+
@@ -128,7 +132,7 @@ p6D = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=speci
     axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=31, family="serif"),
     axis.text.y =  element_text(color="black", size=26, family="serif"),
     axis.text.x =  element_text(color="black", size=26, family="serif"),
-    title =  element_text(color="black", size=21 ,family="serif"),
+    title =  element_text(color="black", size=20 ,family="serif"),
     text =  element_text(color="black", size=31, family="serif"),
     legend.text =  element_text(color="black", size=26, family="serif",vjust = 1.5,margin = margin(t = 10)),
     plot.caption = element_text(hjust = .7, face= "italic", size=23),
@@ -151,8 +155,9 @@ xlabel = "body_size"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p6E = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
-  scale_fill_manual(values=vectorColor)+ ggtitle("Low-AS major introns (all protein-coding genes)")+
+p6E = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ 
+  geom_abline(lwd=1,slope = coef(pgls((ylabel)~log10(xlabel) , shorebird))[2], intercept = coef(pgls((ylabel)~log10(xlabel) , shorebird))[1])+geom_point(shape=21,size=7,alpha=0.7)+
+    scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Low-AS major-isoform introns\n(all protein-coding genes)")+
   theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
   xlab("Body length (cm, log scale)") +
@@ -163,7 +168,7 @@ p6E = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=speci
     axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=31, family="serif"),
     axis.text.y =  element_text(color="black", size=26, family="serif"),
     axis.text.x =  element_text(color="black", size=26, family="serif"),
-    title =  element_text(color="black", size=21 ,family="serif"),
+    title =  element_text(color="black", size=20 ,family="serif"),
     text =  element_text(color="black", size=31, family="serif"),
     legend.text =  element_text(color="black", size=26, family="serif",vjust = 1.5,margin = margin(t = 10)),
     plot.caption = element_text(hjust = .7, face= "italic", size=23),
@@ -187,8 +192,9 @@ xlabel = "dNdS_200k"
 
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
-p6F = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
-  scale_fill_manual(values=vectorColor)+ ggtitle("Low-AS major introns (all protein-coding genes)")+
+p6F = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ 
+  geom_abline(lwd=1,slope = coef(pgls((ylabel)~(xlabel) , shorebird))[2], intercept = coef(pgls((ylabel)~(xlabel) , shorebird))[1])+geom_point(shape=21,size=7,alpha=0.7)+
+    scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Low-AS major-isoform introns\n(all protein-coding genes)")+
   theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
   xlab("dN/dS") +
@@ -199,7 +205,7 @@ p6F = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=speci
     axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=31, family="serif"),
     axis.text.y =  element_text(color="black", size=26, family="serif"),
     axis.text.x =  element_text(color="black", size=26, family="serif"),
-    title =  element_text(color="black", size=21 ,family="serif"),
+    title =  element_text(color="black", size=20 ,family="serif"),
     text =  element_text(color="black", size=31, family="serif"),
     legend.text =  element_text(color="black", size=26, family="serif",vjust = 1.5,margin = margin(t = 10)),
     plot.caption = element_text(hjust = .4, face= "italic", size=23),
@@ -223,7 +229,7 @@ xlabel = "longevity"
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
 p6G = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
-  scale_fill_manual(values=vectorColor)+ ggtitle("High-AS major introns (all protein-coding genes)") +
+    scale_fill_manual("Clades",values=vectorColor)+ ggtitle("High-AS major-isoform introns\n(all protein-coding genes)") +
   theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
   xlab("Longevity (days, log scale)")+
@@ -234,7 +240,7 @@ p6G = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=speci
     axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=31, family="serif"),
     axis.text.y =  element_text(color="black", size=26, family="serif"),
     axis.text.x =  element_text(color="black", size=26, family="serif"),
-    title =  element_text(color="black", size=21 ,family="serif"),
+    title =  element_text(color="black", size=20 ,family="serif"),
     text =  element_text(color="black", size=31, family="serif"),
     legend.text =  element_text(color="black", size=26, family="serif",vjust = 1.5,margin = margin(t = 10)),
     plot.caption = element_text(hjust = .7, face= "italic", size=23),
@@ -261,19 +267,18 @@ xlabel = "body_size"
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
 p6H = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
-  scale_fill_manual(values=vectorColor)+ ggtitle("High-AS major introns (all protein-coding genes)") +
+    scale_fill_manual("Clades",values=vectorColor)+ ggtitle("High-AS major-isoform introns\n(all protein-coding genes)") +
   theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
   xlab("Body length (cm, log scale)")  +
   scale_x_log10(   breaks=c(0.01,0.1,1,10,100,1000),labels=c(0.01,0.1,1,10,100,1000),limits = c(0.01,1000))+
   scale_y_continuous(breaks=seq(10,25,2), labels=paste(seq(10,25,2),"%")) +
   theme(
-    
     axis.title.x = element_text(color="black",margin = margin(t = 15, r = 0, b = 0, l = 0), size=31,family="serif"),
     axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=31, family="serif"),
     axis.text.y =  element_text(color="black", size=26, family="serif"),
     axis.text.x =  element_text(color="black", size=26, family="serif"),
-    title =  element_text(color="black", size=21 ,family="serif"),
+    title =  element_text(color="black", size=20 ,family="serif"),
     text =  element_text(color="black", size=31, family="serif"),
     legend.text =  element_text(color="black", size=26, family="serif",vjust = 1.5,margin = margin(t = 10)),
     plot.caption = element_text(hjust = .7, face= "italic", size=23),
@@ -300,7 +305,7 @@ xlabel = "dNdS_200k"
 shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
 
 p6I = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
-  scale_fill_manual(values=vectorColor)+ ggtitle("High-AS major introns (all protein-coding genes)") +
+    scale_fill_manual("Clades",values=vectorColor)+ ggtitle("High-AS major-isoform introns\n(all protein-coding genes)") +
   theme_bw() +
   labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
   xlab("dN/dS")  +
@@ -312,7 +317,7 @@ p6I = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=speci
     axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=31, family="serif"),
     axis.text.y =  element_text(color="black", size=26, family="serif"),
     axis.text.x =  element_text(color="black", size=26, family="serif"),
-    title =  element_text(color="black", size=21 ,family="serif"),
+    title =  element_text(color="black", size=20 ,family="serif"),
     text =  element_text(color="black", size=31, family="serif"),
     legend.text =  element_text(color="black", size=26, family="serif",vjust = 1.5,margin = margin(t = 10)),
     plot.caption = element_text(hjust = 0.4, face= "italic", size=23),
