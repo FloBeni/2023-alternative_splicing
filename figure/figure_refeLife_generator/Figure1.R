@@ -40,7 +40,7 @@ p1A =ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade) ) +
     legend.text =  element_text(color="black", size=26, family="serif"),
     plot.caption = element_text(hjust = 0.735, face= "italic", size=23),
     plot.caption.position =  "plot"
-  )
+  ) + theme(legend.position = "none")
 p1A
 
 jpeg(paste(path_figure,"refeLife_p1A_.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)

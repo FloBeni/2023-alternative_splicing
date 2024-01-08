@@ -82,7 +82,7 @@ p3B = ggplot(font.label = c(50, "plain"),font.legend= c(20, "plain"),font.x= c(2
     title =  element_text(color="black", size=26, family="serif"),
     text =  element_text(color="black", size=31, family="serif"),
     legend.text =  element_text(color="black", size=26, family="serif"),
-    plot.caption = element_text(hjust = 0.365, face= "italic", size=23),
+    plot.caption = element_text(hjust = 0.36, face= "italic", size=23),
     plot.caption.position =  "plot"
   ) + labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
   scale_x_log10( breaks = c(0.05,0.1,0.5,1,5,10,100,1000,10000,50000), limits=c(7,50000)) +
