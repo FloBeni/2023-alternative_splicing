@@ -10,8 +10,8 @@ data_2$framepreserving_proportion=data_2$framepreserving_proportion * 100
 p4A = ggplot(data_2,aes(x=average_mira,y=framepreserving_proportion,fill=species,label=species))  + theme_bw()+
   scale_x_log10(breaks=c(0.001,0.01,0.1,1,10, 100), labels=c("0.001 %","0.01 %","0.1 %","1 %","10 %", "100 %"))+
   coord_cartesian(xlim=c(0.001,100)) +  ylab("Proportion of\nframe-preserving variants")+ 
-  scale_y_continuous(breaks=seq(0,100,10), labels=paste(seq(0,100,10),"%")) +
-  geom_line(size=0.5,col="grey")+ xlab("Minor intron relative abundance (MIRA)")+
+  scale_y_continuous(breaks=seq(0,100,10),limits = c(20,100), labels=paste(seq(0,100,10),"%")) +
+  geom_line(size=0.5,col="grey")+ xlab("Minor-isoform intron relative abundance (MIRA)")+
   geom_point(size=1,pch=21,col="grey",fill="grey") +
   geom_vline(xintercept=5, linetype="dashed", color = "black", size=1,alpha=1)+
   geom_hline(yintercept=33, linetype="dashed", color = "black", size=1,alpha=0.5)+
@@ -111,7 +111,7 @@ shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],
 p4C = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ 
   geom_abline(lwd=1,slope = coef(pgls((ylabel)~log10(xlabel) , shorebird))[2], intercept = coef(pgls((ylabel)~log10(xlabel) , shorebird))[1])+
   geom_point(shape=21,size=7,alpha=0.7)+
-  scale_fill_manual(values=vectorColor)+ ggtitle("Low-AS major introns (BUSCO genes)")+
+  scale_fill_manual(values=vectorColor)+ ggtitle("Low-AS major-isoform introns (BUSCO genes)")+
   theme_bw() +labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
   xlab("Longevity (days, log scale)") +
   scale_x_log10(breaks=c(0.05,0.1,0.5,1,5,10,100,1000,10000,50000), limits=c(7,53000)) +
@@ -121,7 +121,7 @@ p4C = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=speci
     axis.title.y = element_text(color="black", size=31,margin = margin(t = 0, r = 20, b = 0, l = 0), family="serif"),
     axis.text.y =  element_text(color="black", size=26, family="serif"),
     axis.text.x =  element_text(color="black", size=26, family="serif"),
-    title =  element_text(color="black", size=26 ,family="serif"),
+    title =  element_text(color="black", size=21 ,family="serif"),
     text =  element_text(color="black", size=31, family="serif"),
     legend.text =  element_text(color="black", size=26, family="serif"),
     plot.caption = element_text(hjust = 0.735, face= "italic", size=23),
@@ -151,7 +151,7 @@ shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],
 
 p4D = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ 
   geom_point(shape=21,size=7,alpha=0.7)+
-  scale_fill_manual(values=vectorColor)+ ggtitle("High-AS major introns (BUSCO genes)") +
+  scale_fill_manual(values=vectorColor)+ ggtitle("High-AS major-isoform introns (BUSCO genes)") +
   theme_bw() +
   ylab("Average AS rate per intron")+labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
   xlab("Longevity (days, log scale)")  +
@@ -162,7 +162,7 @@ p4D = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=speci
     axis.title.y = element_text(color="black", size=31,margin = margin(t = 0, r = 20, b = 0, l = 0), family="serif"),
     axis.text.y =  element_text(color="black", size=26, family="serif"),
     axis.text.x =  element_text(color="black", size=26, family="serif"),
-    title =  element_text(color="black", size=26 ,family="serif"),
+    title =  element_text(color="black", size=21 ,family="serif"),
     text =  element_text(color="black", size=31, family="serif"),
     legend.text =  element_text(color="black", size=26, family="serif"),
     plot.caption = element_text(hjust = 0.71, face= "italic", size=23),
