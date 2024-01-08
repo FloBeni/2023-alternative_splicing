@@ -10,7 +10,7 @@ data_2$framepreserving_proportion=data_2$framepreserving_proportion * 100
 p4A = ggplot(data_2,aes(x=average_mira,y=framepreserving_proportion,fill=species,label=species))  + theme_bw()+
   scale_x_log10(breaks=c(0.001,0.01,0.1,1,10, 100), labels=c("0.001 %","0.01 %","0.1 %","1 %","10 %", "100 %"))+
   coord_cartesian(xlim=c(0.001,100)) +  ylab("Proportion of\nframe-preserving variants")+ 
-  scale_y_continuous(breaks=seq(0,100,10),limits = c(20,100), labels=paste(seq(0,100,10),"%")) +
+  scale_y_continuous(breaks=seq(0,100,20),limits = c(20,100), labels=paste(seq(0,100,20),"%")) +
   geom_line(size=0.5,col="grey")+ xlab("Minor-isoform intron relative abundance (MIRA)")+
   geom_point(size=1,pch=21,col="grey",fill="grey") +
   geom_vline(xintercept=5, linetype="dashed", color = "black", size=1,alpha=1)+

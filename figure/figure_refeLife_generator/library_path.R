@@ -18,7 +18,7 @@ std <- function(x) sd(x)/sqrt(length(x))
 resolution = 3
 path_require = "figure/images_library/"
 path_figure = "figure/pannels/"
-path_pannel = "figure/figure_eLife/"
+path_pannel = "figure/figure_refeLife/"
 
 
 vectorColor=c(Diptera="red",Coleoptera="#0a4413",

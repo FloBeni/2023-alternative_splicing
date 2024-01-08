@@ -28,7 +28,7 @@ p1A =ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade) ) +
   geom_point(shape=21,size=7,alpha=0.7)+
   scale_fill_manual(values=vectorColor)+ ggtitle("Low-AS major introns (BUSCO genes)")+
   theme_bw() +labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
-  xlab("Longevity (days, log scale)") +
+  xlab("Degree of sociality") +
   scale_y_continuous(breaks=seq(0,10,0.2), labels=paste("",seq(0,10,0.2),"%")) +
   theme(
     axis.title.x = element_text(color="black", size=31,margin = margin(t = 15, r = 0, b = 0, l = 0),family="serif"),
@@ -43,6 +43,25 @@ p1A =ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade) ) +
   ) + theme(legend.position = "none")
 p1A
 
-jpeg(paste(path_figure,"refeLife_p1A_.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
+jpeg(paste(path_figure,"refeLife_p1.jpg",sep=""), width = 8000/resolution, height = 5500/resolution,res=700/resolution)
 print(p1A)
 dev.off()
+
+
+
+############## eLife Figure 1
+imgA = load.image(paste(path_figure,"refeLife_p1.jpg",sep=""))
+{
+  pdf(file= paste(path_pannel,"Figure1.pdf",sep=""), width=4.75*1/1, height=2.75)
+  
+  m=matrix(rep(1,15*2), nrow=2)
+  
+  m
+  layout(m)
+  
+  
+  par(mar=c(0, 0.5, 0.5, 0.5))
+  plot(imgA, axes=F)
+  
+  dev.off()
+}
