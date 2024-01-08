@@ -116,7 +116,7 @@ imgC = load.image(paste(path_figure,"p1C.jpg",sep=""))
 imgD = load.image(paste(path_figure,"p1D.jpg",sep=""))
 
 {
-  pdf(file=paste(path_pannel,"Figure1_refPCI.pdf",sep=""), width=5.4, height=4)
+  pdf(file=paste(path_pannel,"Figure1.pdf",sep=""), width=5.4, height=4)
   
   m=matrix(c(1,3,2,4), nrow=2)
   

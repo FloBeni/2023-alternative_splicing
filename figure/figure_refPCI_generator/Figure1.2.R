@@ -98,7 +98,7 @@ imgA = load.image(paste(path_figure,"supp_p1.2A.jpg",sep=""))
 imgB = load.image(paste(path_figure,"supp_p1.2B.jpg",sep=""))
 
 {
-  pdf(file= paste(path_pannel,"Figure1.2_refPCI.pdf",sep=""), width=6.75, height=2.75)
+  pdf(file= paste(path_pannel,"Figure1.2.pdf",sep=""), width=6.75, height=2.75)
   
   m=matrix(rep(NA,10*1), nrow=1)
   
