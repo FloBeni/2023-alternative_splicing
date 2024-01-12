@@ -1,393 +1,116 @@
 source("figure/figure_supp_generator/library_path.R")
 
 
-############## Supplementary Pannel 6 A
-ylabel="mean_as_proteincoding"
-xlabel="longevity"
+############## Supplementary Pannel A
 
+data_5 = read.delim(paste("data/Data5_supp.tab",sep=""),comment.char = "#")
+data_5[!is.na(data_5$pvalue_vs_control) & data_5$pvalue_vs_control < 0.05,"significance"] = "*"
+data_5[!is.na(data_5$pvalue_vs_control) & data_5$pvalue_vs_control < 0.005,"significance"] = "**"
+data_5[!is.na(data_5$pvalue_vs_control) & data_5$pvalue_vs_control < 0.0005,"significance"] = "***"
 
-shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
+data_5$color_group = factor(data_5$color_group,levels = c("red","green","blue"))
 
-p6A = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ 
-  geom_abline(lwd=1,slope = coef(pgls((ylabel)~log10(xlabel) , shorebird))[2], intercept = coef(pgls((ylabel)~log10(xlabel) , shorebird))[1])+geom_point(shape=21,size=7,alpha=0.7)+
-  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major-isoform introns (all protein-coding genes)")+ 
-  scale_x_log10(breaks=c(0.05,0.1,0.5,1,5,10,100,1000,10000,50000), limits=c(7,51000)) + theme_bw() +
-  scale_y_continuous(breaks=seq(0.5,4.5,0.5), labels=paste(seq(0.5,4.5,0.5),"%")) +
-  labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
-  xlab("Longevity (days, log scale)")+ theme(
-    axis.title.x = element_text(color="black",margin = margin(t = 15, r = 0, b = 0, l = 0), size=31,family="serif"),
-    axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=31, family="serif"),
-    axis.text.y =  element_text(color="black", size=26, family="serif"),
-    axis.text.x =  element_text(color="black", size=26, family="serif"),
-    title =  element_text(color="black", size=21 ,family="serif"),
+df = data_5[data_5$filtering == "Homo_sapiens_CpG_abundant_sv",]
+
+df$pos=c(2.19,2.78,1.45,3.46,4.16)
+
+p4A  = ggplot(df,aes(x=pos,y=mean_polymorphism,fill=color_group)) + geom_col(width=0.1,col="black") + theme_bw()+
+  geom_errorbar(aes(ymin=error_bar, ymax=error_bar_2),width=00.03,show.legend=FALSE)+ggtitle("Abundant SVs (all protein-coding genes)")+ 
+  geom_text(data=df,aes(x=pos-0.07,y=mean_polymorphism+0.004, family="serif",label=paste(round(Nb_introns_minor,3))),angle=90,vjust=0,size=6)+
+  # geom_text(data=df,aes(x=pos+0.07,y=mean_polymorphism+0.004, family="serif",label=significance),angle=90,vjust=0,size=6)+
+  theme(legend.position = "none") + xlim(c(1,5))  +labs(y=expression(paste("SNP density (",italic("per")," bp)")))+
+  theme( 
+    axis.title.x = element_text(color=NA, size=NA,family="serif"),
+    axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=28, family="serif"),
+    axis.text.y =  element_text(color="black", size=22, family="serif"),
+    axis.text.x =  element_text(color=NA, size=NA, family="serif"),
+    title =  element_text(color="black", size=20, family="serif"),
     text =  element_text(color="black", size=31, family="serif"),
-    legend.text =  element_text(color="black", size=26, family="serif",vjust = 1.5,margin = margin(t = 10)),
-    plot.caption = element_text(hjust = .7, face= "italic", size=23),
-    plot.caption.position =  "plot"
-  )+
-  labs(
-    caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
-  )  + theme(legend.position = "none")+ annotation_logticks(sides="b")
-
-p6A
+    legend.text =  element_text(color="black", size=26, family="serif"),
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_blank() ,
+    panel.grid.major.y = element_line( size=.1, color="black" ) ,
+  ) +scale_y_continuous(limits=c(0,0.185))
 
 
+p4A
 
-jpeg(paste(path_figure,"supp_p6A.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
-print(p6A)
-dev.off()
-
-
-############## Supplementary Pannel 6 B
-ylabel="mean_as_proteincoding"
-xlabel="body_size"
+resolution=1
 
 
-shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
+p4A = ggdraw() + draw_plot(p4A, 0, 0.25, 1, .7) + draw_image(paste(path_require,"polymorphism_position_CpG.png",sep=""),0.075,-0.31,0.925,1)+ 
+  draw_image(paste(path_require,"human.png",sep=""),.85,.65,0.15,.17)
+p4A
 
-p6B = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ 
-  geom_abline(lwd=1,slope = coef(pgls((ylabel)~log10(xlabel) , shorebird))[2], intercept = coef(pgls((ylabel)~log10(xlabel) , shorebird))[1])+geom_point(shape=21,size=7,alpha=0.7)+
-  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major-isoform introns (all protein-coding genes)")+ 
-  scale_x_log10(   breaks=c(0.01,0.1,1,10,100,1000),labels=c(0.01,0.1,1,10,100,1000),limits = c(0.01,1000)) + theme_bw() +
-  scale_y_continuous(breaks=seq(0.5,4.5,0.5), labels=paste(seq(0.5,4.5,0.5),"%")) +
-  labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
-  xlab("Body length (cm, log scale)") +  theme(
-    axis.title.x = element_text(color="black",margin = margin(t = 15, r = 0, b = 0, l = 0), size=31,family="serif"),
-    axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=31, family="serif"),
-    axis.text.y =  element_text(color="black", size=26, family="serif"),
-    axis.text.x =  element_text(color="black", size=26, family="serif"),
-    title =  element_text(color="black", size=21 ,family="serif"),
-    text =  element_text(color="black", size=31, family="serif"),
-    legend.text =  element_text(color="black", size=26, family="serif",vjust = 1.5,margin = margin(t = 10)),
-    plot.caption = element_text(hjust = .7, face= "italic", size=23),
-    plot.caption.position =  "plot"
-  )+
-  labs(
-    caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
-  )  + theme(legend.position = "none")+ annotation_logticks(sides="b")
-
-p6B
-
-
-
-jpeg(paste(path_figure,"supp_p6B.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
-print(p6B)
-dev.off()
-
-
-############## Supplementary Pannel 6 C
-ylabel="mean_as_proteincoding"
-xlabel="dNdS_200k"
-
-
-shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
-
-p6C = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ 
-  geom_abline(lwd=1,slope = coef(pgls((ylabel)~(xlabel) , shorebird))[2], intercept = coef(pgls((ylabel)~(xlabel) , shorebird))[1])+geom_point(shape=21,size=7,alpha=0.7)+
-  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major-isoform introns (all protein-coding genes)")+ 
-  scale_x_continuous(breaks=c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12), labels =c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12)) + theme_bw() +
-  scale_y_continuous(breaks=seq(0.5,4.5,0.5), labels=paste(seq(0.5,4.5,0.5),"%")) +
-  labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
-  xlab("dN/dS")  +  theme(
-    axis.title.x = element_text(color="black",margin = margin(t = 15, r = 0, b = 0, l = 0), size=31,family="serif"),
-    axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=31, family="serif"),
-    axis.text.y =  element_text(color="black", size=26, family="serif"),
-    axis.text.x =  element_text(color="black", size=26, family="serif"),
-    title =  element_text(color="black", size=21 ,family="serif"),
-    text =  element_text(color="black", size=31, family="serif"),
-    legend.text =  element_text(color="black", size=26, family="serif",vjust = 1.5,margin = margin(t = 10)),
-    plot.caption = element_text(hjust = 0.4, face= "italic", size=23),
-    plot.caption.position =  "plot"
-  )+
-  labs(
-    caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~(xlabel),shorebird))))
-  ) 
-
-p6C
-
-
-
-jpeg(paste(path_figure,"supp_p6C.jpg",sep=""), width = 8200/resolution, height = 5500/resolution,res=700/resolution)
-print(p6C)
+resolution=1
+jpeg(paste(path_figure,"supp_p4A.jpg",sep=""), width = 3600/resolution, height = 2500/resolution,res=350/resolution)
+print(p4A)
 dev.off()
 
 
 
-############## Supplementary Pannel 6 D
-ylabel = "mean_as_proteincoding_low_as"
-xlabel="longevity"
+############## Supplementary Pannel B
+df = data_5[data_5$filtering == "Homo_sapiens_CpG_rare_sv",]
 
-shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
+df$pos=c(2.19,2.78,1.45,3.46,4.16)
 
-p6D = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ 
-  geom_abline(lwd=1,slope = coef(pgls((ylabel)~log10(xlabel) , shorebird))[2], intercept = coef(pgls((ylabel)~log10(xlabel) , shorebird))[1])+geom_point(shape=21,size=7,alpha=0.7)+
-  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Low-AS major-isoform introns\n(all protein-coding genes)")+
-  theme_bw() +
-  labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
-  xlab("Longevity (days, log scale)")+
-  scale_x_log10(breaks=c(0.05,0.1,0.5,1,5,10,100,1000,10000,50000), limits=c(7,51000)) +
-  scale_y_continuous(breaks=seq(0,10,0.2), labels=paste("",seq(0,10,0.2),"%")) +
-  theme(
-    axis.title.x = element_text(color="black",margin = margin(t = 15, r = 0, b = 0, l = 0), size=31,family="serif"),
-    axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=31, family="serif"),
-    axis.text.y =  element_text(color="black", size=26, family="serif"),
-    axis.text.x =  element_text(color="black", size=26, family="serif"),
-    title =  element_text(color="black", size=20 ,family="serif"),
+
+
+p4B  = ggplot(df,aes(x=pos,y=mean_polymorphism,fill=color_group)) + geom_col(width=0.1,col="black") + theme_bw()+
+  geom_errorbar(aes(ymin=error_bar, ymax=error_bar_2),width=00.03,show.legend=FALSE)+ggtitle("Rare SVs (all protein-coding genes)")+ 
+  geom_text(data=df,aes(x=pos-0.07,y=mean_polymorphism+0.004, family="serif",label=paste(round(Nb_introns_minor,3))),angle=90,vjust=0,size=6)+
+  # geom_text(data=df,aes(x=pos+0.07,y=mean_polymorphism+0.004, family="serif",label=significance),angle=90,vjust=0,size=6)+
+  theme(legend.position = "none") + xlim(c(1,5)) +labs(y=expression(paste("SNP density (",italic("per")," bp)")))+
+  theme( 
+    axis.title.x = element_text(color=NA, size=NA,family="serif"),
+    axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=28, family="serif"),
+    axis.text.y =  element_text(color="black", size=22, family="serif"),
+    axis.text.x =  element_text(color=NA, size=NA, family="serif"),
+    title =  element_text(color="black", size=20, family="serif"),
     text =  element_text(color="black", size=31, family="serif"),
-    legend.text =  element_text(color="black", size=26, family="serif",vjust = 1.5,margin = margin(t = 10)),
-    plot.caption = element_text(hjust = .7, face= "italic", size=23),
-    plot.caption.position =  "plot"
-  )+
-  labs(
-    caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
-  ) + theme(legend.position = "none") + annotation_logticks(sides="b")
-p6D
+    legend.text =  element_text(color="black", size=26, family="serif"),
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_blank() ,
+    panel.grid.major.y = element_line( size=.1, color="black" ) ,
+  ) +scale_y_continuous(limits=c(0,0.185))
 
 
-jpeg(paste(path_figure,"supp_p6D.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
-print(p6D)
-dev.off()
+p4B
+
+resolution=1
 
 
-############## Supplementary Pannel 6 E
-ylabel = "mean_as_proteincoding_low_as"
-xlabel = "body_size"
+p4B = ggdraw() + draw_plot(p4B, 0, 0.25, 1, .7) + draw_image(paste(path_require,"polymorphism_position_CpG.png",sep=""),0.075,-0.31,0.925,1)+ 
+  draw_image(paste(path_require,"human.png",sep=""),.85,.65,0.15,.17)
+p4B
 
-shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
-
-p6E = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ 
-  geom_abline(lwd=1,slope = coef(pgls((ylabel)~log10(xlabel) , shorebird))[2], intercept = coef(pgls((ylabel)~log10(xlabel) , shorebird))[1])+geom_point(shape=21,size=7,alpha=0.7)+
-    scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Low-AS major-isoform introns\n(all protein-coding genes)")+
-  theme_bw() +
-  labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
-  xlab("Body length (cm, log scale)") +
-  scale_x_log10(   breaks=c(0.01,0.1,1,10,100,1000),labels=c(0.01,0.1,1,10,100,1000),limits = c(0.01,1000))+
-  scale_y_continuous(breaks=seq(0,10,0.2), labels=paste("",seq(0,10,0.2),"%")) +
-  theme(
-    axis.title.x = element_text(color="black",margin = margin(t = 15, r = 0, b = 0, l = 0), size=31,family="serif"),
-    axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=31, family="serif"),
-    axis.text.y =  element_text(color="black", size=26, family="serif"),
-    axis.text.x =  element_text(color="black", size=26, family="serif"),
-    title =  element_text(color="black", size=20 ,family="serif"),
-    text =  element_text(color="black", size=31, family="serif"),
-    legend.text =  element_text(color="black", size=26, family="serif",vjust = 1.5,margin = margin(t = 10)),
-    plot.caption = element_text(hjust = .7, face= "italic", size=23),
-    plot.caption.position =  "plot"
-  )+
-  labs(
-    caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
-  ) + theme(legend.position = "none")+ annotation_logticks(sides="b")
-p6E
-
-
-jpeg(paste(path_figure,"supp_p6E.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
-print(p6E)
-dev.off()
-
-
-
-############## Supplementary Pannel 6 F
-ylabel = "mean_as_proteincoding_low_as"
-xlabel = "dNdS_200k"
-
-shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
-
-p6F = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ 
-  geom_abline(lwd=1,slope = coef(pgls((ylabel)~(xlabel) , shorebird))[2], intercept = coef(pgls((ylabel)~(xlabel) , shorebird))[1])+geom_point(shape=21,size=7,alpha=0.7)+
-    scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Low-AS major-isoform introns\n(all protein-coding genes)")+
-  theme_bw() +
-  labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
-  xlab("dN/dS") +
-  scale_x_continuous(breaks=c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12), labels =c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12))+
-  scale_y_continuous(breaks=seq(0,10,0.2), labels=paste("",seq(0,10,0.2),"%")) +
-  theme(
-    axis.title.x = element_text(color="black",margin = margin(t = 15, r = 0, b = 0, l = 0), size=31,family="serif"),
-    axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=31, family="serif"),
-    axis.text.y =  element_text(color="black", size=26, family="serif"),
-    axis.text.x =  element_text(color="black", size=26, family="serif"),
-    title =  element_text(color="black", size=20 ,family="serif"),
-    text =  element_text(color="black", size=31, family="serif"),
-    legend.text =  element_text(color="black", size=26, family="serif",vjust = 1.5,margin = margin(t = 10)),
-    plot.caption = element_text(hjust = .4, face= "italic", size=23),
-    plot.caption.position =  "plot"
-  )+
-  labs(
-    caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~(xlabel),shorebird))))
-  ) 
-p6F
-
-
-jpeg(paste(path_figure,"supp_p6F.jpg",sep=""), width = 8200/resolution, height = 5500/resolution,res=700/resolution)
-print(p6F)
-dev.off()
-
-
-############## Supplementary Pannel 6 G
-ylabel = "mean_as_proteincoding_high_as"
-xlabel = "longevity"
-
-shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
-
-p6G = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
-    scale_fill_manual("Clades",values=vectorColor)+ ggtitle("High-AS major-isoform introns\n(all protein-coding genes)") +
-  theme_bw() +
-  labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
-  xlab("Longevity (days, log scale)")+
-  scale_x_log10(breaks=c(0.05,0.1,0.5,1,5,10,100,1000,10000,50000), limits=c(7,51000)) +
-  scale_y_continuous(breaks=seq(10,25,2), labels=paste(seq(10,25,2),"%")) +
-  theme(
-    axis.title.x = element_text(color="black",margin = margin(t = 15, r = 0, b = 0, l = 0), size=31,family="serif"),
-    axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=31, family="serif"),
-    axis.text.y =  element_text(color="black", size=26, family="serif"),
-    axis.text.x =  element_text(color="black", size=26, family="serif"),
-    title =  element_text(color="black", size=20 ,family="serif"),
-    text =  element_text(color="black", size=31, family="serif"),
-    legend.text =  element_text(color="black", size=26, family="serif",vjust = 1.5,margin = margin(t = 10)),
-    plot.caption = element_text(hjust = .7, face= "italic", size=23),
-    plot.caption.position =  "plot"
-  )+
-  labs(
-    caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
-  ) + theme(legend.position = "none")+ annotation_logticks(sides="b")
-
-p6G
-
-
-
-jpeg(paste(path_figure,"supp_p6G.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
-print(p6G)
-dev.off()
-
-
-
-############## Supplementary Pannel 6 H
-ylabel = "mean_as_proteincoding_high_as"
-xlabel = "body_size"
-
-shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
-
-p6H = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
-    scale_fill_manual("Clades",values=vectorColor)+ ggtitle("High-AS major-isoform introns\n(all protein-coding genes)") +
-  theme_bw() +
-  labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
-  xlab("Body length (cm, log scale)")  +
-  scale_x_log10(   breaks=c(0.01,0.1,1,10,100,1000),labels=c(0.01,0.1,1,10,100,1000),limits = c(0.01,1000))+
-  scale_y_continuous(breaks=seq(10,25,2), labels=paste(seq(10,25,2),"%")) +
-  theme(
-    axis.title.x = element_text(color="black",margin = margin(t = 15, r = 0, b = 0, l = 0), size=31,family="serif"),
-    axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=31, family="serif"),
-    axis.text.y =  element_text(color="black", size=26, family="serif"),
-    axis.text.x =  element_text(color="black", size=26, family="serif"),
-    title =  element_text(color="black", size=20 ,family="serif"),
-    text =  element_text(color="black", size=31, family="serif"),
-    legend.text =  element_text(color="black", size=26, family="serif",vjust = 1.5,margin = margin(t = 10)),
-    plot.caption = element_text(hjust = .7, face= "italic", size=23),
-    plot.caption.position =  "plot"
-  )+
-  labs(
-    caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird))))
-  ) + theme(legend.position = "none")+ annotation_logticks(sides="b")
-
-p6H
-
-
-
-jpeg(paste(path_figure,"supp_p6H.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
-print(p6H)
-dev.off()
-
-
-############## Supplementary Pannel 6 I
-
-ylabel = "mean_as_proteincoding_high_as"
-xlabel = "dNdS_200k"
-
-shorebird <- comparative.data(arbrePhylo, data.frame(species=data_1[,"species"],xlabel=data_1[,xlabel],ylabel=data_1[,ylabel]), species, vcv=TRUE)
-
-p6I = ggplot(  data_1,aes(data_1[,xlabel],data_1[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
-    scale_fill_manual("Clades",values=vectorColor)+ ggtitle("High-AS major-isoform introns\n(all protein-coding genes)") +
-  theme_bw() +
-  labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
-  xlab("dN/dS")  +
-  scale_x_continuous(breaks=c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12), labels =c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12))+
-  scale_y_continuous(breaks=seq(10,25,2), labels=paste(seq(10,25,2),"%")) +
-  theme(
-    
-    axis.title.x = element_text(color="black",margin = margin(t = 15, r = 0, b = 0, l = 0), size=31,family="serif"),
-    axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=31, family="serif"),
-    axis.text.y =  element_text(color="black", size=26, family="serif"),
-    axis.text.x =  element_text(color="black", size=26, family="serif"),
-    title =  element_text(color="black", size=20 ,family="serif"),
-    text =  element_text(color="black", size=31, family="serif"),
-    legend.text =  element_text(color="black", size=26, family="serif",vjust = 1.5,margin = margin(t = 10)),
-    plot.caption = element_text(hjust = 0.4, face= "italic", size=23),
-    plot.caption.position =  "plot"
-  )+
-  labs(
-    caption =substitute(paste("PGLS model:"," R"^2,pgls_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~(xlabel),shorebird))))
-  )
-
-p6I
-
-
-jpeg(paste(path_figure,"supp_p6I.jpg",sep=""), width = 8200/resolution, height = 5500/resolution,res=700/resolution)
-print(p6I)
+resolution=1
+jpeg(paste(path_figure,"supp_p4B.jpg",sep=""), width = 3600/resolution, height = 2500/resolution,res=350/resolution)
+print(p4B)
 dev.off()
 
 
 
 ############## Supplementary Figure 6
 
-imgA = load.image(paste(path_figure,"supp_p6A.jpg",sep=""))
-imgB = load.image(paste(path_figure,"supp_p6B.jpg",sep=""))
-imgC = load.image(paste(path_figure,"supp_p6C.jpg",sep=""))
-imgD = load.image(paste(path_figure,"supp_p6D.jpg",sep=""))
-imgE = load.image(paste(path_figure,"supp_p6E.jpg",sep=""))
-imgF = load.image(paste(path_figure,"supp_p6F.jpg",sep=""))
-imgG = load.image(paste(path_figure,"supp_p6G.jpg",sep=""))
-imgH = load.image(paste(path_figure,"supp_p6H.jpg",sep=""))
-imgI = load.image(paste(path_figure,"supp_p6I.jpg",sep=""))
+imgA = load.image(paste(path_figure,"supp_p4A.jpg",sep=""))
+imgB = load.image(paste(path_figure,"supp_p4B.jpg",sep=""))
 
 {
-  pdf(file= paste(path_pannel,"Figure6_supp.pdf",sep=""), width=6.75*3/2, height=2.75*3)
+  pdf(file=paste(path_pannel,"Figure6_supp.pdf",sep=""), width=4, height=6)
   
-  m=matrix(rep(NA,15*3), nrow=3)
-  
-  m[1,]=c(rep(1,5),rep(2,5),rep(3,5))
-  m[2,]=c(rep(4,5),rep(5,5),rep(6,5))
-  m[3,]=c(rep(7,5),rep(8,5),rep(9,5))
-  
+  m=matrix(c(1,2), nrow=2)
   m
   layout(m)
   
-  
-  par(mar=c(0, 4.6, 0.5, 2))
-  plot(imgA, axes=F)
-  mtext("A",at=20,adj=0, side=2, line=1, font=2, cex=1.7,las=2)
-  par(mar=c(0, 2.6, 0.5, 4))
-  plot(imgB, axes=F)
-  mtext("B",at=20,adj=0, side=2, line=1, font=2, cex=1.7,las=2)
-  par(mar=c(0, 0, 0.5, 0))
-  plot(imgC, axes=F)
-  mtext("C", side=2,adj=0,at=30, line=1, font=2, cex=1.7,las=2)
-  par(mar=c(0, 4.6, 0.5, 2))
-  plot(imgD, axes=F)
-  mtext("D",at=20,adj=0, side=2, line=1, font=2, cex=1.7,las=2)
-  par(mar=c(0, 2.6, 0.5, 4))
-  plot(imgE, axes=F)
-  mtext("E",at=20,adj=0, side=2, line=1, font=2, cex=1.7,las=2)
-  par(mar=c(0, 0, 0.5, 0))
-  plot(imgF, axes=F)
-  mtext("F", side=2,adj=0,at=30, line=1, font=2, cex=1.7,las=2)
-  par(mar=c(0, 4.6, 0.5, 2))
-  plot(imgG, axes=F)
-  mtext("G",at=20,adj=0, side=2, line=1, font=2, cex=1.7,las=2)
-  par(mar=c(0, 2.6, 0.5, 4))
-  plot(imgH, axes=F)
-  mtext("H",at=20,adj=0, side=2, line=1, font=2, cex=1.7,las=2)
-  par(mar=c(0, 0, 0.5, 0))
-  plot(imgI, axes=F)
-  mtext("I", side=2,adj=0,at=30, line=1, font=2, cex=1.7,las=2)
-  
+  par(mar=c(1, 0, 1, 0))
+  plot(imgA, axes = F)
+  mtext("A", side=2,at=0,adj=-3, line=1, font=2, cex=1.3,las=2)
+  par(mar=c(1, 0, 1, 0))
+  plot(imgB, axes = F)
+  mtext("B", side=2,at=0,adj=-3, line=1, font=2, cex=1.3,las=2)
   dev.off()
 }
+
+
+

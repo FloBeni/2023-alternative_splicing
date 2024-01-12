@@ -1,116 +1,272 @@
 source("figure/figure_supp_generator/library_path.R")
 
 
-############## Supplementary Pannel 4 A
+############## Supplementary Pannel A
+ylabel="mean_as_busco"
+xlabel="longevity"
 
-data_5 = read.delim(paste("data/Data5_supp.tab",sep=""),comment.char = "#")
-data_5[!is.na(data_5$pvalue_vs_control) & data_5$pvalue_vs_control < 0.05,"significance"] = "*"
-data_5[!is.na(data_5$pvalue_vs_control) & data_5$pvalue_vs_control < 0.005,"significance"] = "**"
-data_5[!is.na(data_5$pvalue_vs_control) & data_5$pvalue_vs_control < 0.0005,"significance"] = "***"
+data_vertebrate = data_1[data_1$clade %in% c("Mammalia","Crocodylia","Aves","Chondrichthyes" ),]
 
-data_5$color_group = factor(data_5$color_group,levels = c("red","green","blue"))
+shorebird <- comparative.data(arbrePhylo, data.frame(species=data_vertebrate[,"species"],xlabel=data_vertebrate[,xlabel],ylabel=data_vertebrate[,ylabel]), species, vcv=TRUE)
 
-df = data_5[data_5$filtering == "Homo_sapiens_CpG_abundant_sv",]
-
-df$pos=c(2.19,2.78,1.45,3.46,4.16)
-
-p4A  = ggplot(df,aes(x=pos,y=mean_polymorphism,fill=color_group)) + geom_col(width=0.1,col="black") + theme_bw()+
-  geom_errorbar(aes(ymin=error_bar, ymax=error_bar_2),width=00.03,show.legend=FALSE)+ggtitle("Abundant SVs (all protein-coding genes)")+ 
-  geom_text(data=df,aes(x=pos-0.07,y=mean_polymorphism+0.004, family="serif",label=paste(round(Nb_introns_minor,3))),angle=90,vjust=0,size=6)+
-  # geom_text(data=df,aes(x=pos+0.07,y=mean_polymorphism+0.004, family="serif",label=significance),angle=90,vjust=0,size=6)+
-  theme(legend.position = "none") + xlim(c(1,5))  +labs(y=expression(paste("SNP density (",italic("per")," bp)")))+
-  theme( 
-    axis.title.x = element_text(color=NA, size=NA,family="serif"),
-    axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=28, family="serif"),
-    axis.text.y =  element_text(color="black", size=22, family="serif"),
-    axis.text.x =  element_text(color=NA, size=NA, family="serif"),
-    title =  element_text(color="black", size=20, family="serif"),
+p2A = ggplot(  data_vertebrate,aes(data_vertebrate[,xlabel],data_vertebrate[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+  geom_abline(lwd=1,slope = coef(lm((ylabel)~log10(xlabel),data=shorebird$data))[2], intercept = coef(lm((ylabel)~log10(xlabel),data=shorebird$data))[1])+
+  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major-isoform introns (BUSCO genes)")+ 
+  scale_x_log10(breaks=c(0.05,0.1,0.5,1,5,10,100,1000,10000,50000), limits=c(1000,51000)) + theme_bw() +
+  scale_y_continuous(breaks=seq(0.5,4.5,0.5), labels=paste(seq(0.5,4.5,0.5),"%")) +
+  labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
+  xlab("Longevity (days, log scale)")+ theme(
+    axis.title.x = element_text(color="black",margin = margin(t = 15, r = 0, b = 0, l = 0), size=31,family="serif"),
+    axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=31, family="serif"),
+    axis.text.y =  element_text(color="black", size=26, family="serif"),
+    axis.text.x =  element_text(color="black", size=26, family="serif"),
+    title =  element_text(color="black", size=21 ,family="serif"),
     text =  element_text(color="black", size=31, family="serif"),
-    legend.text =  element_text(color="black", size=26, family="serif"),
-    panel.grid.minor = element_blank(),
-    panel.grid.major.x = element_blank() ,
-    panel.grid.major.y = element_line( size=.1, color="black" ) ,
-  ) +scale_y_continuous(limits=c(0,0.185))
+    legend.text =  element_text(color="black", size=26, family="serif",vjust = 1.5,margin = margin(t = 10)),
+    plot.caption = element_text(hjust = .7, face= "italic", size=23),
+    plot.caption.position =  "plot"
+  )+
+  labs(
+    caption =substitute(paste(
+                              " LM "," R"^2,lm_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird)),
+                                                           lm_eq=lm_eqn(lm((ylabel)~log10(xlabel),data=shorebird$data))))
+  )  + theme(legend.position = "none")+ annotation_logticks(sides="b")
+
+p2A
 
 
-p4A
 
-resolution=1
+jpeg(paste(path_figure,"refPCI_p2A.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
+print(p2A)
+dev.off()
 
 
-p4A = ggdraw() + draw_plot(p4A, 0, 0.25, 1, .7) + draw_image(paste(path_require,"polymorphism_position_CpG.png",sep=""),0.075,-0.31,0.925,1)+ 
-  draw_image(paste(path_require,"human.png",sep=""),.85,.65,0.15,.17)
-p4A
+############## Supplementary Pannel B
+ylabel="mean_as_busco"
+xlabel="body_size"
 
-resolution=1
-jpeg(paste(path_figure,"supp_p4A.jpg",sep=""), width = 3600/resolution, height = 2500/resolution,res=350/resolution)
-print(p4A)
+
+shorebird <- comparative.data(arbrePhylo, data.frame(species=data_vertebrate[,"species"],xlabel=data_vertebrate[,xlabel],ylabel=data_vertebrate[,ylabel]), species, vcv=TRUE)
+
+p2B = ggplot(  data_vertebrate,aes(data_vertebrate[,xlabel],data_vertebrate[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major-isoform introns (BUSCO genes)")+ 
+  scale_x_log10(breaks=c(0.01,0.1,0.5,1,5,10,100,1000),labels=c(0.01,0.1,0.5,1,5,10,100,1000),limits = c(5,1000)) + theme_bw() +
+  scale_y_continuous(breaks=seq(0.5,4.5,0.5), labels=paste(seq(0.5,4.5,0.5),"%")) +
+  labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
+  xlab("Body length (cm, log scale)") +  theme(
+    axis.title.x = element_text(color="black",margin = margin(t = 15, r = 0, b = 0, l = 0), size=31,family="serif"),
+    axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=31, family="serif"),
+    axis.text.y =  element_text(color="black", size=26, family="serif"),
+    axis.text.x =  element_text(color="black", size=26, family="serif"),
+    title =  element_text(color="black", size=21 ,family="serif"),
+    text =  element_text(color="black", size=31, family="serif"),
+    legend.text =  element_text(color="black", size=26, family="serif",vjust = 1.5,margin = margin(t = 10)),
+    plot.caption = element_text(hjust = .7, face= "italic", size=23),
+    plot.caption.position =  "plot"
+  )+
+  labs(
+    caption =substitute(paste(
+                              " LM "," R"^2,lm_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird)),
+                                                             lm_eq=lm_eqn(lm((ylabel)~log10(xlabel),data=shorebird$data))))
+  )  + theme(legend.position = "none")+ annotation_logticks(sides="b")
+
+p2B
+
+
+jpeg(paste(path_figure,"refPCI_p2B.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
+print(p2B)
+dev.off()
+
+
+############## Supplementary Pannel C
+ylabel="mean_as_busco"
+xlabel="dNdS_200k"
+
+
+shorebird <- comparative.data(arbrePhylo, data.frame(species=data_vertebrate[,"species"],xlabel=data_vertebrate[,xlabel],ylabel=data_vertebrate[,ylabel]), species, vcv=TRUE)
+
+p2C = ggplot(  data_vertebrate,aes(data_vertebrate[,xlabel],data_vertebrate[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+  geom_abline(lwd=1,slope = coef(lm((ylabel)~(xlabel),data=shorebird$data))[2], intercept = coef(lm((ylabel)~(xlabel),data=shorebird$data))[1])+
+  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major-isoform introns (BUSCO genes)")+ 
+  scale_x_continuous(breaks=c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12), labels =c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12)) + theme_bw() +
+  scale_y_continuous(breaks=seq(0.5,4.5,0.5), labels=paste(seq(0.5,4.5,0.5),"%")) +
+  labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
+  xlab("dN/dS")  +  theme(
+    axis.title.x = element_text(color="black",margin = margin(t = 15, r = 0, b = 0, l = 0), size=31,family="serif"),
+    axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=31, family="serif"),
+    axis.text.y =  element_text(color="black", size=26, family="serif"),
+    axis.text.x =  element_text(color="black", size=26, family="serif"),
+    title =  element_text(color="black", size=21 ,family="serif"),
+    text =  element_text(color="black", size=31, family="serif"),
+    legend.text =  element_text(color="black", size=26, family="serif",vjust = 1.5,margin = margin(t = 10)),
+    plot.caption = element_text(hjust = 0.4, face= "italic", size=23),
+    plot.caption.position =  "plot"
+  )+
+  labs(
+    caption =substitute(paste(
+                              " LM "," R"^2,lm_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~(xlabel),shorebird)),
+                                                             lm_eq=lm_eqn(lm((ylabel)~(xlabel),data=shorebird$data))))
+  ) 
+
+p2C
+
+
+jpeg(paste(path_figure,"refPCI_p2C.jpg",sep=""), width = 8200/resolution, height = 5500/resolution,res=700/resolution)
+print(p2C)
 dev.off()
 
 
 
-############## Supplementary Pannel 4 B
-df = data_5[data_5$filtering == "Homo_sapiens_CpG_rare_sv",]
+############## Supplementary Pannel D
+ylabel = "mean_as_busco"
+xlabel="longevity"
 
-df$pos=c(2.19,2.78,1.45,3.46,4.16)
+data_invertebrate = data_1[!data_1$clade %in% c("Mammalia","Crocodylia","Aves","Chondrichthyes" ),]
+# data_invertebrate = data_1[!data_1$clade %in% c("Mammalia","Crocodylia","Aves","Chondrichthyes" ) & data_1$species != "Megachile_rotundata",]
 
+shorebird <- comparative.data(arbrePhylo, data.frame(species=data_invertebrate[,"species"],xlabel=data_invertebrate[,xlabel],ylabel=data_invertebrate[,ylabel]), species, vcv=TRUE)
 
-
-p4B  = ggplot(df,aes(x=pos,y=mean_polymorphism,fill=color_group)) + geom_col(width=0.1,col="black") + theme_bw()+
-  geom_errorbar(aes(ymin=error_bar, ymax=error_bar_2),width=00.03,show.legend=FALSE)+ggtitle("Rare SVs (all protein-coding genes)")+ 
-  geom_text(data=df,aes(x=pos-0.07,y=mean_polymorphism+0.004, family="serif",label=paste(round(Nb_introns_minor,3))),angle=90,vjust=0,size=6)+
-  # geom_text(data=df,aes(x=pos+0.07,y=mean_polymorphism+0.004, family="serif",label=significance),angle=90,vjust=0,size=6)+
-  theme(legend.position = "none") + xlim(c(1,5)) +labs(y=expression(paste("SNP density (",italic("per")," bp)")))+
-  theme( 
-    axis.title.x = element_text(color=NA, size=NA,family="serif"),
-    axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=28, family="serif"),
-    axis.text.y =  element_text(color="black", size=22, family="serif"),
-    axis.text.x =  element_text(color=NA, size=NA, family="serif"),
-    title =  element_text(color="black", size=20, family="serif"),
+p2D = ggplot(  data_invertebrate,aes(data_invertebrate[,xlabel],data_invertebrate[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+  geom_abline(lwd=1,slope = coef(lm((ylabel)~log10(xlabel),data=shorebird$data))[2], intercept = coef(lm((ylabel)~log10(xlabel),data=shorebird$data))[1])+
+  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major-isoform introns (BUSCO genes)")+ 
+  scale_x_log10(breaks=c(0.05,0.1,0.5,1,5,10,100,1000,10000,50000), limits=c(7,50000)) + theme_bw() +
+  scale_y_continuous(breaks=seq(0.5,4.5,0.5), labels=paste(seq(0.5,4.5,0.5),"%")) +
+  labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
+  xlab("Longevity (days, log scale)")+ theme(
+    axis.title.x = element_text(color="black",margin = margin(t = 15, r = 0, b = 0, l = 0), size=31,family="serif"),
+    axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=31, family="serif"),
+    axis.text.y =  element_text(color="black", size=26, family="serif"),
+    axis.text.x =  element_text(color="black", size=26, family="serif"),
+    title =  element_text(color="black", size=21 ,family="serif"),
     text =  element_text(color="black", size=31, family="serif"),
-    legend.text =  element_text(color="black", size=26, family="serif"),
-    panel.grid.minor = element_blank(),
-    panel.grid.major.x = element_blank() ,
-    panel.grid.major.y = element_line( size=.1, color="black" ) ,
-  ) +scale_y_continuous(limits=c(0,0.185))
+    legend.text =  element_text(color="black", size=26, family="serif",vjust = 1.5,margin = margin(t = 10)),
+    plot.caption = element_text(hjust = .7, face= "italic", size=23),
+    plot.caption.position =  "plot"
+  )+
+  labs(
+    caption =substitute(paste(
+                              " LM "," R"^2,lm_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird)),
+                                                             lm_eq=lm_eqn(lm((ylabel)~log10(xlabel),data=shorebird$data))))
+  )  + theme(legend.position = "none")+ annotation_logticks(sides="b")
+p2D
 
 
-p4B
+jpeg(paste(path_figure,"refPCI_p2D.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
+print(p2D)
+dev.off()
 
-resolution=1
+
+############## Supplementary Pannel E
+ylabel = "mean_as_busco"
+xlabel = "body_size"
+
+shorebird <- comparative.data(arbrePhylo, data.frame(species=data_invertebrate[,"species"],xlabel=data_invertebrate[,xlabel],ylabel=data_invertebrate[,ylabel]), species, vcv=TRUE)
+
+p2E = ggplot(  data_invertebrate,aes(data_invertebrate[,xlabel],data_invertebrate[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+  geom_abline(lwd=1,slope = coef(lm((ylabel)~log10(xlabel),data=shorebird$data))[2], intercept = coef(lm((ylabel)~log10(xlabel),data=shorebird$data))[1])+
+  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major-isoform introns (BUSCO genes)")+ 
+  scale_x_log10(breaks=c(0.01,0.1,0.5,1,5,10,100,1000),labels=c(0.01,0.1,0.5,1,5,10,100,1000),limits = c(0.01,10)) + theme_bw() +
+  scale_y_continuous(breaks=seq(0.5,4.5,0.5), labels=paste(seq(0.5,4.5,0.5),"%")) +
+  labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
+  xlab("Body length (cm, log scale)") +  theme(
+    axis.title.x = element_text(color="black",margin = margin(t = 15, r = 0, b = 0, l = 0), size=31,family="serif"),
+    axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=31, family="serif"),
+    axis.text.y =  element_text(color="black", size=26, family="serif"),
+    axis.text.x =  element_text(color="black", size=26, family="serif"),
+    title =  element_text(color="black", size=21 ,family="serif"),
+    text =  element_text(color="black", size=31, family="serif"),
+    legend.text =  element_text(color="black", size=26, family="serif",vjust = 1.5,margin = margin(t = 10)),
+    plot.caption = element_text(hjust = .7, face= "italic", size=23),
+    plot.caption.position =  "plot"
+  )+
+  labs(
+    caption =substitute(paste(
+                              " LM "," R"^2,lm_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~log10(xlabel),shorebird)),
+                                                             lm_eq=lm_eqn(lm((ylabel)~log10(xlabel),data=shorebird$data))))
+  )  + theme(legend.position = "none")+ annotation_logticks(sides="b")
+
+p2E
 
 
-p4B = ggdraw() + draw_plot(p4B, 0, 0.25, 1, .7) + draw_image(paste(path_require,"polymorphism_position_CpG.png",sep=""),0.075,-0.31,0.925,1)+ 
-  draw_image(paste(path_require,"human.png",sep=""),.85,.65,0.15,.17)
-p4B
+jpeg(paste(path_figure,"refPCI_p2E.jpg",sep=""), width = 6100/resolution, height = 5500/resolution,res=700/resolution)
+print(p2E)
+dev.off()
 
-resolution=1
-jpeg(paste(path_figure,"supp_p4B.jpg",sep=""), width = 3600/resolution, height = 2500/resolution,res=350/resolution)
-print(p4B)
+
+
+############## Supplementary Pannel F
+ylabel = "mean_as_busco"
+xlabel = "dNdS_200k"
+
+shorebird <- comparative.data(arbrePhylo, data.frame(species=data_invertebrate[,"species"],xlabel=data_invertebrate[,xlabel],ylabel=data_invertebrate[,ylabel]), species, vcv=TRUE)
+
+p2F = ggplot(  data_invertebrate,aes(data_invertebrate[,xlabel],data_invertebrate[,ylabel], fill=clade,text=species) )+ geom_point(shape=21,size=7,alpha=0.7)+
+  geom_abline(lwd=1,slope = coef(lm((ylabel)~(xlabel),data=shorebird$data))[2], intercept = coef(lm((ylabel)~(xlabel),data=shorebird$data))[1])+
+  scale_fill_manual("Clades",values=vectorColor)+ ggtitle("Major-isoform introns (BUSCO genes)")+ 
+  scale_x_continuous(breaks=c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12), labels =c(0.085,0.09,0.095,0.1,0.105,0.11,0.115,0.12)) + theme_bw() +
+  scale_y_continuous(breaks=seq(0.5,4.5,0.5), labels=paste(seq(0.5,4.5,0.5),"%")) +
+  labs(y=expression(paste("Average AS rate ",italic("per")," intron")))+
+  xlab("dN/dS")  +  theme(
+    axis.title.x = element_text(color="black",margin = margin(t = 15, r = 0, b = 0, l = 0), size=31,family="serif"),
+    axis.title.y = element_text(color="black",margin = margin(t = 0, r = 20, b = 0, l = 0), size=31, family="serif"),
+    axis.text.y =  element_text(color="black", size=26, family="serif"),
+    axis.text.x =  element_text(color="black", size=26, family="serif"),
+    title =  element_text(color="black", size=21 ,family="serif"),
+    text =  element_text(color="black", size=31, family="serif"),
+    legend.text =  element_text(color="black", size=26, family="serif",vjust = 1.5,margin = margin(t = 10)),
+    plot.caption = element_text(hjust = 0.4, face= "italic", size=23),
+    plot.caption.position =  "plot"  
+  )+
+  labs(
+    caption = substitute(paste(
+                               " LM ","R"^2,lm_eq), list(pgls_eq=lm_eqn(pgls((ylabel)~(xlabel),shorebird)),
+                                                               lm_eq=lm_eqn(lm((ylabel)~(xlabel),data=shorebird$data))))
+  )
+
+p2F
+jpeg(paste(path_figure,"refPCI_p2F.jpg",sep=""), width = 8200/resolution, height = 5500/resolution,res=700/resolution)
+print(p2F)
 dev.off()
 
 
 
 ############## Supplementary Figure 4
 
-imgA = load.image(paste(path_figure,"supp_p4A.jpg",sep=""))
-imgB = load.image(paste(path_figure,"supp_p4B.jpg",sep=""))
+imgA = load.image(paste(path_figure,"refPCI_p2A.jpg",sep=""))
+imgB = load.image(paste(path_figure,"refPCI_p2B.jpg",sep=""))
+imgC = load.image(paste(path_figure,"refPCI_p2C.jpg",sep=""))
+imgD = load.image(paste(path_figure,"refPCI_p2D.jpg",sep=""))
+imgE = load.image(paste(path_figure,"refPCI_p2E.jpg",sep=""))
+imgF = load.image(paste(path_figure,"refPCI_p2F.jpg",sep=""))
 
 {
-  pdf(file=paste(path_pannel,"Figure4_supp.pdf",sep=""), width=4, height=6)
+  pdf(file= paste(path_pannel,"Figure4_supp.pdf",sep=""), width=6.75*3/2, height=2.75*2)
   
-  m=matrix(c(1,2), nrow=2)
+  m=matrix(rep(NA,15*2), nrow=2)
+  
+  m[1,]=c(rep(1,5),rep(2,5),rep(3,5))
+  m[2,]=c(rep(4,5),rep(5,5),rep(6,5))
   m
   layout(m)
   
-  par(mar=c(1, 0, 1, 0))
-  plot(imgA, axes = F)
-  mtext("A", side=2,at=0,adj=-3, line=1, font=2, cex=1.3,las=2)
-  par(mar=c(1, 0, 1, 0))
-  plot(imgB, axes = F)
-  mtext("B", side=2,at=0,adj=-3, line=1, font=2, cex=1.3,las=2)
+  par(mar=c(0, 4.6, 0.5, 2))
+  plot(imgA, axes=F)
+  mtext("A",at=20,adj=0, side=2, line=1, font=2, cex=1.7,las=2)
+  par(mar=c(0, 2.6, 0.5, 4))
+  plot(imgB, axes=F)
+  mtext("B",at=20,adj=0, side=2, line=1, font=2, cex=1.7,las=2)
+  par(mar=c(0, 0, 0.5, 0))
+  plot(imgC, axes=F)
+  mtext("C", side=2,adj=0,at=30, line=1, font=2, cex=1.7,las=2)
+  par(mar=c(0, 4.6, 0.5, 2))
+  plot(imgD, axes=F)
+  mtext("D",at=20,adj=0, side=2, line=1, font=2, cex=1.7,las=2)
+  par(mar=c(0, 2.6, 0.5, 4))
+  plot(imgE, axes=F)
+  mtext("E",at=20,adj=0, side=2, line=1, font=2, cex=1.7,las=2)
+  par(mar=c(0, 0, 0.5, 0))
+  plot(imgF, axes=F)
+  mtext("F", side=2,adj=0,at=30, line=1, font=2, cex=1.7,las=2)
+  
   dev.off()
 }
-
-
-
