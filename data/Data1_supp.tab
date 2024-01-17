@@ -12,7 +12,7 @@
 #analyzable_intron_proteincoding: Number of analyzable annotated introns (i.e. with Ns+Na >= 10) among protein-coding genes.
 #annotated_intron_busco: Number of annotated introns among BUSCO genes.
 #analyzable_intron_busco: Number of analyzable annotated introns (i.e. with Ns+Na >= 10) among BUSCO genes.
-#splsite_gtag_minor_busco: Fraction of BUSCO minor introns with GT/AG splice sites.
+#splsite_gtag_minor_busco: Fraction of BUSCO minor-isoform introns with GT/AG splice sites.
 #splsite_gtag_major_busco: Fraction of BUSCO major-isoform introns with GT/AG splice sites.
 #splsite_gcag_minor_busco: Fraction of BUSCO minor-isoform introns with GC/AG splice sites.
 #splsite_gcag_major_busco: Fraction of BUSCO major-isoform introns with GC/AG splice sites.

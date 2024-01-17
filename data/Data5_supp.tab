@@ -10,7 +10,7 @@
 #color_group: Color used in graphic.
 #filtering: Species and CPG class sites.
 #significance: The level of statistical significance for pvalue_vs_control was denoted as follows: * for p-values less than 0.05, ** for p-values less than 0.005, and *** for p-values less than 0.0005.
-#difference_vs_rare: Difference in mean_polymorphism between the abundant minor-isoform introns and the rare minor introns, expressed as a proportion of the latter's mean polymorphism
+#difference_vs_rare: Difference in mean_polymorphism between the abundant minor-isoform introns and the rare minor-isoform introns, expressed as a proportion of the latter's mean polymorphism
 group	mean_polymorphism	Nb_introns_minor	svr_mean	pvalue_vs_control	percent_difference_vs_control	error_bar	error_bar_2	color_group	filtering	significance	difference_vs_rare
 AG unshared major splice site	0.00360793746241732	1663	0.091018940559051	NA	NA	0.00195602492275132	0.00648648251264117	green	Drosophila_melanogaster_abundant_sv	NA	232.203279647657
 AG unshared minor splice site into major intron	0.0143589743589744	975	0.086974731008476	0.0000000233870508542883	-66.974358974359	0.0097429340166073	0.020975822118618	red	Drosophila_melanogaster_abundant_sv	***	-58.9518610421836
